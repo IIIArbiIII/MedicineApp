@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite.Net.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,9 @@ namespace MedicineApp
 {
     class Zdravilo
     {
+       
         private int id;
-
+        [PrimaryKey, AutoIncrement]
         public int Id
         {
             get { return id; }

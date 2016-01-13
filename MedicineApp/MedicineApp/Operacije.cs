@@ -8,6 +8,9 @@ namespace MedicineApp
 {
     class Operacije
     {
-        //naredi ja
+        public void DodajZdravilo()
+        {
+
+        }
     }
 }
