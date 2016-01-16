@@ -9,6 +9,9 @@ namespace MedicineApp
 {
     class Zdravilo
     {
+        public Zdravilo()
+        { }
+
         public Zdravilo(string naziv, DateTime roktrajanja, double kolicina)
         {
             _naziv = naziv;

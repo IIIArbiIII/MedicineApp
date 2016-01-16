@@ -30,8 +30,6 @@ namespace MedicineApp
         /// </returns>
         public bool CreateDB()
         {
-            DeleteDB();
-
             try
             {
                 if (!CheckIfBaseExists())
@@ -108,6 +106,14 @@ namespace MedicineApp
             using (var db = DbConnection)
             {
                 return db.Table<Zdravilo>().LastOrDefault();
+            }
+        }
+
+        public static Zdravilo GetLastZdraviloByName(string name)
+        {
+            using (var db = DbConnection)
+            {
+                return db.Table<Zdravilo>().FirstOrDefault(x => x.Naziv.ToLower() == name);
             }
         }
 
