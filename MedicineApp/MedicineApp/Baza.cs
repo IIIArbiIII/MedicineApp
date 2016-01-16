@@ -30,6 +30,8 @@ namespace MedicineApp
         /// </returns>
         public bool CreateDB()
         {
+            DeleteDB();
+
             try
             {
                 if (!CheckIfBaseExists())
@@ -38,16 +40,18 @@ namespace MedicineApp
                     {
                         //dopolni po potrebi
                         db.CreateTable<Zdravilo>();
+                        db.CreateTable<Interval>();
                         db.CreateTable<Opomnik>();
-                        db.CreateTable<Operacije>();
+                        
                     }
                     return true;
                 }
 
                 return false;
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                DeleteDB();
                 return false;
             }
         }
@@ -59,6 +63,11 @@ namespace MedicineApp
             return false;
         }
 
+        private void DeleteDB()
+        {
+            File.Delete(DbPath);
+        }
+
         private static SQLiteConnection DbConnection
         {
             get
@@ -68,11 +77,29 @@ namespace MedicineApp
             }
         }
 
-        public static void AddZdravilo(Zdravilo d)
+        //ZDRAVILA
+        //------------------------------------------------------------------
+        public static void AddZdravilo(Zdravilo z)
         {
             using (var db = DbConnection)
             {
-                db.Insert(d);
+                db.Insert(z);
+            }
+        }
+
+        public static bool DeleteZdravilo(Zdravilo z)
+        {
+            try
+            {
+                using (var db = DbConnection)
+                {
+                    db.Delete<Zdravilo>(z);
+                }
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
 
@@ -91,6 +118,7 @@ namespace MedicineApp
                 return db.Table<Zdravilo>().ToList();
             }
         }
+        //------------------------------------------------------------------
 
     }
 

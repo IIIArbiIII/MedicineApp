@@ -9,42 +9,47 @@ namespace MedicineApp
 {
     class Zdravilo
     {
-       
-        private int id;
+        public Zdravilo(string naziv, DateTime roktrajanja, double kolicina)
+        {
+            _naziv = naziv;
+            _rokTrajanja = roktrajanja;
+            _kolicina = kolicina;
+        }
+
+        int _id;
+        string _naziv;
+        DateTime _rokTrajanja;
+        double _kolicina;
+
+        //Lastnosti
+        #region 
+
         [PrimaryKey, AutoIncrement]
         public int Id
         {
-            get { return id; }
-            set { id = value; }
+            get { return _id; }
+            set { _id = value; }
         }
-
-        private string naziv;
 
         public string Naziv
         {
-            get { return naziv; }
-            set { naziv = value; }
+            get { return _naziv; }
+            set { _naziv = value; }
         }
-
-        private DateTime rokTrajanja;
 
         public DateTime RokTrajanja
         {
-            get { return rokTrajanja; }
-            set { rokTrajanja = value; }
+            get { return _rokTrajanja; }
+            set { _rokTrajanja = value; }
         }
-
-        private double kolicina;
 
         public double Kolicina
         {
-            get { return kolicina; }
-            set { kolicina = value; }
+            get { return _kolicina; }
+            set { _kolicina = value; }
         }
 
-        public Zdravilo()
-        {
+        #endregion
 
-        }
     }
 }

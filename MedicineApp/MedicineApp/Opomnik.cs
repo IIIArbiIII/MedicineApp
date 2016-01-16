@@ -1,72 +1,78 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite.Net;
+using SQLite.Net.Attributes;
 
 namespace MedicineApp
 {
     class Opomnik
     {
         private int id;
+        private string _naziv;
+        private DateTime _zacetekJemanja;
+        private DateTime _konecJemanja;
+        private int _dozaZdravila;
+        private bool _vibracija;
+        private string _melodija;
+        private Interval _interval;
 
+
+
+        //Lastnosti
+        #region 
+
+        [PrimaryKey, AutoIncrement]
         public int Id
         {
             get { return id; }
             set { id = value; }
         }
+        [NotNull]
+        public int Interval_ID { get; set; }
 
-        private Zdravilo naziv;
-
-        public Zdravilo Naziv
+        public string Naziv
         {
-            get { return naziv; }
-            set { naziv = value; }
+            get { return _naziv; }
+            set { _naziv = value; }
         }
-
-        private DateTime zacetekJemanja;
 
         public DateTime ZacetekJemanja
         {
-            get { return zacetekJemanja; }
-            set { zacetekJemanja = value; }
+            get { return _zacetekJemanja; }
+            set { _zacetekJemanja = value; }
         }
-
-        private DateTime konecJemanja;
 
         public DateTime KonecJemanja
         {
-            get { return konecJemanja; }
-            set { konecJemanja = value; }
+            get { return _konecJemanja; }
+            set { _konecJemanja = value; }
         }
-
-        private int dozaZdravila;
 
         public int DozaZdravila
         {
-            get { return dozaZdravila; }
-            set { dozaZdravila = value; }
+            get { return _dozaZdravila; }
+            set { _dozaZdravila = value; }
         }
-
-
-        private bool vibracija;
 
         public bool Vibracija
         {
-            get { return vibracija; }
-            set { vibracija = value; }
+            get { return _vibracija; }
+            set { _vibracija = value; }
         }
-        private string melodija;
 
         public string Melodija
         {
-            get { return melodija; }
-            set { melodija = value; }
+            get { return _melodija; }
+            set { _melodija = value; }
         }
 
-        public Opomnik()
-        {
 
-        }
+        #endregion
+
     }
 }

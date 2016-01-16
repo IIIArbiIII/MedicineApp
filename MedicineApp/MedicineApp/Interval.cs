@@ -3,47 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite.Net.Attributes;
 
 namespace MedicineApp
 {
     class Interval
     {
         private int id;
+        private int _dan;
+        private string _ure;
+        private string _doza;
 
+        //Lastnosti
+        #region 
+
+        [PrimaryKey, AutoIncrement]
         public int Id
         {
             get { return id; }
             set { id = value; }
         }
 
-        private int dan;
-
         public int Dan
         {
-            get { return dan; }
-            set { dan = value; }
+            get { return _dan; }
+            set { _dan = value; }
         }
-
-        private string ure;
 
         public string Ure
         {
-            get { return ure; }
-            set { ure = value; }
+            get { return _ure; }
+            set { _ure = value; }
         }
-
-        private string doza;
 
         public string Doza
         {
-            get { return doza; }
-            set { doza = value; }
+            get { return _doza; }
+            set { _doza = value; }
         }
 
-        public Interval()
-        {
-
-        }
+        #endregion
 
     }
 }
