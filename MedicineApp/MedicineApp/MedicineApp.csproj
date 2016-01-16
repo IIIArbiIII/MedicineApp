@@ -92,9 +92,6 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Pogledi\AlarmView.xaml.cs">
-      <DependentUpon>AlarmView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -105,6 +102,9 @@
     </Compile>
     <Compile Include="Classi\Operacije.cs" />
     <Compile Include="Classi\Opomnik.cs" />
+    <Compile Include="Pogledi\AlarmView.xaml.cs">
+      <DependentUpon>AlarmView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pogledi\ZdravilaView.xaml.cs">
       <DependentUpon>ZdravilaView.xaml</DependentUpon>
     </Compile>
@@ -136,13 +136,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Pogledi\AlarmView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pogledi\AlarmView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pogledi\ZdravilaView.xaml">
       <SubType>Designer</SubType>
