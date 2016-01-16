@@ -7,7 +7,20 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+        <Pivot x:Name="pivotTab">
+            <PivotItem x:Name="pivotHome" Header="Home">
+                <Grid/>
+            </PivotItem>
+            <PivotItem x:Name="pivotMedicine" Header="Medicine">
+                <Grid/>
+            </PivotItem>
+            <PivotItem x:Name="pivotAlarm" Header="Alarm">
+                <Grid/>
+            </PivotItem>
+            <PivotItem x:Name="pivotStats" Header="Stats">
+                <Grid/>
+            </PivotItem>
+        </Pivot>
     </Grid>
 </Page>
