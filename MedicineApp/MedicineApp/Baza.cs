@@ -92,11 +92,7 @@ namespace MedicineApp
             {
                 using (var db = DbConnection)
                 {
-                    if (z.Id != null)
-                    {
-                        db.Delete<Zdravilo>(z.Id);
-                    }
-                    
+                    db.Delete<Zdravilo>(z);
                 }
                 return true;
             }
@@ -114,19 +110,11 @@ namespace MedicineApp
             }
         }
 
-        public static Zdravilo GetFirstZdraviloByName(string name)
+        public static Zdravilo GetLastZdraviloByName(string name)
         {
             using (var db = DbConnection)
             {
                 return db.Table<Zdravilo>().FirstOrDefault(x => x.Naziv.ToLower() == name);
-            }
-        }
-
-        public static Zdravilo GetZdraviloById(Zdravilo z)
-        {
-            using (var db = DbConnection)
-            {
-                return db.Table<Zdravilo>().FirstOrDefault(x => x.Id == z.Id);
             }
         }
 

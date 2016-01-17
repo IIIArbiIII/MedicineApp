@@ -27,17 +27,19 @@ namespace MedicineApp
         {
             Zdravilo zd = new Zdravilo("LEKADOL",new DateTime(2016,5,10),10);
             Baza b = new Baza();
-            //Baza.AddZdravilo(zd);
-                 
+            if (b.CreateDB())
+            {
+                 Baza.AddZdravilo(zd);
+            }
+
             Zdravilo k;
             string imeZdravila = "lekadol";
-            k = Baza.GetFirstZdraviloByName(imeZdravila.ToLower());
+            k = Baza.GetLastZdraviloByName(imeZdravila.ToLower());
 
-            Baza.DeleteZdravilo(k);
+
+           
 
             this.InitializeComponent();
-
-            
         }
     }
 }
