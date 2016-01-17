@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace MedicineApp
 {
+    public enum Units { Tablet, Vpihov };
+
     class Zdravilo
     {
         public Zdravilo()
@@ -17,6 +19,13 @@ namespace MedicineApp
             _naziv = naziv;
             _rokTrajanja = roktrajanja;
             _kolicina = kolicina;
+        }
+        public Zdravilo(string naziv, DateTime roktrajanja, double kolicina, string enota)
+        {
+            _naziv = naziv;
+            _rokTrajanja = roktrajanja;
+            _kolicina = kolicina;
+            _enota = enota;
         }
 
         int _id;

@@ -41,11 +41,17 @@ namespace MedicineApp
                         db.CreateTable<Interval>();
                         db.CreateTable<Opomnik>();
                         db.CreateTable<Skrbnik>();
-
                     }
                     return true;
                 }
 
+                DeleteDB();
+                if (CreateDB())
+                {
+                    return true;
+                }
+                
+                
                 return false;
             }
             catch (Exception e)

@@ -25,7 +25,7 @@ namespace MedicineApp
     {
         public MainPage()
         {
-            Zdravilo zd = new Zdravilo("LEKADOL",new DateTime(2016,5,10),10);
+            Zdravilo zd = new Zdravilo("Aspirin",new DateTime(2016,5,10),10);
             Baza b = new Baza();
             if (b.CreateDB())
             {
@@ -34,12 +34,27 @@ namespace MedicineApp
 
             Zdravilo k;
             string imeZdravila = "lekadol";
-            k = Baza.GetFirstZdraviloByName(imeZdravila.ToLower());
+            //k = Baza.GetFirstZdraviloByName(imeZdravila.ToLower());
 
 
            
 
             this.InitializeComponent();
+        }
+
+        private void ZapolniBazo()
+        {
+            Zdravilo z1 = new Zdravilo("Lekadol", new DateTime(2016, 5, 26), 10);
+            Zdravilo z2 = new Zdravilo("Aspirin", new DateTime(2017, 9, 22), 10);
+            Zdravilo z3 = new Zdravilo("Ventolin", new DateTime(2017, 12, 16), 10);
+            Zdravilo z4 = new Zdravilo("Avamys", new DateTime(2018, 6, 14), 10);
+            Zdravilo z5 = new Zdravilo("Bronhobol", new DateTime(2016, 2, 5), 10);
+
+            Skrbnik s1 = new Skrbnik("Janez","Novak","030356152",4562);
+
+
+           
+
         }
     }
 }
