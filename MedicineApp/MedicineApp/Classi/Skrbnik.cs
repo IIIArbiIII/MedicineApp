@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SQLite.Net.Attributes;
 
 namespace MedicineApp
 {
@@ -28,6 +29,7 @@ namespace MedicineApp
         //Lastnosti
         #region 
 
+        [PrimaryKey, AutoIncrement]
         public int Id
         {
             get { return id; }

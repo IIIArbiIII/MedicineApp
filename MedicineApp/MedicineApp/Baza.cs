@@ -21,14 +21,13 @@ namespace MedicineApp
         private static readonly string DbPath;
 
         /// <summary>
-        /// Metoda ustvari bazo če ta ne obstaja. V nasprotnem primeru se metoda ne izvrši
+        /// Metoda ustvari bazo ob vsakem ponovnem zagonu aplikacije :D. 
         /// </summary>
         /// <returns>
-        ///     true:baza je bila uspešno ustvarjena
+        ///     true: baza je bila uspešno ustvarjena
         ///     false: -neznana napaka
-        ///            -baza obstaja
         /// </returns>
-        public bool CreateDB()
+        public bool CreateDb()
         {
             try
             {
@@ -46,15 +45,13 @@ namespace MedicineApp
                 }
 
                 DeleteDB();
-                if (CreateDB())
+                if (CreateDb())
                 {
                     return true;
                 }
-                
-                
                 return false;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 DeleteDB();
                 return false;
@@ -84,6 +81,8 @@ namespace MedicineApp
 
         //ZDRAVILA
         //------------------------------------------------------------------
+
+        //Prevero
         public static void AddZdravilo(Zdravilo z)
         {
             using (var db = DbConnection)
@@ -92,7 +91,7 @@ namespace MedicineApp
             }
         }
 
-        //popravi
+        //Prevero
         public static bool DeleteZdravilo(Zdravilo z)
         {
             try
@@ -129,7 +128,7 @@ namespace MedicineApp
             }
         }
 
-        public static Zdravilo GetZdraviloById(Zdravilo z)
+        public static Zdravilo GetFirstZdraviloById(Zdravilo z)
         {
             using (var db = DbConnection)
             {
@@ -153,6 +152,8 @@ namespace MedicineApp
                 return db.Table<Skrbnik>().FirstOrDefault();
             }
         }
+
+
         public static void AddSkrbnik(Skrbnik s)
         {
             using (var db = DbConnection)
@@ -164,7 +165,12 @@ namespace MedicineApp
         {
             using (var db = DbConnection)
             {
-                var query = db.Table<Skrbnik>().FirstOrDefault(x => x.Id == s.Id);
+                Skrbnik query = db.Table<Skrbnik>().FirstOrDefault();
+                if (query!=null)
+                {
+                    AddSkrbnik(s);
+                    db.Delete<Skrbnik>(query.Id);
+                }
             }
         }
 

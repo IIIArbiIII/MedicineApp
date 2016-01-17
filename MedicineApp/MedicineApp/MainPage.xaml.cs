@@ -23,6 +23,9 @@ namespace MedicineApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        bool deleteZdravila = false;
+        bool updateSkrbnik = true;
+
         //Testni podatki
         Zdravilo z1 = new Zdravilo("Lekadol", new DateTime(2016, 5, 26), 10, "Tablet");
         Zdravilo z2 = new Zdravilo("Aspirin", new DateTime(2017, 9, 22), 20, "Tablet");
@@ -31,21 +34,26 @@ namespace MedicineApp
         Zdravilo z5 = new Zdravilo("Bronhobol", new DateTime(2016, 2, 5), 10, "Tablet");
 
         Skrbnik s1 = new Skrbnik("Janez", "Novak", "030356152", 4562);
+        Skrbnik s2 = new Skrbnik("Miha", "Podgorelec", "040356152", 4562);
 
         //-------------------------------------------------------------------
         public MainPage()
         {
             Zdravilo zd = new Zdravilo("Aspirin",new DateTime(2016,5,10),10);
             Baza b = new Baza();
-            if (b.CreateDB())
-            {
-                 ZapolniBazo();
-            }
-            if (true)
+
+            b.CreateDb();
+            ZapolniBazo();
+            
+            if (deleteZdravila)
             {
                 Baza.DeleteZdravilo(z1);
                 Baza.DeleteZdravilo(z2);
                 Baza.DeleteZdravilo(z2);
+            }
+            if (updateSkrbnik)
+            {
+                Baza.UpdateSkrbnik(s2);
             }
             //Zdravilo k;
             //string imeZdravila = "lekadol";
