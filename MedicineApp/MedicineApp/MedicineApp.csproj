@@ -102,14 +102,11 @@
     </Compile>
     <Compile Include="Classi\Operacije.cs" />
     <Compile Include="Classi\Opomnik.cs" />
-    <Compile Include="Pogledi\AlarmView.xaml.cs">
-      <DependentUpon>AlarmView.xaml</DependentUpon>
+    <Compile Include="Pogledi\AlarmPage.xaml.cs">
+      <DependentUpon>AlarmPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Pogledi\ZdravilaView.xaml.cs">
-      <DependentUpon>ZdravilaView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pogledi\DodajZdraviloView.xaml.cs">
-      <DependentUpon>DodajZdraviloView.xaml</DependentUpon>
+    <Compile Include="Pogledi\DodajZdraviloPage.xaml.cs">
+      <DependentUpon>DodajZdraviloPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classi\Skrbnik.cs" />
@@ -140,15 +137,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pogledi\AlarmView.xaml">
+    <Page Include="Pogledi\AlarmPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pogledi\ZdravilaView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Pogledi\DodajZdraviloView.xaml">
+    <Page Include="Pogledi\DodajZdraviloPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -160,8 +153,8 @@
     <SDKReference Include="Microsoft.VCLibs.120, Version=14.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Universal</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.UAP.2015, Version=3.9.1">
-      <Name>SQLite for Universal App Platform %28SQLite.UAP.2015, Version=3.9.1%29</Name>
+    <SDKReference Include="SQLite.UAP.2015, Version=3.10.1">
+      <Name>SQLite for Universal App Platform %28SQLite.UAP.2015, Version=3.10.1%29</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>

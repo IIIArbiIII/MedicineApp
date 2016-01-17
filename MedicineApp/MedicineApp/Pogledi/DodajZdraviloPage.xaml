@@ -10,7 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
         <DatePicker HorizontalAlignment="Left" Margin="10,219,0,0" VerticalAlignment="Top" Width="340"/>
         <TextBox x:Name="inputMedicine" HorizontalAlignment="Left" Margin="10,83,0,0" TextWrapping="Wrap" Text="Vnesite Ime Zdravila" VerticalAlignment="Top" Width="340"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="51" Width="291" Foreground="#FFFFFFFF" SelectionChanged="textBlock1_SelectionChanged" Text="Naziv Zdravila" FontSize="16"/>
+        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="51" Width="291" Foreground="#FFFFFFFF" Text="Naziv Zdravila" FontSize="16"/>
         <Button x:Name="btnAddMedicine" Content="Dodaj" HorizontalAlignment="Left" Margin="111,598,0,0" VerticalAlignment="Top" RequestedTheme="Dark" Width="135"/>
         <CalendarView HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Height="296" Width="340" RequestedTheme="Dark"/>
         <TextBlock x:Name="textBlock1_Copy" HorizontalAlignment="Left" Margin="10,120,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="51" Width="291" Foreground="#FFFFFFFF" Text="Doza" FontSize="16"/>

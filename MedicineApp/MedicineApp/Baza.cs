@@ -15,7 +15,7 @@ namespace MedicineApp
     {
         static Baza()
         {
-            DbPath= Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SQLITEV2.sqlite");
+            DbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SQLITEV2.sqlite");
         }
 
         private static readonly string DbPath;
@@ -92,7 +92,11 @@ namespace MedicineApp
             {
                 using (var db = DbConnection)
                 {
-                    db.Delete<Zdravilo>(z);
+                    if (z.Id != null)
+                    {
+                        db.Delete<Zdravilo>(z.Id);
+                    }
+
                 }
                 return true;
             }
@@ -110,11 +114,19 @@ namespace MedicineApp
             }
         }
 
-        public static Zdravilo GetLastZdraviloByName(string name)
+        public static Zdravilo GetFirstZdraviloByName(string name)
         {
             using (var db = DbConnection)
             {
                 return db.Table<Zdravilo>().FirstOrDefault(x => x.Naziv.ToLower() == name);
+            }
+        }
+
+        public static Zdravilo GetZdraviloById(Zdravilo z)
+        {
+            using (var db = DbConnection)
+            {
+                return db.Table<Zdravilo>().FirstOrDefault(x => x.Id == z.Id);
             }
         }
 

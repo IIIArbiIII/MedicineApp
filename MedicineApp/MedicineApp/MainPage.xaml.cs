@@ -34,7 +34,7 @@ namespace MedicineApp
 
             Zdravilo k;
             string imeZdravila = "lekadol";
-            k = Baza.GetLastZdraviloByName(imeZdravila.ToLower());
+            k = Baza.GetFirstZdraviloByName(imeZdravila.ToLower());
 
 
            
