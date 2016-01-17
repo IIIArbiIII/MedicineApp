@@ -11,7 +11,7 @@
     <AssemblyName>MedicineApp</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
-    <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
+    <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
@@ -96,15 +96,24 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Baza.cs" />
-    <Compile Include="Interval.cs" />
+    <Compile Include="Classi\Interval.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Operacije.cs" />
-    <Compile Include="Opomnik.cs" />
+    <Compile Include="Classi\Operacije.cs" />
+    <Compile Include="Classi\Opomnik.cs" />
+    <Compile Include="Pogledi\AlarmView.xaml.cs">
+      <DependentUpon>AlarmView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pogledi\ZdravilaView.xaml.cs">
+      <DependentUpon>ZdravilaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pogledi\DodajZdraviloView.xaml.cs">
+      <DependentUpon>DodajZdraviloView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Skrbnik.cs" />
-    <Compile Include="Zdravilo.cs" />
+    <Compile Include="Classi\Skrbnik.cs" />
+    <Compile Include="Classi\Zdravilo.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -127,13 +136,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="DodajZdraviloView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pogledi\AlarmView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pogledi\ZdravilaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pogledi\DodajZdraviloView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -143,8 +160,8 @@
     <SDKReference Include="Microsoft.VCLibs.120, Version=14.0">
       <Name>Microsoft Visual C++ 2013 Runtime Package for Windows Universal</Name>
     </SDKReference>
-    <SDKReference Include="SQLite.UAP.2015, Version=3.10.0">
-      <Name>SQLite for Universal App Platform</Name>
+    <SDKReference Include="SQLite.UAP.2015, Version=3.9.1">
+      <Name>SQLite for Universal App Platform %28SQLite.UAP.2015, Version=3.9.1%29</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
