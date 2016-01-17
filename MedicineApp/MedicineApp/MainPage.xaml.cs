@@ -29,14 +29,11 @@ namespace MedicineApp
             Baza b = new Baza();
             //Baza.AddZdravilo(zd);
                  
-            
-
             Zdravilo k;
             string imeZdravila = "lekadol";
             k = Baza.GetFirstZdraviloByName(imeZdravila.ToLower());
 
             Baza.DeleteZdravilo(k);
-           
 
             this.InitializeComponent();
         }

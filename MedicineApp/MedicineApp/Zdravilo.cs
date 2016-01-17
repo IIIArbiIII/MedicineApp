@@ -23,6 +23,7 @@ namespace MedicineApp
         string _naziv;
         DateTime _rokTrajanja;
         double _kolicina;
+        string _enota;
 
         //Lastnosti
         #region 
@@ -50,6 +51,12 @@ namespace MedicineApp
         {
             get { return _kolicina; }
             set { _kolicina = value; }
+        }
+
+        public string Enota
+        {
+            get { return _enota; }
+            set { _enota = value; }
         }
 
         #endregion

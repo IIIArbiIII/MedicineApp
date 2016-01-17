@@ -40,7 +40,8 @@ namespace MedicineApp
                         db.CreateTable<Zdravilo>();
                         db.CreateTable<Interval>();
                         db.CreateTable<Opomnik>();
-                        
+                        db.CreateTable<Skrbnik>();
+
                     }
                     return true;
                 }
@@ -137,6 +138,28 @@ namespace MedicineApp
             }
         }
         //------------------------------------------------------------------
+        //Skrbnik
+        public static Skrbnik GetSkrbnik(Skrbnik s)
+        {
+            using (var db = DbConnection)
+            {
+                return db.Table<Skrbnik>().FirstOrDefault();
+            }
+        }
+        public static void AddSkrbnik(Skrbnik s)
+        {
+            using (var db = DbConnection)
+            {
+                db.Insert(s);
+            }
+        }
+        public static void UpdateSkrbnik(Skrbnik s)
+        {
+            using (var db = DbConnection)
+            {
+                var query = db.Table<Skrbnik>().FirstOrDefault(x => x.Id == s.Id);
+            }
+        }
 
     }
 

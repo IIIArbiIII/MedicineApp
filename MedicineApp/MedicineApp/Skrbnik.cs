@@ -8,7 +8,25 @@ namespace MedicineApp
 {
     class Skrbnik
     {
+        public Skrbnik()
+        {}
+
+        public Skrbnik(string ime, string priimek, string telefon, int geslo)
+        {
+            _ime = ime;
+            _priimek = priimek;
+            _telStevilka = telefon;
+            _pin = geslo;
+        }
+
         private int id;
+        private string _ime;
+        private string _priimek;
+        private string _telStevilka;
+        private int _pin;
+
+        //Lastnosti
+        #region 
 
         public int Id
         {
@@ -16,41 +34,30 @@ namespace MedicineApp
             set { id = value; }
         }
 
-        private string ime;
-
         public string Ime
         {
-            get { return ime; }
-            set { ime = value; }
+            get { return _ime; }
+            set { _ime = value; }
         }
-
-        private string priimek;
 
         public string Priimek
         {
-            get { return priimek; }
-            set { priimek = value; }
+            get { return _priimek; }
+            set { _priimek = value; }
         }
-
-        private string telStevilka;
 
         public string TelStevilka
         {
-            get { return telStevilka; }
-            set { telStevilka = value; }
+            get { return _telStevilka; }
+            set { _telStevilka = value; }
         }
-
-        private int pin;
 
         public int Pin
         {
-            get { return pin; }
-            set { pin = value; }
+            get { return _pin; }
+            set { _pin = value; }
         }
 
-        public Skrbnik()
-        {
-
-        }
+        #endregion
     }
 }
