@@ -92,17 +92,18 @@ namespace MedicineApp
             }
         }
 
+        //popravi
         public static bool DeleteZdravilo(Zdravilo z)
         {
             try
             {
                 using (var db = DbConnection)
                 {
-                    if (z.Id != null)
+                    var query = db.Table<Zdravilo>().FirstOrDefault(x => x.Id == z.Id);
+                    if (query!=null)
                     {
                         db.Delete<Zdravilo>(z.Id);
                     }
-
                 }
                 return true;
             }
