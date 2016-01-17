@@ -12,5 +12,10 @@ namespace MedicineApp
         {
 
         }
+
+        public static void CreateOpravilo()
+        {
+            
+        }
     }
 }

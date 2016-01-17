@@ -152,8 +152,6 @@ namespace MedicineApp
                 return db.Table<Skrbnik>().FirstOrDefault();
             }
         }
-
-
         public static void AddSkrbnik(Skrbnik s)
         {
             using (var db = DbConnection)
@@ -171,6 +169,28 @@ namespace MedicineApp
                     AddSkrbnik(s);
                     db.Delete<Skrbnik>(query.Id);
                 }
+            }
+        }
+
+        //------------------------------------------------------------------
+        //Interval
+        public static void AddInterval(Interval i)
+        {
+            using (var db = DbConnection)
+            {
+                db.Insert(i);
+            }
+        }
+        //------------------------------------------------------------------
+
+
+        //Opomnik
+        //------------------------------------------------------------------
+        public static void AddOpomnik(Opomnik o)
+        {
+            using (var db = DbConnection)
+            {
+                db.Insert(o);
             }
         }
 
