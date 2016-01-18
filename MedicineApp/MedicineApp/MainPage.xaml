@@ -9,8 +9,10 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
         <Pivot x:Name="pivotTab">
-            <PivotItem x:Name="pivotHome" Header="Home">
-                <Grid/>
+            <PivotItem x:Name="pivotHome" Header="Home" Height="592" VerticalAlignment="Bottom">
+                
+
+
             </PivotItem>
             <PivotItem x:Name="pivotMedicine" Header="Medicine">
                 <Grid/>

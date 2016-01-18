@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
+
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace MedicineApp.Pogledi
@@ -25,6 +27,28 @@ namespace MedicineApp.Pogledi
         public ZdraviloDodaj()
         {
             this.InitializeComponent();
+        }
+
+        private void btnAddMedicine_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Zdravilo z = new Zdravilo();
+                z.Naziv = inputZdravilo.ToString();
+                double inputKolicina2 = double.Parse(inputKolicina.Text);
+                z.Kolicina = inputKolicina2;
+                z.RokTrajanja = inputRokTrajanja.Date.DateTime;
+                z.Enota = comboBoxVrstaZdravila.ToString();
+
+
+                Baza.AddZdravilo(z);
+            }
+            catch 
+            {
+                throw new Exception("Napaka pri vnosu v bazo");
+            }
+            
+            
         }
     }
 }
