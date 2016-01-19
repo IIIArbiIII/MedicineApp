@@ -9,19 +9,41 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
         <Pivot x:Name="pivotTab">
-            <PivotItem x:Name="pivotHome" Header="Home" Height="592" VerticalAlignment="Bottom">
-                
-
-
+            <PivotItem x:Name="pivotHome" Header="Home" Height="592">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Content of pivot 1" />
+                        <TextBlock Text="Content of pivot 2" />
+                        <TextBlock Text="Content of pivot 3" />
+                    </StackPanel>
+                </Grid>
             </PivotItem>
             <PivotItem x:Name="pivotMedicine" Header="Medicine">
-                <Grid/>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Content of pivot 1" />
+                        <TextBlock Text="Content of pivot 2" />
+                        <TextBlock Text="Content of pivot 3" />
+                    </StackPanel>
+                </Grid>
             </PivotItem>
             <PivotItem x:Name="pivotAlarm" Header="Alarm">
-                <Grid/>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Content of pivot 1" />
+                        <TextBlock Text="Content of pivot 2" />
+                        <TextBlock Text="Content of pivot 3" />
+                    </StackPanel>
+                </Grid>
             </PivotItem>
             <PivotItem x:Name="pivotStats" Header="Stats">
-                <Grid/>
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Text="Content of pivot 1" />
+                        <TextBlock Text="Content of pivot 2" />
+                        <TextBlock Text="Content of pivot 3" />
+                    </StackPanel>
+                </Grid>
             </PivotItem>
         </Pivot>
     </Grid>
