@@ -23,6 +23,9 @@ namespace MedicineApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        DispatcherTimer timer = new DispatcherTimer();
+
         bool deleteZdravila = false;
         bool updateSkrbnik = true;
 
@@ -39,6 +42,12 @@ namespace MedicineApp
         //-------------------------------------------------------------------
         public MainPage()
         {
+
+            this.InitializeComponent();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += timer_Tick;
+            timer.Start();
+
             Zdravilo zd = new Zdravilo("Aspirin",new DateTime(2016,5,10),10);
             Baza b = new Baza();
 
@@ -71,6 +80,13 @@ namespace MedicineApp
             Baza.AddZdravilo(z5);
 
             Baza.AddSkrbnik(s1);
+        }
+
+        void timer_Tick(object sender, object e)
+        {
+            secondHand.Angle = DateTime.Now.Second * 6;
+            minuteHand.Angle = DateTime.Now.Minute * 6;
+            hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5);
         }
     }
 }
