@@ -44,12 +44,10 @@
                         <!---->
                     </Grid>
             </PivotItem>
-            <PivotItem x:Name="pivotMedicine" Header="Medicine">
+            <PivotItem x:Name="pivotMedicine" Header="Medicine" >
                 <Grid>
-                    <StackPanel>
-                        <TextBlock Text="Content of pivot 1" />
-                        <TextBlock Text="Content of pivot 2" />
-                        <TextBlock Text="Content of pivot 3" />
+                    <StackPanel VerticalAlignment="Bottom" Margin="0,0,0,20">
+                    	<Button HorizontalAlignment="Center">Dodaj</Button>
                     </StackPanel>
                 </Grid>
             </PivotItem>
