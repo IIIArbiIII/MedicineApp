@@ -9,12 +9,12 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
         <DatePicker x:Name="inputRokTrajanja" HorizontalAlignment="Left" Margin="10,341,0,0" VerticalAlignment="Top" Width="340" Height="45"/>
-        <TextBox x:Name="inputZdravilo" HorizontalAlignment="Left" Margin="10,126,0,0" TextWrapping="Wrap" Text="Vnesite Ime Zdravila" VerticalAlignment="Top" Width="340" Height="30"/>
+        <TextBox x:Name="inputZdravilo" HorizontalAlignment="Left" Margin="10,126,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="340" Height="30" PlaceholderText="Vnesite Ime Zdravila"/>
        
         <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="291" Foreground="#FFFFFFFF" Text="Naziv Zdravila" FontSize="16"/>
         <Button x:Name="btnDodajZdravilo" Content="Dodaj" HorizontalAlignment="Left" Margin="101,552,0,0" VerticalAlignment="Center" RequestedTheme="Dark" Width="135" Click="btnAddMedicine_Click"/>
         <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,315,0,0" TextWrapping="Wrap" Text="Rok Trajanja" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox x:Name="inputKolicina" HorizontalAlignment="Left" Margin="10,242,0,0" TextWrapping="Wrap" Text="Vnesite Količino zdravila" VerticalAlignment="Top" Width="226"/>
+        <TextBox x:Name="inputKolicina" HorizontalAlignment="Left" Margin="10,242,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="226" PlaceholderText="Vnesite Količino zdravila"/>
         <ComboBox x:Name="comboBoxVrstaZdravila" HorizontalAlignment="Left" Margin="10,458,0,0" VerticalAlignment="Top" Width="340" Height="47" />
         <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="10,432,0,0" TextWrapping="Wrap" Text="Vrsta Zdravila" VerticalAlignment="Top" FontSize="16"/>
         <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Novo Zdravilo" VerticalAlignment="Top" Height="55" Width="226" FontSize="32" FontWeight="Bold"/>

@@ -40,6 +40,7 @@ namespace MedicineApp
         Skrbnik s1 = new Skrbnik("Janez", "Novak", "030356152", 4562);
         Skrbnik s2 = new Skrbnik("Miha", "Podgorelec", "040356152", 4562);
 
+        List<Zdravilo> zdravilaZaBox = new List<Zdravilo>();
         //-------------------------------------------------------------------
         public MainPage()
         {
@@ -49,7 +50,6 @@ namespace MedicineApp
             timer.Tick += timer_Tick;
             timer.Start();
 
-            Zdravilo zd = new Zdravilo("Aspirin",new DateTime(2016,5,10),10);
             Baza b = new Baza();
 
             b.CreateDb();
@@ -68,8 +68,14 @@ namespace MedicineApp
             //Zdravilo k;
             //string imeZdravila = "lekadol";
             //k = Baza.GetFirstZdraviloByName(imeZdravila.ToLower());
+        
+            zdravilaZaBox.Add(z1);
+            zdravilaZaBox.Add(z2);
+            zdravilaZaBox.Add(z3);
+            lstbZdravila.ItemsSource = zdravilaZaBox;
 
             this.InitializeComponent();
+
         }
 
         private void ZapolniBazo()
@@ -88,6 +94,32 @@ namespace MedicineApp
             secondHand.Angle = DateTime.Now.Second * 6;
             minuteHand.Angle = DateTime.Now.Minute * 6;
             hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5);
+        }
+
+        private void btnAddMedicine_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnOdpriOknoDodajZdravilo_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Pogledi.ZdraviloDodaj));
+        }
+
+        private void lstbZdravila_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+           // Zdravilo z = new Zdravilo();
+
+            
+
+            // TO-DO novi view za zdravila lstbZdravila.SelectedItem 
+
+        }
+
+        private void txtFiltriraj_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
+        {
+            ListBox zdravila = new ListBox();
+            
         }
     }
 }

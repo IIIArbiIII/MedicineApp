@@ -31,6 +31,8 @@ namespace MedicineApp.Pogledi
 
         private void btnAddMedicine_Click(object sender, RoutedEventArgs e)
         {
+          //  this.Frame.Navigate(typeof(Pogledi.ZdraviloDodaj);
+            /*
             try
             {
                 Zdravilo z = new Zdravilo();
@@ -47,7 +49,7 @@ namespace MedicineApp.Pogledi
             {
                 throw new Exception("Napaka pri vnosu v bazo");
             }
-            
+            */
             
         }
     }
