@@ -108,6 +108,9 @@
     <Compile Include="Pogledi\DodajZdraviloPage.xaml.cs">
       <DependentUpon>DodajZdraviloPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pogledi\NastavitvePage.xaml.cs">
+      <DependentUpon>NastavitvePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Classi\Skrbnik.cs" />
     <Compile Include="Classi\Zdravilo.cs" />
@@ -142,6 +145,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pogledi\DodajZdraviloPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pogledi\NastavitvePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

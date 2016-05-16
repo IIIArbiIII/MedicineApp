@@ -5,7 +5,13 @@
     xmlns:local="using:MedicineApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d" RequestedTheme="Dark">
+    
+    <Page.BottomAppBar>
+        <CommandBar ClosedDisplayMode="Minimal">
+            <AppBarButton Icon="Setting" Click="AppBarButton_Click" />
+        </CommandBar>
+    </Page.BottomAppBar>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
         <Pivot x:Name="pivotTab">
@@ -89,5 +95,6 @@
                 </Grid>
             </PivotItem>
         </Pivot>
+        
     </Grid>
 </Page>
