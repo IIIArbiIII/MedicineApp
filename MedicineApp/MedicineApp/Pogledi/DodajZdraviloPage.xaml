@@ -6,20 +6,23 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-    <StackPanel>
-        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
-            <DatePicker x:Name="inputRokTrajanja" HorizontalAlignment="Left" Margin="10,341,0,0" VerticalAlignment="Top" Width="340" Height="45"/>
-            <TextBox x:Name="inputZdravilo" HorizontalAlignment="Left" Margin="10,126,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="340" Height="30" PlaceholderText="Vnesite Ime Zdravila"/>
 
-            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,96,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="30" Width="291" Foreground="#FFFFFFFF" Text="Naziv Zdravila" FontSize="16"/>
-            <Button x:Name="btnDodajZdravilo" Content="Dodaj" HorizontalAlignment="Left" Margin="101,552,0,0" VerticalAlignment="Center" RequestedTheme="Dark" Width="135" Click="btnAddMedicine_Click"/>
-            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,315,0,0" TextWrapping="Wrap" Text="Rok Trajanja" VerticalAlignment="Top" FontSize="16"/>
-            <TextBox x:Name="inputKolicina" HorizontalAlignment="Left" Margin="10,242,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="226" PlaceholderText="Vnesite Količino zdravila"/>
-            <ComboBox x:Name="comboBoxVrstaZdravila" HorizontalAlignment="Left" Margin="10,458,0,0" VerticalAlignment="Top" Width="340" Height="47" />
-            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="10,432,0,0" TextWrapping="Wrap" Text="Vrsta Zdravila" VerticalAlignment="Top" FontSize="16"/>
-            <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Novo Zdravilo" VerticalAlignment="Top" Height="55" Width="226" FontSize="32" FontWeight="Bold"/>
-            <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="10,217,0,0" TextWrapping="Wrap" Text="Količina" VerticalAlignment="Top" FontSize="16"/>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+        <StackPanel>
+            <TextBlock Margin="0,15,0,30"><Bold>Novo Zdravilo</Bold></TextBlock>
+            <TextBlock>Vnos zdravila</TextBlock>
+            <TextBox Margin="0,15,0,15" Name="inputZdravilo" PlaceholderText="Zdravilo"></TextBox>
+            <TextBlock Margin="0,15,0,15">Vnos Količine</TextBlock>
+            <TextBox Margin="0,15,0,15" Name="inputKolicina"></TextBox>
+            <TextBlock Margin="0,15,0,15">Rok Trajanja Zdravila</TextBlock>
+           
+            <DatePicker Margin="0,15,0,15" Name="inputRokTrajanja" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBlock Margin="0,15,0,15">Vrsta Zdravila</TextBlock>
+            <ComboBox Margin="0,15,0,15" x:Name="comboBoxVrstaZdravila" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PlaceholderText="Tableta / Vpih"/>
+            <Button Margin="0,15,0,15" HorizontalAlignment="Center">Dodaj Zdravilo</Button>
 
-        </Grid>
-    </StackPanel>
+
+        </StackPanel>
+    </Grid>
+
 </Page>

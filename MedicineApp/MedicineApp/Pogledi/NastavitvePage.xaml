@@ -24,8 +24,12 @@
                 </StackPanel>
 
             </PivotItem>
+            
+            
             <PivotItem>
                 <StackPanel>
+                    <TextBlock>Skrbnik</TextBlock>
+                    <TextBox x:Name="txtPasswordSkrbnik" InputScope="Password" RequestedTheme="Dark" PlaceholderText="Geslo"></TextBox>
                 </StackPanel>
             </PivotItem>
         </Pivot>
