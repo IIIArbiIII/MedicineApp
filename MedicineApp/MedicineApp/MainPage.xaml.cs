@@ -121,5 +121,17 @@ namespace MedicineApp
             ListBox zdravila = new ListBox();
             
         }
+
+        private void txtFiltriraj_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            lstbZdravila.Items.Clear();
+            foreach(var l in zdravilaZaBox)
+            {
+                if (l.Naziv.Contains(txtFiltrirajZdravila.Text))
+                {
+                    lstbZdravila.Items.Add(l);
+                }
+            }
+        }
     }
 }

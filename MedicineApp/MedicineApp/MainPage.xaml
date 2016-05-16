@@ -47,10 +47,10 @@
             <PivotItem x:Name="pivotMedicine" Header="Medicine" >
                 <Grid>
                     <StackPanel>
-                        <TextBlock>Išči</TextBlock>
-                        <TextBox x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging"></TextBox>
+                        <TextBlock x:Name="txtFiltrirajZdravila">Išči</TextBlock>
+                        <TextBox x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging" TextChanged="txtFiltriraj_TextChanged"></TextBox>
                         <!--To do: klik na listbox (item) poišči pravi poperty za izbiranje-->
-                    <ListBox x:Name="lstbZdravila" Height="470" SelectionChanged="lstbZdravila_SelectionChanged">
+                    <ListBox x:Name="lstbZdravila" Height="470" SelectionChanged="lstbZdravila_SelectionChanged" IsSynchronizedWithCurrentItem="False">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="52" Width="auto">
