@@ -58,8 +58,7 @@ namespace MedicineApp
             if (deleteZdravila)
             {
                 Baza.DeleteZdravilo(z1);
-                Baza.DeleteZdravilo(z2);
-                Baza.DeleteZdravilo(z2);
+                Baza.DeleteZdravilo(z2);                Baza.DeleteZdravilo(z2);
             }
             if (updateSkrbnik)
             {
@@ -118,20 +117,22 @@ namespace MedicineApp
 
         private void txtFiltriraj_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
         {
-            ListBox zdravila = new ListBox();
-            
+            List<Zdravilo> neka = new List<Zdravilo>();
+
+            foreach (var l in zdravilaZaBox)
+            {
+                if (l.Naziv.ToLower().Contains(txtFiltriraj.Text.ToLower()))
+                {
+                    neka.Add(l);
+                }
+            }
+
+            lstbZdravila.ItemsSource = neka;
         }
 
         private void txtFiltriraj_TextChanged(object sender, TextChangedEventArgs e)
         {
-            lstbZdravila.Items.Clear();
-            foreach(var l in zdravilaZaBox)
-            {
-                if (l.Naziv.Contains(txtFiltrirajZdravila.Text))
-                {
-                    lstbZdravila.Items.Add(l);
-                }
-            }
+            
         }
     }
 }
