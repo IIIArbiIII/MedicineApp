@@ -40,7 +40,9 @@ namespace MedicineApp
         Skrbnik s1 = new Skrbnik("Janez", "Novak", "030356152", 4562);
         Skrbnik s2 = new Skrbnik("Miha", "Podgorelec", "040356152", 4562);
 
+
         List<Zdravilo> zdravilaZaBox = new List<Zdravilo>();
+        List<Skrbnik> skrbnikiList = new List<Skrbnik>();
         //-------------------------------------------------------------------
         public MainPage()
         {
@@ -58,7 +60,7 @@ namespace MedicineApp
             if (deleteZdravila)
             {
                 Baza.DeleteZdravilo(z1);
-                Baza.DeleteZdravilo(z2);                Baza.DeleteZdravilo(z2);
+                Baza.DeleteZdravilo(z2);                
             }
             if (updateSkrbnik)
             {
@@ -67,11 +69,16 @@ namespace MedicineApp
             //Zdravilo k;
             //string imeZdravila = "lekadol";
             //k = Baza.GetFirstZdraviloByName(imeZdravila.ToLower());
-        
+       
             zdravilaZaBox.Add(z1);
             zdravilaZaBox.Add(z2);
             zdravilaZaBox.Add(z3);
             lstbZdravila.ItemsSource = zdravilaZaBox;
+
+            
+            
+            
+            
 
             this.InitializeComponent();
 
@@ -85,7 +92,6 @@ namespace MedicineApp
             Baza.AddZdravilo(z4);
             Baza.AddZdravilo(z5);
 
-            Baza.AddSkrbnik(s1);
         }
 
         void timer_Tick(object sender, object e)

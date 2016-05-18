@@ -1,0 +1,24 @@
+﻿<Page
+    x:Class="MedicineApp.Pogledi.RegistracijaSkrbnikPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:MedicineApp.Pogledi"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+        <StackPanel>
+            <TextBlock Margin="20,20,0,0">Nov Skrbnik</TextBlock>
+            <TextBlock Margin="20,0,20,0">Ime Skrbnika  </TextBlock>
+            <TextBox x:Name="txtImeSkrbnikaRegister" Margin="20,10,20,15"></TextBox>
+            <TextBlock Margin="20,0,20,0">Priimek Skrbnika</TextBlock>
+            <TextBox Margin="20,10,20,15" x:Name="txtPriimekSkrbnikaRegister"></TextBox>
+            <TextBlock Margin="20,20,0,0">Telefonska Številka Skrbnika</TextBlock>
+            <TextBox x:Name="txtTelefonskaSkrbnikaRegister" Margin="20,10,20,15"></TextBox>
+            <TextBlock Margin="20,20,0,0">Pin Skrbnika</TextBlock>
+            <TextBox x:Name="txtPinSkrbnikaRegister" Margin="20,10,20,15"></TextBox>
+            <Button Margin="20,10,20,15" x:Name="btnSharniNovegaSkrbnika" Click="btnSharniNovegaSkrbnika_Click">Shrani</Button>
+        </StackPanel>
+    </Grid>
+</Page>

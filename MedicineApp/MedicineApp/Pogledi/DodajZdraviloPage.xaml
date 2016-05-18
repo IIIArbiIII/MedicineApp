@@ -9,16 +9,16 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
         <StackPanel>
-            <TextBlock Margin="0,15,0,30"><Bold>Novo Zdravilo</Bold></TextBlock>
-            <TextBlock>Vnos zdravila</TextBlock>
-            <TextBox Margin="0,15,0,15" Name="inputZdravilo" PlaceholderText="Zdravilo"></TextBox>
-            <TextBlock Margin="0,15,0,15">Vnos Količine</TextBlock>
-            <TextBox Margin="0,15,0,15" Name="inputKolicina"></TextBox>
-            <TextBlock Margin="0,15,0,15">Rok Trajanja Zdravila</TextBlock>
+            <TextBlock Margin="20,30,0,40" FontWeight="Bold" FontSize="24"><Bold>Novo Zdravilo</Bold></TextBlock>
+            <TextBlock Margin="20,0,20,0">Vnos zdravila</TextBlock>
+            <TextBox Margin="20,10,20,15" Name="inputZdravilo" PlaceholderText="Primer : Lekadol"></TextBox>
+            <TextBlock Margin="20,0,20,0">Vnos Količine</TextBlock>
+            <TextBox  Margin="20,10,20,15" Name="inputKolicina" PlaceholderText="Primer : 24"></TextBox>
+            <TextBlock Margin="20,0,20,0">Rok Trajanja Zdravila</TextBlock>
            
-            <DatePicker Margin="0,15,0,15" Name="inputRokTrajanja" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
-            <TextBlock Margin="0,15,0,15">Vrsta Zdravila</TextBlock>
-            <ComboBox Margin="0,15,0,15" x:Name="comboBoxVrstaZdravila" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PlaceholderText="Tableta / Vpih"/>
+            <DatePicker Margin="20,10,20,15" Name="inputRokTrajanja" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBlock Margin="20,0,20,0">Vrsta Zdravila</TextBlock>
+            <ComboBox Margin="20,10,20,15" x:Name="comboBoxVrstaZdravila" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PlaceholderText="Tableta / Vpih"/>
             <Button Margin="0,15,0,15" HorizontalAlignment="Center">Dodaj Zdravilo</Button>
 
 

@@ -20,32 +20,11 @@ namespace MedicineApp.Pogledi
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class NastavitvePage : Page
+    public sealed partial class SkrbnikPage : Page
     {
-        public NastavitvePage()
+        public SkrbnikPage()
         {
             this.InitializeComponent();
-
-        }
-
-        private void btnSkrbniGesloVstopi_Click(object sender, RoutedEventArgs e)
-        {
-            //test
-            Skrbnik s = new Skrbnik("Janez", "Novak", "030356152", 4545);
-        
-            if (s.Pin.ToString() == passBoxSkrbnik.ToString())
-            {
-                this.Frame.Navigate(typeof(SkrbnikPage));
-            }
-            else
-            {
-                napakaGeslo.Text = "Vnsešeno napačno geslo !";
-            }
-        }
-
-        private void btnNovSkrbnik_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(RegistracijaSkrbnikPage));
         }
     }
 }
