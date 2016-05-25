@@ -10,16 +10,25 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
         <StackPanel>
             <TextBlock Margin="20,30,0,40" FontWeight="Bold" FontSize="24"><Bold>Novo Zdravilo</Bold></TextBlock>
+
             <TextBlock Margin="20,0,20,0">Vnos zdravila</TextBlock>
-            <TextBox Margin="20,10,20,15" Name="inputZdravilo" PlaceholderText="Primer : Lekadol"></TextBox>
+            <TextBox Margin="20,10,20,15" Name="inputZdravilo" PlaceholderText="Primer : Lekadol" InputScope="Text" TextChanged="inputZdravilo_TextChanged"></TextBox>
+
+            <!--<TextBox  Margin="20,10,20,15" Name="inputKolicina" InputScope="Number"/>-->
             <TextBlock Margin="20,0,20,0">Vnos Količine</TextBlock>
-            <TextBox  Margin="20,10,20,15" Name="inputKolicina" PlaceholderText="Primer : 24"></TextBox>
-            <TextBlock Margin="20,0,20,0">Rok Trajanja Zdravila</TextBlock>
-           
-            <DatePicker Margin="20,10,20,15" Name="inputRokTrajanja" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+            <TextBox x:Name="txtbox_stEnot" HorizontalAlignment="Center"  InputScope="Number" TextChanged="txtbox_stEnot_TextChanged"/>
+            
+            
             <TextBlock Margin="20,0,20,0">Vrsta Zdravila</TextBlock>
-            <ComboBox Margin="20,10,20,15" x:Name="comboBoxVrstaZdravila" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" PlaceholderText="Tableta / Vpih"/>
-            <Button Margin="0,15,0,15" HorizontalAlignment="Center">Dodaj Zdravilo</Button>
+            <AutoSuggestBox x:Name="asb_tipEnote" PlaceholderText="Tablet" HorizontalAlignment="Center" TextChanged="asb_tipEnote_TextChanged" />
+
+            
+            <TextBlock Margin="20,0,20,0">Rok Trajanja Zdravila</TextBlock>
+            <DatePicker Margin="20,10,20,15" Name="inputRokTrajanja" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DateChanged="inputRokTrajanja_DateChanged" Foreground="{x:Null}" BorderThickness="2"/>
+
+            
+            <Button x:Name="btn_dodajZdravilo" Margin="0,15,0,15" HorizontalAlignment="Center" Click="ButtonBase_OnClick">Dodaj Zdravilo</Button>
+            
 
 
         </StackPanel>

@@ -27,10 +27,11 @@ namespace MedicineApp
             _kolicina = kolicina;
             _enota = enota;
         }
-
+       
         int _id;
         string _naziv;
         DateTime _rokTrajanja;
+        // TODO: Why double?
         double _kolicina;
         string _enota;
 

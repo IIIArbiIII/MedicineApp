@@ -7,18 +7,19 @@ using System.Threading.Tasks;
 using Windows.UI.Notifications;
 using Windows.UI.Text.Core;
 using SQLite.Net;
+using SQLite.Net.Async;
+using SQLite.Net.Interop;
 using SQLite.Net.Platform.WinRT;
 
 namespace MedicineApp
 {
     class Baza
     {
+        private static readonly string DbPath;
         static Baza()
         {
-            DbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SQLITEV2.sqlite");
+           DbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SQLITEV2.sqlite");
         }
-
-        private static readonly string DbPath;
 
         /// <summary>
         /// Metoda ustvari bazo ob vsakem ponovnem zagonu aplikacije :D. 
@@ -31,6 +32,10 @@ namespace MedicineApp
         {
             try
             {
+                if (CheckIfBaseExists())
+                    DeleteDB();
+                
+
                 if (!CheckIfBaseExists())
                 {
                     using (var db = DbConnection)
@@ -43,14 +48,9 @@ namespace MedicineApp
                     }
                     return true;
                 }
-
-                DeleteDB();
-                if (CreateDb())
-                {
-                    return true;
-                }
                 return false;
             }
+
             catch (Exception)
             {
                 DeleteDB();
@@ -75,9 +75,29 @@ namespace MedicineApp
             get
             {
                 return new SQLiteConnection(
-                    new SQLitePlatformWinRT(), DbPath);
+                    new SQLitePlatformWinRT(), DbPath, false);
             }
         }
+
+        private static SQLiteAsyncConnection DbConnectionAsync
+        {
+            get
+            {
+                return 
+                    new SQLiteAsyncConnection(
+                        () =>
+                            new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
+                                new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
+
+                var connectionFactory = new Func<SQLiteConnectionWithLock>(() => new SQLiteConnectionWithLock(new SQLitePlatformWinRT(), new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
+                //var asyncConnection = new SQLiteAsyncConnection(connectionFactory);
+
+                //return asyncConnection;
+                return new SQLiteAsyncConnection(connectionFactory);
+            }
+        }
+
+
 
         //ZDRAVILA
         //------------------------------------------------------------------
@@ -142,6 +162,19 @@ namespace MedicineApp
             {
                 return db.Table<Zdravilo>().ToList();
             }
+        }
+
+        public static async Task<List<Zdravilo>> GetAllDZdraviloAsync()
+        {
+            var conn = new SQLiteAsyncConnection(
+                        () =>
+                            new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
+                                new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
+
+            List<Zdravilo> seznamZdravil = await conn.Table<Zdravilo>().ToListAsync();
+                return seznamZdravil;
+            
+            
         }
         //------------------------------------------------------------------
         //Skrbnik

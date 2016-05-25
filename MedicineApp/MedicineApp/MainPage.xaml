@@ -17,6 +17,7 @@
         <Pivot x:Name="pivotTab">
             <PivotItem x:Name="pivotHome" Header="Home" Height="592">
                 <!--TO-DO: Določi barve za cajgere-->
+                
                 <Grid Width="300" Height="300">
                     <Ellipse Width="300" Height="300" Stroke="Red"></Ellipse>
                     <!-- Second  -->
@@ -49,16 +50,17 @@
                     <StackPanel>
                         <TextBlock x:Name="txtFiltrirajZdravila">Išči</TextBlock>
                         <TextBox x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging" TextChanged="txtFiltriraj_TextChanged"></TextBox>
+                        <ProgressBar x:Name="progressBar_getDB" IsIndeterminate="True"  HorizontalAlignment="Stretch"/>
                         <!--To do: klik na listbox (item); poišči pravi poperty za izbiranje-->
-                    <ListBox x:Name="lstbZdravila" Height="470" SelectionChanged="lstbZdravila_SelectionChanged" IsSynchronizedWithCurrentItem="False">
-                        <ListBox.ItemTemplate>
+                    <ListView x:Name="listviewZravilo" Height="470" SelectionChanged="lstbZdravila_SelectionChanged" Loaded="listviewZravilo_Loaded">
+                        <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="52" Width="auto">
                                     <TextBlock x:Name="nameblock" Text="{Binding Naziv}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="10,0,0,0" />
                                 </Grid>
                             </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                        </ListView.ItemTemplate>
+                    </ListView>
 
                     </StackPanel>
                     <StackPanel VerticalAlignment="Bottom">

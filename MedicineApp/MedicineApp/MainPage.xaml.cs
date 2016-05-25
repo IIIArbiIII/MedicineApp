@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
+using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -18,17 +21,17 @@ using SQLite.Net;
 
 namespace MedicineApp
 {
+    // TODO: Popravi nalaganje v listview. Asinhrono dobi bazo, nato pa zapuni listview. Brisi oni asynch iz event handlerja
     //Sprobavam
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class MainPage : Page
     {
-
         DispatcherTimer timer = new DispatcherTimer();
 
         bool deleteZdravila = false;
-        bool updateSkrbnik = true;
+        bool updateSkrbnik = false;
 
         //Testni podatki
         Zdravilo z1 = new Zdravilo("Lekadol", new DateTime(2016, 5, 26), 10, "Tablet");
@@ -40,23 +43,24 @@ namespace MedicineApp
         Skrbnik s1 = new Skrbnik("Janez", "Novak", "030356152", 4562);
         Skrbnik s2 = new Skrbnik("Miha", "Podgorelec", "040356152", 4562);
 
-
-        List<Zdravilo> zdravilaZaBox = new List<Zdravilo>();
-        List<Skrbnik> skrbnikiList = new List<Skrbnik>();
+        List<Zdravilo> seznamVsehZdravilIzBaze = new List<Zdravilo>();
+        //List<Zdravilo> zdravilaZaBox = new List<Zdravilo>();
+        //List<Skrbnik> skrbnikiList = new List<Skrbnik>();
         //-------------------------------------------------------------------
         public MainPage()
         {
 
-            this.InitializeComponent();
+            // this.InitializeComponent();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
 
             Baza b = new Baza();
 
-            b.CreateDb();
-            ZapolniBazo();
-            
+            /*
+            if (b.CreateDb())
+                ZapolniBazo();
+            */       
             if (deleteZdravila)
             {
                 Baza.DeleteZdravilo(z1);
@@ -66,22 +70,9 @@ namespace MedicineApp
             {
                 Baza.UpdateSkrbnik(s2);
             }
-            //Zdravilo k;
-            //string imeZdravila = "lekadol";
-            //k = Baza.GetFirstZdraviloByName(imeZdravila.ToLower());
-       
-            zdravilaZaBox.Add(z1);
-            zdravilaZaBox.Add(z2);
-            zdravilaZaBox.Add(z3);
-            lstbZdravila.ItemsSource = zdravilaZaBox;
-
             
-            
-            
-            
-
             this.InitializeComponent();
-
+            //zapolnilistbox();
         }
 
         private void ZapolniBazo()
@@ -101,6 +92,44 @@ namespace MedicineApp
             hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5);
         }
 
+        async Task<bool> zapolnilistbox()
+        {
+            try
+            {
+                //testing toaster
+                OnScheduleToast();
+                //seznamVsehZdravilIzBaze = await Baza.GetAllDZdraviloAsync();
+                //listviewZravilo.ItemsSource = seznamVsehZdravilIzBaze;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+        private void OnScheduleToast()
+        {
+            string xml = @"<toast>
+            <visual>
+            <binding template=""ToastGeneric"">
+                <text>Hello!</text>
+                <text>This is a scheduled toast!</text>
+            </binding>
+            </visual>
+        </toast>";
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml);
+
+            ScheduledToastNotification toast = new ScheduledToastNotification(doc, DateTimeOffset.Now.AddSeconds(1));
+            ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
+        }
+
+        
+        //tvoj del
         private void btnAddMedicine_Click(object sender, RoutedEventArgs e)
         {
 
@@ -125,7 +154,7 @@ namespace MedicineApp
         {
             List<Zdravilo> neka = new List<Zdravilo>();
 
-            foreach (var l in zdravilaZaBox)
+            foreach (var l in seznamVsehZdravilIzBaze)
             {
                 if (l.Naziv.ToLower().Contains(txtFiltriraj.Text.ToLower()))
                 {
@@ -133,7 +162,7 @@ namespace MedicineApp
                 }
             }
 
-            lstbZdravila.ItemsSource = neka;
+            listviewZravilo.ItemsSource = neka;
         }
 
         private void txtFiltriraj_TextChanged(object sender, TextChangedEventArgs e)
@@ -144,6 +173,17 @@ namespace MedicineApp
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Pogledi.NastavitvePage));
+        }
+
+        private async void listviewZravilo_Loaded(object sender, RoutedEventArgs e)
+        {
+            
+            // TODO: kaj ce traje vec ko 5sek?
+            Task<List<Zdravilo>> seznamVsehZdravilIzBaze = Baza.GetAllDZdraviloAsync();
+            await Task.Delay(TimeSpan.FromSeconds(5));
+            progressBar_getDB.ShowPaused = true;
+            progressBar_getDB.Visibility = Visibility.Collapsed;
+            listviewZravilo.ItemsSource = await seznamVsehZdravilIzBaze;
         }
     }
 }
