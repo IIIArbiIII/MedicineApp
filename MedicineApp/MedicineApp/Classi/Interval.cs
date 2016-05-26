@@ -11,8 +11,8 @@ namespace MedicineApp
     {
         private int id;
         private int _dan;
-        private string _ure;
-        private string _doza;
+        private int _ure;
+        private int _doza;
 
         //Lastnosti
         #region 
@@ -30,13 +30,13 @@ namespace MedicineApp
             set { _dan = value; }
         }
 
-        public string Ure
+        public int Ure
         {
             get { return _ure; }
             set { _ure = value; }
         }
 
-        public string Doza
+        public int Doza
         {
             get { return _doza; }
             set { _doza = value; }
