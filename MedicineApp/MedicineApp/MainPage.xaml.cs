@@ -179,11 +179,17 @@ namespace MedicineApp
         {
             
             // TODO: kaj ce traje vec ko 5sek?
-            Task<List<Zdravilo>> seznamVsehZdravilIzBaze = Baza.GetAllDZdraviloAsync();
-            await Task.Delay(TimeSpan.FromSeconds(5));
+            Task<List<Zdravilo>> seznamVsehZdravil = Baza.GetAllDZdraviloAsync();
+            await Task.Delay(TimeSpan.FromSeconds(2));
             progressBar_getDB.ShowPaused = true;
             progressBar_getDB.Visibility = Visibility.Collapsed;
-            listviewZravilo.ItemsSource = await seznamVsehZdravilIzBaze;
+            listviewZravilo.ItemsSource = await seznamVsehZdravil;
+            seznamVsehZdravilIzBaze = await seznamVsehZdravil;
+        }
+
+        private void Btn_newAlarm_OnClick(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof (Pogledi.AlarmView), seznamVsehZdravilIzBaze);
         }
     }
 }

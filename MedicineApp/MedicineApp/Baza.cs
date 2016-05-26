@@ -89,11 +89,11 @@ namespace MedicineApp
                             new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
                                 new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
 
-                var connectionFactory = new Func<SQLiteConnectionWithLock>(() => new SQLiteConnectionWithLock(new SQLitePlatformWinRT(), new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
-                //var asyncConnection = new SQLiteAsyncConnection(connectionFactory);
+                //var connectionFactory = new Func<SQLiteConnectionWithLock>(() => new SQLiteConnectionWithLock(new SQLitePlatformWinRT(), new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
+                ////var asyncConnection = new SQLiteAsyncConnection(connectionFactory);
 
-                //return asyncConnection;
-                return new SQLiteAsyncConnection(connectionFactory);
+                ////return asyncConnection;
+                //return new SQLiteAsyncConnection(connectionFactory);
             }
         }
 

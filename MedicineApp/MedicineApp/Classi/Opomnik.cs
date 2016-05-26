@@ -19,7 +19,7 @@ namespace MedicineApp
         private int _dozaZdravila;
         private bool _vibracija;
         private string _melodija;
-        private Interval _interval;
+        private List<Interval> _interval;
 
 
 

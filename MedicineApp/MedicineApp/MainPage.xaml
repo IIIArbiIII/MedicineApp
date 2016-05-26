@@ -74,9 +74,7 @@
             <PivotItem x:Name="pivotAlarm" Header="Alarm">
                 <Grid>
                     <StackPanel>
-                        <TextBlock Text="Content of pivot 1" />
-                        <TextBlock Text="Content of pivot 2" />
-                        <TextBlock Text="Content of pivot 3" />
+                        <Button Name="btn_newAlarm" Click="Btn_newAlarm_OnClick" Content="Novi alarm"></Button>
                     </StackPanel>
                 </Grid>
             </PivotItem>

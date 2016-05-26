@@ -8,18 +8,52 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="Alarm" VerticalAlignment="Top" Height="50" Width="187" FontSize="32" FontWeight="Bold"/>
-        <ComboBox x:Name="comboBoxZdravilo" HorizontalAlignment="Left" Margin="10,107,0,0" VerticalAlignment="Top" Width="340" Height="40"/>
-        <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" Margin="10,65,0,0" TextWrapping="Wrap" Text="Izberite Zdravilo" VerticalAlignment="Top" Height="42" Width="187" FontSize="18.667"/>
-        <TimePicker x:Name="timePickZdravilo" HorizontalAlignment="Left" Margin="10,182,0,0" VerticalAlignment="Top" Width="340" Height="30"/>
-        <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" Margin="10,152,0,0" TextWrapping="Wrap" Text="Začetek Zdravljenja" VerticalAlignment="Top" FontSize="18.667"/>
-        <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" Margin="10,217,0,0" TextWrapping="Wrap" Text="Navodila" VerticalAlignment="Top" FontSize="18.667"/>
-        <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" Margin="10,395,0,0" TextWrapping="Wrap" Text="Melody" VerticalAlignment="Top" FontSize="18.667"/>
-        <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" Margin="13,457,0,0" TextWrapping="Wrap" Text="Vibrate" VerticalAlignment="Top" FontSize="18.667"/>
-        <ComboBox x:Name="comboBoxMelody" HorizontalAlignment="Left" Margin="10,420,0,0" VerticalAlignment="Top" Width="340"/>
-        <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="10,487,0,0" VerticalAlignment="Top" Width="340"/>
-        <Button x:Name="buttonCancel" Content="Button" HorizontalAlignment="Left" Margin="18,556,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="buttonSubmit" Content="Button" HorizontalAlignment="Left" Margin="278,556,0,0" VerticalAlignment="Top"/>
+        <StackPanel VerticalAlignment="Top">
+            <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Alarm" VerticalAlignment="Top" FontWeight="Bold" FontSize="18.667"/>
+
+            <TextBlock x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Izberite Zdravilo" VerticalAlignment="Top" FontSize="18.667"/>
+            <ComboBox x:Name="comboBoxZdravilo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" Height="40"
+                  ItemsSource="{Binding Path=Zdravilo}"
+                  DisplayMemberPath="Naziv"
+                  SelectedValuePath="Naziv"
+                  SelectedValue="{Binding Path=Zdravilo}" SelectionChanged="comboBoxZdravilo_SelectionChanged"/>
+
+            <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Začetek Zdravljenja" VerticalAlignment="Top" FontSize="18.667"/>
+            <TimePicker x:Name="timePickZdravilo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" Height="30"/>
+
+        </StackPanel>
+        
+        <Grid x:Name="grid_instruction" VerticalAlignment="Center" BorderThickness="2" BorderBrush="#FF51FF00">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="1*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="0.4*"/>
+                </Grid.ColumnDefinitions>
+            <TextBlock x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Navodila" VerticalAlignment="Top" FontSize="18.667"/>
+
+            <ComboBox x:Name="comboBox_interval_dan" Grid.Column="0" Width="85" Margin="4,4,0,0" SelectionChanged="comboBox_interval_dan_SelectionChanged" />
+                <ComboBox x:Name="comboBox_interval_ura" Grid.Column="1" Width="85" Margin="4,4,0,0" />
+                <ComboBox x:Name="comboBox_interval_doza" Grid.Column="2" Width="85" Margin="4,4,0,0" />
+                <Button x:Name="btn_NovaNavodila" Content="+" Click="Btn_NovaNavodila_OnClick" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="#FFF30404" Height="36" Margin="0,2,-2,0" Width="35"></Button>
+            </Grid>
+        
+        <StackPanel VerticalAlignment="Bottom">
+            <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Melody" VerticalAlignment="Top" FontSize="18.667"/>
+            <ComboBox x:Name="comboBoxMelody" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340"/>
+
+            <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Vibrate" VerticalAlignment="Top" FontSize="18.667"/>
+            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340"/>
+
+         
+        </StackPanel>
+        <Button x:Name="buttonCancel" Content="Button" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <Button x:Name="buttonSubmit" Content="Button" HorizontalAlignment="Right" VerticalAlignment=" Bottom"/>
+
 
     </Grid>
 </Page>
