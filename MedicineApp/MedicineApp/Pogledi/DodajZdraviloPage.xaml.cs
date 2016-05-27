@@ -31,7 +31,7 @@ namespace MedicineApp.Pogledi
 
     public sealed partial class ZdraviloDodaj : Page
     {
-        static bool zdraviloIsValidated = false;
+        //static bool zdraviloIsValidated = false;
 
         void set_boxes()
         {

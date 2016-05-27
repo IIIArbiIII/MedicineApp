@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,8 @@ namespace MedicineApp
         private int _dan;
         private int _ure;
         private int _doza;
+        private int _opomnikId;
+
 
         //Lastnosti
         #region 
@@ -40,6 +43,12 @@ namespace MedicineApp
         {
             get { return _doza; }
             set { _doza = value; }
+        }
+
+        public int OpomnikId
+        {
+            get { return _opomnikId; }
+            set { _opomnikId = value; }
         }
 
         #endregion

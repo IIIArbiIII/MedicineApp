@@ -34,7 +34,7 @@ namespace MedicineApp
     public sealed partial class MainPage : Page
     {
         DispatcherTimer timer = new DispatcherTimer();
-        Task<List<Zdravilo>> seznamVsehZdravil;
+        //Task<List<Zdravilo>> seznamVsehZdravil;
         //bool deleteZdravila = false;
         //bool updateSkrbnik = false;
 
@@ -59,9 +59,9 @@ namespace MedicineApp
             timer.Tick += timer_Tick;
             timer.Start();
 
-            //Baza b = new Baza();
-            //if (b.CreateDb())
-            //    ZapolniBazo();
+            Baza b = new Baza();
+            if (b.CreateDb())
+                ZapolniBazo();
 
             //if (deleteZdravila)
             //{
@@ -72,7 +72,7 @@ namespace MedicineApp
             //{
             //    Baza.UpdateSkrbnik(s2);
             //}
-            
+
             this.InitializeComponent();
             //zapolnilistbox();
         }
@@ -146,8 +146,12 @@ namespace MedicineApp
 
         private void ZapolniListView()
         {
-            if (seznamVsehZdravilIzBaze.Count() != 0)
+            //TODO: Ce je baza prazna daj obvestilo
+            if (seznamVsehZdravilIzBaze.Count() == 0)
                 listviewZravilo.ItemsSource = seznamVsehZdravilIzBaze;
+            else if (seznamVsehZdravilIzBaze.Count() > 0)
+                listviewZravilo.ItemsSource = seznamVsehZdravilIzBaze;
+
         }
 
         private void Btn_newAlarm_OnClick(object sender, RoutedEventArgs e)

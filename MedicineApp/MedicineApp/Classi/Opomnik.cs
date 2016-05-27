@@ -21,8 +21,6 @@ namespace MedicineApp
         //private bool _vibracija;
         private string _melodija;
         private List<Interval> _interval;
-        private int _interval_ID;
-
 
         //Lastnosti
         #region 
@@ -76,14 +74,6 @@ namespace MedicineApp
             get { return _interval; }
             set { _interval = value; }
         }
-
-        [NotNull]
-        public int IntervalId
-        {
-            get { return _interval_ID; }
-            set { _interval_ID = value; }
-        }
-
         #endregion
 
     }

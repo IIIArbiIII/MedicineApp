@@ -88,12 +88,6 @@ namespace MedicineApp
                         () =>
                             new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
                                 new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
-
-                //var connectionFactory = new Func<SQLiteConnectionWithLock>(() => new SQLiteConnectionWithLock(new SQLitePlatformWinRT(), new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
-                ////var asyncConnection = new SQLiteAsyncConnection(connectionFactory);
-
-                ////return asyncConnection;
-                //return new SQLiteAsyncConnection(connectionFactory);
             }
         }
 
@@ -207,7 +201,7 @@ namespace MedicineApp
 
         //------------------------------------------------------------------
         //Interval
-        public static void AddInterval(Interval i)
+        private static void AddInterval(Interval i)
         {
             using (var db = DbConnection)
             {
@@ -221,9 +215,42 @@ namespace MedicineApp
         //------------------------------------------------------------------
         public static void AddOpomnik(Opomnik o)
         {
+            var intervali = o.Intervali;
+            foreach (var x in intervali)
+            {
+                AddInterval(x);
+            }
             using (var db = DbConnection)
             {
                 db.Insert(o);
+            }
+        }
+
+        public static void AddOpomnikAsync(Opomnik o)
+        {
+            var conn = DbConnectionAsync;
+
+            conn.InsertAsync(o).ContinueWith((t) =>
+            {
+                if (t.IsCompleted == true)
+                {
+                    foreach (var x in o.Intervali)
+                    {
+                        x.OpomnikId = GetLastOpomnikId();
+                        AddInterval(x);
+                    }
+                }
+
+            });
+        }
+
+        static int GetLastOpomnikId()
+        {
+            using (var db = DbConnection)
+            {
+                var x = db.Query<Opomnik>("SELECT * FROM Opomnik ORDER BY id DESC LIMIT 1");
+
+                return x[0].Id;
             }
         }
 

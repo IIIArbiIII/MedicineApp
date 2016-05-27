@@ -51,7 +51,6 @@ namespace MedicineApp.Pogledi
 
         private void Btn_NovaNavodila_OnClick(object sender, RoutedEventArgs e)
         {
-            //enable/disable btn za dodajanje intervalov
             var collection = grid_instruction.Children.OfType<ComboBox>().ToList();
             var btn_collection = grid_instruction.Children.OfType<Button>().ToList();
 
@@ -138,8 +137,6 @@ namespace MedicineApp.Pogledi
 
             //--------
            
-
-            //shrani interval
 
         }
 
@@ -263,9 +260,9 @@ namespace MedicineApp.Pogledi
             alarm_n1.Intervali = seznamIntervalov;
             alarm_n1.Melodija = "default";
 
+            Baza.AddOpomnikAsync(alarm_n1);
 
-
-            string s = "";
+            
 
         }
     }
