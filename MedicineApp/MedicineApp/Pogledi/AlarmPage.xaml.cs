@@ -30,6 +30,8 @@ namespace MedicineApp.Pogledi
         Dictionary<int, string> seznamZaDneve = new Dictionary<int, string>();
         Dictionary<int, string> seznamZaUre = new Dictionary<int, string>();
         Dictionary<int, string> seznamZaDoze = new Dictionary<int, string>();
+
+        
         //od vključno 0 pa navzgor
         int rowCount = 1;
 
@@ -49,59 +51,93 @@ namespace MedicineApp.Pogledi
 
         private void Btn_NovaNavodila_OnClick(object sender, RoutedEventArgs e)
         {
-            string imeComboBoxaZaDan = "comboBox_interval_dan" + rowCount;
-            string imeComboBoxaZaUro = "comboBox_interval_ura" + rowCount;
-            string imeComboBoxaZaDozo = "comboBox_interval_doza" + rowCount;
+            //enable/disable btn za dodajanje intervalov
+            var collection = grid_instruction.Children.OfType<ComboBox>().ToList();
+            var btn_collection = grid_instruction.Children.OfType<Button>().ToList();
+
+            bool izpolnjeniComboboxi = false;
+
+            for (int i = collection.Count(); i > collection.Count()-3; i--)
+            {
+                if (collection[i-1].SelectedItem != null)
+                {
+                    izpolnjeniComboboxi = true;
+                    continue;
+                }
+                izpolnjeniComboboxi = false;
+                break;
+            }
+
+            if (izpolnjeniComboboxi)
+            {
+                for (int i = 0; i < btn_collection.Count(); i++)
+                {
+                    if (i == btn_collection.Count()-1)
+                    {
+                        btn_collection[i].IsEnabled = false;
+                    }
+                }
+
+                // TODO:Preveri da vneseni podatki ne presegajo maximumov
+                string imeComboBoxaZaDan = "comboBox_interval_dan" + rowCount;
+                string imeComboBoxaZaUro = "comboBox_interval_ura" + rowCount;
+                string imeComboBoxaZaDozo = "comboBox_interval_doza" + rowCount;
 
 
-            //dodaj novo vrsto
-            RowDefinition r = new RowDefinition();
-            r.Height = new GridLength(1, GridUnitType.Star);
-            
-            grid_instruction.RowDefinitions.Add(r);
+                // TODO: dodaj novo vrsto
+                RowDefinition r = new RowDefinition();
+                r.Height = new GridLength(1, GridUnitType.Star);
 
-            //vstavi comboboxe
-            ComboBox cb1 = new ComboBox();
-            cb1.Name = imeComboBoxaZaDan;
+                grid_instruction.RowDefinitions.Add(r);
 
-            cb1.ItemsSource = seznamZaDneve;
-            cb1.DisplayMemberPath = "Value";
-            cb1.SelectedValuePath = "Key";
+                //vstavi comboboxe
+                ComboBox cb1 = new ComboBox();
+                cb1.Name = imeComboBoxaZaDan;
 
-            ComboBox cb2 = new ComboBox();
-            cb2.Name = imeComboBoxaZaUro;
-            cb2.ItemsSource = seznamZaUre;
-            cb2.DisplayMemberPath = "Value";
-            cb2.SelectedValuePath = "Key";
+                cb1.ItemsSource = seznamZaDneve;
+                cb1.DisplayMemberPath = "Value";
+                cb1.SelectedValuePath = "Key";
+
+                ComboBox cb2 = new ComboBox();
+                cb2.Name = imeComboBoxaZaUro;
+                cb2.ItemsSource = seznamZaUre;
+                cb2.DisplayMemberPath = "Value";
+                cb2.SelectedValuePath = "Key";
 
 
-            ComboBox cb3 = new ComboBox();
-            cb3.Name = imeComboBoxaZaDozo;
-            cb3.ItemsSource = seznamZaDoze;
-            cb3.DisplayMemberPath = "Value";
-            cb3.SelectedValuePath = "Key";
+                ComboBox cb3 = new ComboBox();
+                cb3.Name = imeComboBoxaZaDozo;
+                cb3.ItemsSource = seznamZaDoze;
+                cb3.DisplayMemberPath = "Value";
+                cb3.SelectedValuePath = "Key";
 
-            Button btn = new Button();
-            btn.Click += Btn_NovaNavodila_OnClick;
-            btn.Content = "+";
+                Button btn = new Button();
+                btn.Click += Btn_NovaNavodila_OnClick;
+                btn.Content = "+";
 
-            grid_instruction.Children.Add(cb1);
-            Grid.SetRow(cb1, rowCount);
-            Grid.SetColumn(cb1, 0);
+                grid_instruction.Children.Add(cb1);
+                Grid.SetRow(cb1, rowCount);
+                Grid.SetColumn(cb1, 0);
 
-            grid_instruction.Children.Add(cb2);
-            Grid.SetRow(cb2, rowCount);
-            Grid.SetColumn(cb2, 1);
+                grid_instruction.Children.Add(cb2);
+                Grid.SetRow(cb2, rowCount);
+                Grid.SetColumn(cb2, 1);
 
-            grid_instruction.Children.Add(cb3);
-            Grid.SetRow(cb3, rowCount);
-            Grid.SetColumn(cb3, 2);
+                grid_instruction.Children.Add(cb3);
+                Grid.SetRow(cb3, rowCount);
+                Grid.SetColumn(cb3, 2);
 
-            grid_instruction.Children.Add(btn);
-            Grid.SetRow(btn, rowCount);
-            Grid.SetColumn(btn, 3);
+                grid_instruction.Children.Add(btn);
+                Grid.SetRow(btn, rowCount);
+                Grid.SetColumn(btn, 3);
 
-            rowCount++;
+                rowCount++;
+
+                
+            }
+
+            //--------
+           
 
             //shrani interval
 
@@ -109,6 +145,8 @@ namespace MedicineApp.Pogledi
 
         private void comboBoxZdravilo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            btn_NovaNavodila.IsEnabled = true;
+
             //set cboxes
             #region
             Zdravilo z = (sender as ComboBox).SelectedItem as Zdravilo;
@@ -193,22 +231,15 @@ namespace MedicineApp.Pogledi
             #endregion
         }
 
-        private void comboBox_interval_dan_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // TODO: Zbrisi ta event
-            Dictionary<int,string> text = (sender as ComboBox).SelectedItem as Dictionary<int, string>;
-            string s = "";
-        }
-
         private void ButtonSubmit_OnClick(object sender, RoutedEventArgs e)
         {
-            // TODO: Zakleni gumbe da se ne sprozi predcasno
-
-            IEnumerable<ComboBox> collection = grid_instruction.Children.OfType<ComboBox>();
+            // TODO: Gumb za pocistis intervale
+            // TODO: preglej da je vse vpisano sele pol idi dalje
+            
             Interval interval = new Interval();
-            List<Interval> seznamIntervalov = new List<Interval>();
+            //List<Interval> seznamIntervalov = new List<Interval>();
 
-            List<ComboBox> coll = collection.ToList();
+            var coll = grid_instruction.Children.OfType<ComboBox>().ToList();
 
             for (int i = 0; i < coll.Count(); i++)
             {
@@ -221,6 +252,19 @@ namespace MedicineApp.Pogledi
                 interval = new Interval();
                 i = i + 2;
             }
+
+            Opomnik alarm_n1 = new Opomnik();
+            alarm_n1.Naziv = comboBoxZdravilo.SelectedValue.ToString();
+            // TODO: Kaj ce dama se datepickera not?
+            DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, timePickZdravilo.Time.Hours, timePickZdravilo.Time.Minutes, timePickZdravilo.Time.Seconds);
+            alarm_n1.ZacetekJemanja = dt;
+            // TODO: izracunaj konec jemanja; Zaenkrat je dummy datum
+            alarm_n1.KonecJemanja = new DateTime(2017,5,8);
+            alarm_n1.Intervali = seznamIntervalov;
+            alarm_n1.Melodija = "default";
+
+
+
             string s = "";
 
         }

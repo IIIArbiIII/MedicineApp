@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Notifications;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,6 +25,8 @@ using SQLite.Net;
 namespace MedicineApp
 {
     // TODO: Popravi nalaganje v listview. Asinhrono dobi bazo, nato pa zapuni listview. Brisi oni asynch iz event handlerja
+    // TODO: Ce je baza prazna naj se prikaze obvestilo v listvievu da naj uporabnik doda zdravila
+
     //Sprobavam
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -29,9 +34,9 @@ namespace MedicineApp
     public sealed partial class MainPage : Page
     {
         DispatcherTimer timer = new DispatcherTimer();
-
-        bool deleteZdravila = false;
-        bool updateSkrbnik = false;
+        Task<List<Zdravilo>> seznamVsehZdravil;
+        //bool deleteZdravila = false;
+        //bool updateSkrbnik = false;
 
         //Testni podatki
         Zdravilo z1 = new Zdravilo("Lekadol", new DateTime(2016, 5, 26), 10, "Tablet");
@@ -49,27 +54,24 @@ namespace MedicineApp
         //-------------------------------------------------------------------
         public MainPage()
         {
-
             // this.InitializeComponent();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
 
-            Baza b = new Baza();
+            //Baza b = new Baza();
+            //if (b.CreateDb())
+            //    ZapolniBazo();
 
-            /*
-            if (b.CreateDb())
-                ZapolniBazo();
-            */       
-            if (deleteZdravila)
-            {
-                Baza.DeleteZdravilo(z1);
-                Baza.DeleteZdravilo(z2);                
-            }
-            if (updateSkrbnik)
-            {
-                Baza.UpdateSkrbnik(s2);
-            }
+            //if (deleteZdravila)
+            //{
+            //    Baza.DeleteZdravilo(z1);
+            //    Baza.DeleteZdravilo(z2);                
+            //}
+            //if (updateSkrbnik)
+            //{
+            //    Baza.UpdateSkrbnik(s2);
+            //}
             
             this.InitializeComponent();
             //zapolnilistbox();
@@ -92,42 +94,6 @@ namespace MedicineApp
             hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5);
         }
 
-        async Task<bool> zapolnilistbox()
-        {
-            try
-            {
-                //testing toaster
-                OnScheduleToast();
-                //seznamVsehZdravilIzBaze = await Baza.GetAllDZdraviloAsync();
-                //listviewZravilo.ItemsSource = seznamVsehZdravilIzBaze;
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-        }
-
-        private void OnScheduleToast()
-        {
-            string xml = @"<toast>
-            <visual>
-            <binding template=""ToastGeneric"">
-                <text>Hello!</text>
-                <text>This is a scheduled toast!</text>
-            </binding>
-            </visual>
-        </toast>";
-
-            XmlDocument doc = new XmlDocument();
-            doc.LoadXml(xml);
-
-            ScheduledToastNotification toast = new ScheduledToastNotification(doc, DateTimeOffset.Now.AddSeconds(1));
-            ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
-        }
-
         
         //tvoj del
         private void btnAddMedicine_Click(object sender, RoutedEventArgs e)
@@ -142,12 +108,7 @@ namespace MedicineApp
 
         private void lstbZdravila_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           // Zdravilo z = new Zdravilo();
-
-            
-
-            // TO-DO novi view za zdravila lstbZdravila.SelectedItem 
-
+            // TODO: Naredi stran za info o zdravilu ter jo prikazi
         }
 
         private void txtFiltriraj_TextChanging(TextBox sender, TextBoxTextChangingEventArgs args)
@@ -175,21 +136,38 @@ namespace MedicineApp
             this.Frame.Navigate(typeof(Pogledi.NastavitvePage));
         }
 
-        private async void listviewZravilo_Loaded(object sender, RoutedEventArgs e)
-        {
+        //private void listviewZravilo_Loaded(object sender, RoutedEventArgs e)
+        //{
             
-            // TODO: kaj ce traje vec ko 5sek?
-            Task<List<Zdravilo>> seznamVsehZdravil = Baza.GetAllDZdraviloAsync();
-            await Task.Delay(TimeSpan.FromSeconds(2));
-            progressBar_getDB.ShowPaused = true;
-            progressBar_getDB.Visibility = Visibility.Collapsed;
-            listviewZravilo.ItemsSource = await seznamVsehZdravil;
-            seznamVsehZdravilIzBaze = await seznamVsehZdravil;
+
+        //    //await Task.Delay(TimeSpan.FromSeconds(2));
+           
+        //}
+
+        private void ZapolniListView()
+        {
+            if (seznamVsehZdravilIzBaze.Count() != 0)
+                listviewZravilo.ItemsSource = seznamVsehZdravilIzBaze;
         }
 
         private void Btn_newAlarm_OnClick(object sender, RoutedEventArgs e)
         {
             Frame.Navigate(typeof (Pogledi.AlarmView), seznamVsehZdravilIzBaze);
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            //await Task.Delay(TimeSpan.FromSeconds(8));
+            seznamVsehZdravilIzBaze = await Baza.GetAllDZdraviloAsync();
+            stopwatch.Stop();
+            progressBar_getDB.ShowPaused = true;
+            progressBar_getDB.Visibility = Visibility.Collapsed;
+            ZapolniListView();
+            //var messageDialog = new MessageDialog("Čas potreben za pridobitev baze {0}.", stopwatch.Elapsed.ToString());
+            //messageDialog.ShowAsync();
         }
     }
 }

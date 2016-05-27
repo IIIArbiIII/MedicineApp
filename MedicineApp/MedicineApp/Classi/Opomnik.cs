@@ -16,11 +16,12 @@ namespace MedicineApp
         private string _naziv;
         private DateTime _zacetekJemanja;
         private DateTime _konecJemanja;
-        private int _dozaZdravila;
-        private bool _vibracija;
+        //private int _dozaZdravila;
+        //toast notification nima elementa za vibracijo
+        //private bool _vibracija;
         private string _melodija;
         private List<Interval> _interval;
-
+        private int _interval_ID;
 
 
         //Lastnosti
@@ -32,8 +33,6 @@ namespace MedicineApp
             get { return id; }
             set { id = value; }
         }
-        [NotNull]
-        public int Interval_ID { get; set; }
 
         public string Naziv
         {
@@ -53,17 +52,17 @@ namespace MedicineApp
             set { _konecJemanja = value; }
         }
 
-        public int DozaZdravila
-        {
-            get { return _dozaZdravila; }
-            set { _dozaZdravila = value; }
-        }
+        //public int DozaZdravila
+        //{
+        //    get { return _dozaZdravila; }
+        //    set { _dozaZdravila = value; }
+        //}
 
-        public bool Vibracija
-        {
-            get { return _vibracija; }
-            set { _vibracija = value; }
-        }
+        //public bool Vibracija
+        //{
+        //    get { return _vibracija; }
+        //    set { _vibracija = value; }
+        //}
 
         public string Melodija
         {
@@ -71,6 +70,19 @@ namespace MedicineApp
             set { _melodija = value; }
         }
 
+        [Ignore]
+        public List<Interval> Intervali
+        {
+            get { return _interval; }
+            set { _interval = value; }
+        }
+
+        [NotNull]
+        public int IntervalId
+        {
+            get { return _interval_ID; }
+            set { _interval_ID = value; }
+        }
 
         #endregion
 

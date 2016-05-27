@@ -5,7 +5,7 @@
     xmlns:local="using:MedicineApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d" RequestedTheme="Dark">
+    mc:Ignorable="d" RequestedTheme="Dark" Loaded="Page_Loaded">
     
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Minimal">
@@ -52,7 +52,7 @@
                         <TextBox x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging" TextChanged="txtFiltriraj_TextChanged"></TextBox>
                         <ProgressBar x:Name="progressBar_getDB" IsIndeterminate="True"  HorizontalAlignment="Stretch"/>
                         <!--To do: klik na listbox (item); poišči pravi poperty za izbiranje-->
-                    <ListView x:Name="listviewZravilo" Height="470" SelectionChanged="lstbZdravila_SelectionChanged" Loaded="listviewZravilo_Loaded">
+                    <ListView x:Name="listviewZravilo" Height="470" SelectionChanged="lstbZdravila_SelectionChanged">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Height="52" Width="auto">
