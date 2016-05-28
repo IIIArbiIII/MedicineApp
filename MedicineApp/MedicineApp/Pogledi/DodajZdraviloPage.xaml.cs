@@ -31,8 +31,10 @@ namespace MedicineApp.Pogledi
 
     public sealed partial class ZdraviloDodaj : Page
     {
-        //static bool zdraviloIsValidated = false;
-
+        static bool zdraviloIsNamed = false;
+        static bool zdraviloAmountIsNamed = false;
+        static bool zdraviloUnitIsNamed = false;
+        static bool zdraviloDateIsSelected = false;
         void set_boxes()
         {
             //set asb_tipEnote
@@ -93,18 +95,22 @@ namespace MedicineApp.Pogledi
             bool naziv_result = naziv.All(Char.IsLetter);
             string errorMsg = "Dovoljene so samo črke";
 
-            if (!naziv_result || naziv == "")
+            if (!naziv_result)
             {
                 inputZdravilo.BorderBrush = new SolidColorBrush(Colors.Red);
                 
                 inputZdravilo.PlaceholderText = errorMsg;
-                btn_dodajZdravilo.IsEnabled = false;
+                zdraviloIsNamed = false;
+            }
+            else if (naziv == "")
+            {
+                inputZdravilo.BorderBrush = new SolidColorBrush(Color.FromArgb(100,133,133,133));
+                zdraviloIsNamed = false;
             }
             else
             {
                 inputZdravilo.BorderBrush = new SolidColorBrush(Colors.Green);
-                btn_dodajZdravilo.IsEnabled = true;
-
+                zdraviloIsNamed = true;
             }
         }
 
@@ -118,13 +124,19 @@ namespace MedicineApp.Pogledi
             if (!steviloEnotZdravila_result)
             {
                 txtbox_stEnot.BorderBrush = new SolidColorBrush(Colors.Red);
+                // TODO: Ce se prikaz elelemntov prevec zjebe ko uporabnik narobe vnese stevlike; zakomentiraj nasledni vrstico
                 txtbox_stEnot.PlaceholderText = errorMsg;
-                btn_dodajZdravilo.IsEnabled = false;
+                zdraviloAmountIsNamed = false;
+            }
+            else if (steviloEnotZdravila == "")
+            {
+                txtbox_stEnot.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 133, 133, 133));
+                zdraviloAmountIsNamed = false;
             }
             else
             {
                 txtbox_stEnot.BorderBrush = new SolidColorBrush(Colors.Green);
-                btn_dodajZdravilo.IsEnabled = true;
+                zdraviloAmountIsNamed = true;
             }
         }
 
@@ -137,14 +149,20 @@ namespace MedicineApp.Pogledi
 
             if (!tipZdravila_result)
             {
+                // TODO: Zakaj se nea ofarba?
                 asb_tipEnote.BorderBrush = new SolidColorBrush(Colors.Red);
                 asb_tipEnote.PlaceholderText = errorMsg;
-                btn_dodajZdravilo.IsEnabled = false;
+                zdraviloUnitIsNamed = false;
+            }
+            else if (tipZdravila == "")
+            {
+                asb_tipEnote.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 133, 133, 133));
+                zdraviloUnitIsNamed = false;
             }
             else
             {
                 asb_tipEnote.BorderBrush = new SolidColorBrush(Colors.Green);
-                btn_dodajZdravilo.IsEnabled = true;
+                zdraviloUnitIsNamed = true;
             }
         }
 
@@ -159,15 +177,21 @@ namespace MedicineApp.Pogledi
             if (rokTrajanja_result <= 0)
             {
                 inputRokTrajanja.Foreground = new SolidColorBrush(Colors.Red);            
-                btn_dodajZdravilo.IsEnabled = false;
+                zdraviloDateIsSelected = false;
             }
             else
             {
                 inputRokTrajanja.Foreground = new SolidColorBrush(Colors.Green);
-                btn_dodajZdravilo.IsEnabled = true;
+                zdraviloDateIsSelected = true;
             }
+        }
 
-
+        private void StackPanel_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (zdraviloIsNamed && zdraviloAmountIsNamed && zdraviloUnitIsNamed && zdraviloDateIsSelected)
+                btn_dodajZdravilo.IsEnabled = true;
+            else
+                btn_dodajZdravilo.IsEnabled = false;
         }
     }
 }

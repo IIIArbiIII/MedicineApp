@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -231,8 +232,10 @@ namespace MedicineApp.Pogledi
         private void ButtonSubmit_OnClick(object sender, RoutedEventArgs e)
         {
             // TODO: Gumb za pocistis intervale
-            // TODO: preglej da je vse vpisano sele pol idi dalje
-            
+            // TODO: preglej da je vse vpisano sele pol idi dalje. Fali za datum
+            if (!IsEverythingValid())
+                return;
+
             Interval interval = new Interval();
             //List<Interval> seznamIntervalov = new List<Interval>();
 
@@ -261,9 +264,31 @@ namespace MedicineApp.Pogledi
             alarm_n1.Melodija = "default";
 
             Baza.AddOpomnikAsync(alarm_n1);
+        }
 
+        private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
+        {
             
+        }
 
+        private bool IsEverythingValid()
+        {
+            int stPrazniElementov = 0;
+            var coll = grid_instruction.Children.OfType<ComboBox>().ToList();
+
+            foreach (var x in coll)
+            {
+                if (x.SelectedValue == null)
+                {
+                    x.BorderBrush = new SolidColorBrush(Colors.Red);
+                    stPrazniElementov++;
+                }
+                else
+                {
+                    x.BorderBrush = new SolidColorBrush(Color.FromArgb(100, 133, 133, 133));
+                }
+            }
+            return stPrazniElementov == 0;
         }
     }
 }

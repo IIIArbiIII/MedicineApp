@@ -22,10 +22,10 @@ namespace MedicineApp.Pogledi
     /// </summary>
     public sealed partial class NastavitvePage : Page
     {
+
         public NastavitvePage()
         {
             this.InitializeComponent();
-
         }
 
         private void btnSkrbniGesloVstopi_Click(object sender, RoutedEventArgs e)
@@ -46,6 +46,25 @@ namespace MedicineApp.Pogledi
         private void btnNovSkrbnik_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(RegistracijaSkrbnikPage));
+        }
+
+        private void NastavitevVibracije_Toggled(object sender, RoutedEventArgs e)
+        {
+            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            if (toggleSwitch != null)
+            {
+                if (toggleSwitch.IsOn)
+                {
+                    localSettings.Values["IsVibrationOn"] = true;
+
+                }
+                else
+                {
+                    localSettings.Values["IsVibrationOn"] = false;
+                }
+            }
         }
     }
 }

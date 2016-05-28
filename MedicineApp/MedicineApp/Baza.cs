@@ -176,7 +176,7 @@ namespace MedicineApp
         {
             using (var db = DbConnection)
             {
-                return db.Table<Skrbnik>().FirstOrDefault();
+                return db.Table<Skrbnik>().FirstOrDefault(x => x.TelStevilka == s.TelStevilka);
             }
         }
         public static void AddSkrbnik(Skrbnik s)
@@ -190,7 +190,7 @@ namespace MedicineApp
         {
             using (var db = DbConnection)
             {
-                Skrbnik query = db.Table<Skrbnik>().FirstOrDefault();
+                Skrbnik query = db.Table<Skrbnik>().FirstOrDefault(x => x.TelStevilka == s.TelStevilka);
                 if (query!=null)
                 {
                     AddSkrbnik(s);
@@ -255,5 +255,6 @@ namespace MedicineApp
         }
 
     }
+
 
 }

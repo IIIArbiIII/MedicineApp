@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark" Tapped="Grid_Tapped">
         <StackPanel VerticalAlignment="Top">
             <TextBlock x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Alarm" VerticalAlignment="Top" FontWeight="Bold" FontSize="18.667"/>
 
@@ -43,11 +43,7 @@
         </Grid>
 
         <StackPanel VerticalAlignment="Bottom">
-            <TextBlock x:Name="textBlock4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Melody" VerticalAlignment="Top" FontSize="18.667"/>
-            <ComboBox x:Name="comboBoxMelody" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340"/>
 
-            <TextBlock x:Name="textBlock5" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Vibrate" VerticalAlignment="Top" FontSize="18.667"/>
-            <ComboBox x:Name="comboBox" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340"/>
 
 
         </StackPanel>
