@@ -15,13 +15,16 @@
             <TextBox Margin="20,10,20,15" Name="inputZdravilo" PlaceholderText="Primer : Lekadol" InputScope="Text" TextChanged="inputZdravilo_TextChanged"></TextBox>
 
             <!--<TextBox  Margin="20,10,20,15" Name="inputKolicina" InputScope="Number"/>-->
-            <TextBlock Margin="20,0,20,0">Vnos Količine</TextBlock>
-            <TextBox x:Name="txtbox_stEnot" HorizontalAlignment="Center"  InputScope="Number" TextChanged="txtbox_stEnot_TextChanged"/>
-
+            
+            <StackPanel HorizontalAlignment="Left">
+            <TextBlock>Vnos Količine</TextBlock>
+            <TextBox Margin="20,0,20,30" x:Name="txtbox_stEnot" InputScope="Number" TextChanged="txtbox_stEnot_TextChanged"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right">
 
             <TextBlock Margin="20,0,20,0">Vrsta Zdravila</TextBlock>
             <AutoSuggestBox x:Name="asb_tipEnote" PlaceholderText="Tablet" HorizontalAlignment="Center" TextChanged="asb_tipEnote_TextChanged" BorderThickness="2" />
-
+            </StackPanel>
 
             <TextBlock Margin="20,0,20,0">Rok Trajanja Zdravila</TextBlock>
             <DatePicker Margin="20,10,20,15" Name="inputRokTrajanja" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DateChanged="inputRokTrajanja_DateChanged" Foreground="{x:Null}" BorderThickness="2"/>
