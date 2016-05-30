@@ -6,18 +6,26 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" RequestedTheme="Dark" Loaded="Page_Loaded">
-    
+
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Minimal">
             <AppBarButton Icon="Setting" Click="AppBarButton_Click" />
         </CommandBar>
     </Page.BottomAppBar>
+    
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
-        <Pivot x:Name="pivotTab">
-            <PivotItem x:Name="pivotHome" Header="Home" Height="592">
+        <Pivot x:Name="pivotTab" Margin="0,20,0,0">
+           
+
+            <PivotItem x:Name="pivotHome" Height="592">
+
+                <PivotItem.Header>
+                    <Image Source="/Assets/pivot_home.png"/>
+                </PivotItem.Header>
+
                 <!--TO-DO: Določi barve za cajgere-->
-                
+
                 <Grid Width="300" Height="300">
                     <Ellipse Width="300" Height="300" Stroke="Red"></Ellipse>
                     <!-- Second  -->
@@ -45,11 +53,14 @@
                     <!---->
                     </Grid>
             </PivotItem>
-            <PivotItem x:Name="pivotMedicine" Header="Medicine" >
+            <PivotItem x:Name="pivotMedicine">
+                <PivotItem.Header>
+                        <Image Source="/Assets/pivot_medicine.png"/>
+                </PivotItem.Header>
                 <Grid>
-                    <StackPanel>
-                        <TextBlock x:Name="txtFiltrirajZdravila">Išči</TextBlock>
-                        <TextBox x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging" TextChanged="txtFiltriraj_TextChanged"></TextBox>
+                    <StackPanel Margin="0,20,0,10">
+                        <TextBlock Margin="10,5,10,5" x:Name="txtFiltrirajZdravila">Išči</TextBlock>
+                        <TextBox Margin="10,10,10,10" x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging" TextChanged="txtFiltriraj_TextChanged"></TextBox>
                         <ProgressBar x:Name="progressBar_getDB" IsIndeterminate="True"  HorizontalAlignment="Stretch"/>
                         <!--To do: klik na listbox (item); poišči pravi poperty za izbiranje-->
                     <ListView x:Name="listviewZravilo" Height="470" SelectionChanged="lstbZdravila_SelectionChanged">
@@ -64,21 +75,27 @@
 
                     </StackPanel>
                     <StackPanel VerticalAlignment="Bottom">
-                        <Button Margin="0,0,0,20" x:Name="btnOdpriOknoDodajZdravilo" HorizontalAlignment="Center" Click="btnOdpriOknoDodajZdravilo_Click">Dodaj Zdravilo</Button>
+                        <Button Margin="0,0,0,40" x:Name="btnOdpriOknoDodajZdravilo" HorizontalAlignment="Center" Click="btnOdpriOknoDodajZdravilo_Click">Dodaj Zdravilo</Button>
                     </StackPanel>
 
                 </Grid>
 
 
             </PivotItem>
-            <PivotItem x:Name="pivotAlarm" Header="Alarm">
+            <PivotItem x:Name="pivotAlarm">
+                <PivotItem.Header>
+                    <Image Source="/Assets/pivot_alarm.png"/>
+                </PivotItem.Header>
                 <Grid>
-                    <StackPanel>
-                        <Button Name="btn_newAlarm" Click="Btn_newAlarm_OnClick" Content="Novi alarm"></Button>
+                    <StackPanel VerticalAlignment="Bottom">
+                        <Button Margin="0,0,0,40" HorizontalAlignment="Center" Name="btn_newAlarm" Click="Btn_newAlarm_OnClick" Content="Novi alarm"></Button>
                     </StackPanel>
                 </Grid>
             </PivotItem>
-            <PivotItem x:Name="pivotStats" Header="Stats">
+            <PivotItem x:Name="pivotStats">
+                <PivotItem.Header>
+                    <Image Source="/Assets/pivot_stats.png"/>
+                </PivotItem.Header>
                 <Grid>
                     <StackPanel>
                         <TextBlock Text="Content of pivot 1" />
@@ -88,6 +105,6 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-        
+
     </Grid>
 </Page>
