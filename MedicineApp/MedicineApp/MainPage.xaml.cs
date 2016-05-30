@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Background;
 using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -171,6 +172,90 @@ namespace MedicineApp
             ZapolniListView();
             //var messageDialog = new MessageDialog("Čas potreben za pridobitev baze {0}.", stopwatch.Elapsed.ToString());
             //messageDialog.ShowAsync();
+
+
+
+            ////Moja koda - brisi ce bojo problemi; 
+            //await BackgroundExecutionManager.RequestAccessAsync();
+            //RegisterBackgroundTask("MyTask.FirstTask", "FirstTask", new TimeTrigger(20, false),
+            //    new SystemCondition(SystemConditionType.InternetAvailable));
+            //;
+            //string myTaskName = "FirstTask";
+
+            //// check if task is already registered
+            //foreach (var cur in BackgroundTaskRegistration.AllTasks)
+            //    if (cur.Value.Name == myTaskName)
+            //    {
+            //        await (new MessageDialog("Task already registered")).ShowAsync();
+            //        return;
+            //    }
+
+            //// Windows Phone app must call this to use trigger types (see MSDN)
+            //await BackgroundExecutionManager.RequestAccessAsync();
+
+            //// register a new task
+            //BackgroundTaskBuilder taskBuilder = new BackgroundTaskBuilder { Name = "First Task", TaskEntryPoint = "MyTask.FirstTask" };
+            //taskBuilder.SetTrigger(new TimeTrigger(15, true));
+            //BackgroundTaskRegistration myFirstTask = taskBuilder.Register();
+
+            //await (new MessageDialog("Task registered")).ShowAsync();
+
+
+            //------------
+        }
+
+        //
+        // Register a background task with the specified taskEntryPoint, name, trigger,
+        // and condition (optional).
+        //
+        // taskEntryPoint: Task entry point for the background task.
+        // taskName: A name for the background task.
+        // trigger: The trigger for the background task.
+        // condition: Optional parameter. A conditional event that must be true for the task to fire.
+        //
+        public static BackgroundTaskRegistration RegisterBackgroundTask(string taskEntryPoint,
+                                                                        string taskName,
+                                                                        IBackgroundTrigger trigger,
+                                                                        IBackgroundCondition condition)
+        {
+            //
+            // Check for existing registrations of this background task.
+            //
+
+            foreach (var cur in BackgroundTaskRegistration.AllTasks)
+            {
+
+                if (cur.Value.Name == taskName)
+                {
+                    // 
+                    // The task is already registered.
+                    // 
+
+                    return (BackgroundTaskRegistration)(cur.Value);
+                }
+            }
+
+            //
+            // Register the background task.
+            //
+
+            var builder = new BackgroundTaskBuilder();
+
+            builder.Name = taskName;
+            builder.TaskEntryPoint = taskEntryPoint;
+            builder.SetTrigger(trigger);
+
+            if (condition != null)
+            {
+
+                builder.AddCondition(condition);
+            }
+
+            BackgroundTaskRegistration task = builder.Register();
+
+            return task;
         }
     }
+
+
 }

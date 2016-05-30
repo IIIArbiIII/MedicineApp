@@ -4,9 +4,13 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Foundation.Metadata;
 using Windows.UI;
 using Windows.UI.Notifications;
 using Windows.UI.Xaml;
@@ -16,6 +20,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.ApplicationModel.Calls;
+using Windows.Storage;
+using Windows.Storage.BulkAccess;
+
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -278,25 +286,33 @@ namespace MedicineApp.Pogledi
             
         }
 
-        public void MakeToastNotifications()
+        public async void MakeToastNotifications()
         {
+            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile = await storageFolder.GetFileAsync("XMLFile1.xml");
+
+            string TOAST = await Windows.Storage.FileIO.ReadTextAsync(sampleFile);
+
+            Windows.Data.Xml.Dom.XmlDocument xmlToastTest = new Windows.Data.Xml.Dom.XmlDocument();
+
+            xmlToastTest.LoadXml(TOAST);
             // TODO: Iz settingov preberi koliko casa naj se caka preden se poklice oseba
             // Get a toast XML template
-            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
+            //XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
 
-            // Fill in the text elements
-            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
-            for (int i = 0; i < stringElements.Length; i++)
-            {
-                stringElements[i].AppendChild(toastXml.CreateTextNode("Line " + i));
-            }
+            //// Fill in the text elements
+            //XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
+            //for (int i = 0; i < stringElements.Length; i++)
+            //{
+            //    stringElements[i].AppendChild(toastXml.CreateTextNode("Line " + i));
+            //}
 
-            var aa = new ToastNotification(toastXml);
-            ToastNotification toast = new ToastNotification(toastXml);
+            //var aa = new ToastNotification(toastXml);
+            //ToastNotification toast = new ToastNotification(toastXml);
 
-            toast.Activated += ToastActivated;
-            toast.Dismissed += ToastDismissed;
-            toast.Failed += ToastFailed;
+            //toast.Activated += ToastActivated;
+            //toast.Dismissed += ToastDismissed;
+            //toast.Failed += ToastFailed;
 
             //ToastNotificationManager.CreateToastNotifier().Show(toast);
 
@@ -309,21 +325,25 @@ namespace MedicineApp.Pogledi
             //    }
             //}
 
-            List<DateTime> testniSeznam =  new List<DateTime>();
+            List<DateTime> testniSeznam = new List<DateTime>();
             testniSeznam.Add(DateTime.Now.AddSeconds(10));
             testniSeznam.Add(DateTime.Now.AddSeconds(20));
             testniSeznam.Add(DateTime.Now.AddSeconds(30));
 
             foreach (var dateTime in testniSeznam)
             {
-                var toast2 = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, dateTime);
-                if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting == NotificationSetting.Enabled)
+                var toast2 = new Windows.UI.Notifications.ScheduledToastNotification(xmlToastTest, dateTime);
+                Random rnd = new Random();
+                toast2.Id = rnd.Next(1, 100000000).ToString();
+
+
+                if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting ==
+                    NotificationSetting.Enabled)
                 {
                     Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast2);
                 }
             }
             //Add to the schedule.
-
 
         }
 
@@ -334,12 +354,17 @@ namespace MedicineApp.Pogledi
 
         private void ToastDismissed(ToastNotification sender, ToastDismissedEventArgs args)
         {
-            
+            if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.Calls.CallsPhoneContract", 1, 0))
+            {
+                PhoneCallManager.ShowPhoneCallUI("0213132131", "my name");
+            }
+
         }
 
         private void ToastActivated(ToastNotification sender, object args)
         {
-           
+           //
+            Frame.Navigate(typeof (MainPage));
         }
 
         private void IzracunajKonecJemanja(List<Interval> intervali, DateTime zacetekJemanja )

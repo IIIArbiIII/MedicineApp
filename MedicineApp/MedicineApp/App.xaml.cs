@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Background;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Core;
@@ -32,6 +33,44 @@ namespace MedicineApp
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
+        async protected override void OnActivated(IActivatedEventArgs args)
+        {
+            //Initialize your app if it&#39;s not yet initialized;
+            //Find out if this is activated from a toast;
+            if(args.Kind == ActivationKind.ToastNotification)
+    {
+                //Get the pre-defined arguments and user inputs from the eventargs;
+                var toastArgs = args as ToastNotificationActivatedEventArgs;
+
+            }
+
+            //...
+        }
+
+        
+        //protected override void OnActivated(IActivatedEventArgs args)
+        //{
+        //    // TODO: Initialize root frame just like in OnLaunched
+
+        //    // Handle toast activation
+        //    if (args.Kind == ActivationKind.ToastNotification)
+        //    {
+        //        var toastArgs = args as ToastNotificationActivatedEventArgs;
+
+        //        // Get arguments corresponding to this activation;
+        //        // When tapping the body of the toast caused this activation, the app receives the value of “launch” property of ;
+        //        // When the activation is caused by using tapping on an action inside the toast, the app receives the value of “arguments” property of ; 
+        //        //var arguments = toastArgs.Arguments;
+
+        //        // User input from <input> can be retrieved using the UserInput property. The UserInput is a ValueSet and the key is the pre-defined id attribute in the <input> element in the payload.
+        //        //var input = toastArgs.UserInput["1"];
+
+        //        // Navigate accordingly
+        //    }
+
+        //    // TODO: Handle other types of activation
+        //}
+
 
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
@@ -40,7 +79,7 @@ namespace MedicineApp
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-
+            
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
             {
