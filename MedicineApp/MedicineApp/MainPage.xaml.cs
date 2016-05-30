@@ -24,7 +24,6 @@ using SQLite.Net;
 
 namespace MedicineApp
 {
-    // TODO: Popravi nalaganje v listview. Asinhrono dobi bazo, nato pa zapuni listview. Brisi oni asynch iz event handlerja
     // TODO: Ce je baza prazna naj se prikaze obvestilo v listvievu da naj uporabnik doda zdravila
 
     //Sprobavam

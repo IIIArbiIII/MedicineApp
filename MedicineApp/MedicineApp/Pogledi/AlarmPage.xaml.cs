@@ -4,9 +4,11 @@ using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.Data.Xml.Dom;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -27,6 +29,7 @@ namespace MedicineApp.Pogledi
         // TODO: Popravi razporeditev elementov
         List<Zdravilo> seznamZdravil = new List<Zdravilo>();
         List<Interval> seznamIntervalov = new List<Interval>();
+        List<DateTime> seznamUrZaToastNotificatione;
 
         Dictionary<int, string> seznamZaDneve = new Dictionary<int, string>();
         Dictionary<int, string> seznamZaUre = new Dictionary<int, string>();
@@ -52,6 +55,8 @@ namespace MedicineApp.Pogledi
 
         private void Btn_NovaNavodila_OnClick(object sender, RoutedEventArgs e)
         {
+            // TODO: Poglej da ni mogoce vzet vec zdravila kot pa ga je na voljo
+
             var collection = grid_instruction.Children.OfType<ComboBox>().ToList();
             var btn_collection = grid_instruction.Children.OfType<Button>().ToList();
 
@@ -143,6 +148,7 @@ namespace MedicineApp.Pogledi
 
         private void comboBoxZdravilo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             btn_NovaNavodila.IsEnabled = true;
 
             //set cboxes
@@ -233,6 +239,7 @@ namespace MedicineApp.Pogledi
         {
             // TODO: Gumb za pocistis intervale
             // TODO: preglej da je vse vpisano sele pol idi dalje. Fali za datum
+
             if (!IsEverythingValid())
                 return;
 
@@ -255,20 +262,102 @@ namespace MedicineApp.Pogledi
 
             Opomnik alarm_n1 = new Opomnik();
             alarm_n1.Naziv = comboBoxZdravilo.SelectedValue.ToString();
-            // TODO: Kaj ce dama se datepickera not?
             DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, timePickZdravilo.Time.Hours, timePickZdravilo.Time.Minutes, timePickZdravilo.Time.Seconds);
             alarm_n1.ZacetekJemanja = dt;
+            IzracunajKonecJemanja(seznamIntervalov, dt);
             // TODO: izracunaj konec jemanja; Zaenkrat je dummy datum
-            alarm_n1.KonecJemanja = new DateTime(2017,5,8);
+            alarm_n1.KonecJemanja = seznamUrZaToastNotificatione[seznamUrZaToastNotificatione.Count() - 1];
             alarm_n1.Intervali = seznamIntervalov;
             alarm_n1.Melodija = "default";
-
+            MakeToastNotifications();
             Baza.AddOpomnikAsync(alarm_n1);
         }
 
         private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             
+        }
+
+        public void MakeToastNotifications()
+        {
+            // TODO: Iz settingov preberi koliko casa naj se caka preden se poklice oseba
+            // Get a toast XML template
+            XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
+
+            // Fill in the text elements
+            XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
+            for (int i = 0; i < stringElements.Length; i++)
+            {
+                stringElements[i].AppendChild(toastXml.CreateTextNode("Line " + i));
+            }
+
+            var aa = new ToastNotification(toastXml);
+            ToastNotification toast = new ToastNotification(toastXml);
+
+            toast.Activated += ToastActivated;
+            toast.Dismissed += ToastDismissed;
+            toast.Failed += ToastFailed;
+
+            //ToastNotificationManager.CreateToastNotifier().Show(toast);
+
+            //foreach (var dateTime in seznamUrZaToastNotificatione)
+            //{
+            //    var toast2 = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, dateTime);
+            //    if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting == NotificationSetting.Enabled)
+            //    {
+            //        Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast2);
+            //    }
+            //}
+
+            List<DateTime> testniSeznam =  new List<DateTime>();
+            testniSeznam.Add(DateTime.Now.AddSeconds(10));
+            testniSeznam.Add(DateTime.Now.AddSeconds(20));
+            testniSeznam.Add(DateTime.Now.AddSeconds(30));
+
+            foreach (var dateTime in testniSeznam)
+            {
+                var toast2 = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, dateTime);
+                if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting == NotificationSetting.Enabled)
+                {
+                    Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast2);
+                }
+            }
+            //Add to the schedule.
+
+
+        }
+
+        private void ToastFailed(ToastNotification sender, ToastFailedEventArgs args)
+        {
+           
+        }
+
+        private void ToastDismissed(ToastNotification sender, ToastDismissedEventArgs args)
+        {
+            
+        }
+
+        private void ToastActivated(ToastNotification sender, object args)
+        {
+           
+        }
+
+        private void IzracunajKonecJemanja(List<Interval> intervali, DateTime zacetekJemanja )
+        {
+            int steviloAlarmov = 0;
+            DateTime dt = zacetekJemanja;
+
+            seznamUrZaToastNotificatione = new List<DateTime>();
+
+            foreach (var x in intervali)
+            {
+                steviloAlarmov = x.Dan*(24 / x.Ure);
+                for (int i = 0; i < steviloAlarmov; i++)
+                {
+                    dt = dt.AddHours(double.Parse(x.Ure.ToString()));
+                    seznamUrZaToastNotificatione.Add(dt);
+                }
+            }
         }
 
         private bool IsEverythingValid()

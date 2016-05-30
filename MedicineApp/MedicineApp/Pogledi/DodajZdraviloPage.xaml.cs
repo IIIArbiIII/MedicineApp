@@ -62,7 +62,7 @@ namespace MedicineApp.Pogledi
 
         bool inputValidation()
         {
-            // TODO: Dodaj msg za uspeh/neuspeh
+            // TODO: Dodaj msg za uspeh/neuspeh pol pa preusmeritev
             
             return true;
         }
