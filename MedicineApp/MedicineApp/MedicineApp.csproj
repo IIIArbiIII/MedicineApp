@@ -97,6 +97,7 @@
     </Compile>
     <Compile Include="Baza.cs" />
     <Compile Include="Classi\Interval.cs" />
+    <Compile Include="Classi\Termin.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MedicineApp.Classi;
 using SQLite.Net.Attributes;
 
 namespace MedicineApp
@@ -17,6 +18,12 @@ namespace MedicineApp
         private int _opomnikId;
 
 
+        List<Termin> seznamTerminovZaAlarm;
+
+        public Interval()
+        {
+            seznamTerminovZaAlarm = new List<Termin>();
+        }
         //Lastnosti
         #region 
 
@@ -49,6 +56,20 @@ namespace MedicineApp
         {
             get { return _opomnikId; }
             set { _opomnikId = value; }
+        }
+
+        [Ignore]
+        public List<Termin> SeznamTerminovZaAlarm
+        {
+            get
+            {
+                return seznamTerminovZaAlarm;
+            }
+
+            set
+            {
+                seznamTerminovZaAlarm = value;
+            }
         }
 
         #endregion

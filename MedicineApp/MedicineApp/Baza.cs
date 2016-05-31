@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Notifications;
 using Windows.UI.Text.Core;
+using Windows.UI.Xaml.Controls;
+using MedicineApp.Classi;
 using SQLite.Net;
 using SQLite.Net.Async;
 using SQLite.Net.Interop;
@@ -42,6 +44,7 @@ namespace MedicineApp
                     {
                         //dopolni po potrebi
                         db.CreateTable<Zdravilo>();
+                        db.CreateTable<Termin>();
                         db.CreateTable<Interval>();
                         db.CreateTable<Opomnik>();
                         db.CreateTable<Skrbnik>();
@@ -142,11 +145,11 @@ namespace MedicineApp
             }
         }
 
-        public static Zdravilo GetFirstZdraviloById(Zdravilo z)
+        public static Zdravilo GetFirstZdraviloById(int id)
         {
             using (var db = DbConnection)
             {
-                return db.Table<Zdravilo>().FirstOrDefault(x => x.Id == z.Id);
+                return db.Table<Zdravilo>().FirstOrDefault(x => x.Id == id);
             }
         }
 
@@ -208,8 +211,33 @@ namespace MedicineApp
                 db.Insert(i);
             }
         }
-        //------------------------------------------------------------------
 
+        private static void AddIntervalAsync(Interval i)
+        {
+            var conn = DbConnectionAsync;
+            conn.InsertAsync(i).ContinueWith((t) =>
+            {
+                if (t.IsCompleted == true)
+                {
+                    foreach (var x in i.SeznamTerminovZaAlarm)
+                    {
+                        x.IntervalId = GetLastIntervalkId();
+                        AddTermin(x);
+                    }
+                }
+
+            });
+        }
+        //------------------------------------------------------------------
+        //Termin
+        private static void AddTermin(Termin t)
+        {
+            using (var db = DbConnection)
+            {
+                db.Insert(t);
+            }
+        }
+        //------------------------------------------------------------------
 
         //Opomnik
         //------------------------------------------------------------------
@@ -226,7 +254,7 @@ namespace MedicineApp
             }
         }
 
-        public static void AddOpomnikAsync(Opomnik o)
+        public static int AddOpomnikAsync(Opomnik o)
         {
             var conn = DbConnectionAsync;
 
@@ -237,11 +265,84 @@ namespace MedicineApp
                     foreach (var x in o.Intervali)
                     {
                         x.OpomnikId = GetLastOpomnikId();
-                        AddInterval(x);
+                        //AddInterval(x);
+                        AddIntervalAsync(x);
                     }
                 }
 
             });
+
+            return o.Id;
+        }
+
+        public async static void SetToast(int id)
+        {
+            var conn = DbConnectionAsync;
+            var query = conn.Table<Opomnik>().Where(v => v.Id == id);
+
+            await query.ToListAsync().ContinueWith((t) =>
+            {
+                foreach (var x in t.Result)
+                {
+                    x.Zdravilo1 = GetFirstZdraviloById(x.IdZdravilo);
+                    x.Intervali = GetIntervaleByZdraviloId(x.Id);
+                    foreach (var y in x.Intervali)
+                    {
+                        y.SeznamTerminovZaAlarm = GetTermineByIntervalId(y.Id);
+                    }
+                    MakeToastNotifications(x);
+                }
+            });
+        }
+
+        static void MakeToastNotifications(Opomnik opomnik)
+        {
+            foreach (var x in opomnik.Intervali)
+            {
+                foreach (var y in x.SeznamTerminovZaAlarm)
+                {
+                    Windows.Data.Xml.Dom.XmlDocument toastXml = new Windows.Data.Xml.Dom.XmlDocument();
+                    string toastXmlTemplate = "<toast launch=\'app-defined-string\'>" +
+                                              "<visual>" +
+                                              "<binding template =\'ToastGeneric\'>" +
+                                              "<text>" + opomnik.Zdravilo1.Naziv + "</text>" +
+                                              "<text>" +
+                                              "Vzeti je potrebno: " + x.Doza + " " + opomnik.Zdravilo1.Enota +
+                                              "</text>" +
+                                              "</binding>" +
+                                              "</visual>" +
+                                              "<actions>" +
+                                              "<action activationType=\'foreground\' content =\'yes\' arguments=" + y.Id +
+                                              "/>" +
+                                              "</actions>" +
+                                              "</toast>";
+
+                    toastXml.LoadXml(toastXmlTemplate);
+
+                    var toast = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, y.TerminZazvonenje);
+                    if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting ==
+                        NotificationSetting.Enabled)
+                    {
+                        Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
+                    }
+                }
+            }
+        }
+
+        private static List<Termin> GetTermineByIntervalId(int id)
+        {
+            using (var db = DbConnection)
+            {
+                return db.Table<Termin>().Where(v => v.IntervalId == id).ToList();
+            }
+        }
+
+        private static List<Interval> GetIntervaleByZdraviloId(int id)
+        {
+            using (var db = DbConnection)
+            {
+                return db.Table<Interval>().Where(v => v.OpomnikId == id).ToList();
+            }
         }
 
         static int GetLastOpomnikId()
@@ -249,6 +350,15 @@ namespace MedicineApp
             using (var db = DbConnection)
             {
                 var x = db.Query<Opomnik>("SELECT * FROM Opomnik ORDER BY id DESC LIMIT 1");
+
+                return x[0].Id;
+            }
+        }
+        static int GetLastIntervalkId()
+        {
+            using (var db = DbConnection)
+            {
+                var x = db.Query<Interval>("SELECT * FROM Interval ORDER BY id DESC LIMIT 1");
 
                 return x[0].Id;
             }

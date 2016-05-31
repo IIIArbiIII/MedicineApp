@@ -268,123 +268,50 @@ namespace MedicineApp.Pogledi
                 i = i + 2;
             }
 
-            Opomnik alarm_n1 = new Opomnik();
-            alarm_n1.Naziv = comboBoxZdravilo.SelectedValue.ToString();
+            Opomnik opomnik = new Opomnik();
+            int IdZdravila = int.Parse(comboBoxZdravilo.SelectedValue.ToString());
             DateTime dt = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, timePickZdravilo.Time.Hours, timePickZdravilo.Time.Minutes, timePickZdravilo.Time.Seconds);
-            alarm_n1.ZacetekJemanja = dt;
-            IzracunajKonecJemanja(seznamIntervalov, dt);
-            // TODO: izracunaj konec jemanja; Zaenkrat je dummy datum
-            alarm_n1.KonecJemanja = seznamUrZaToastNotificatione[seznamUrZaToastNotificatione.Count() - 1];
-            alarm_n1.Intervali = seznamIntervalov;
-            alarm_n1.Melodija = "default";
-            MakeToastNotifications();
-            Baza.AddOpomnikAsync(alarm_n1);
+            //alarm_n1.Zdravilo1 = Baza.GetFirstZdraviloById(IdZdravila);
+            //IzracunajKonecJemanja(seznamIntervalov, dt);
+            //alarm_n1.KonecJemanja = seznamUrZaToastNotificatione[seznamUrZaToastNotificatione.Count() - 1];
+
+            opomnik.IdZdravilo = IdZdravila;
+            opomnik.ZacetekJemanja = dt;
+            opomnik.Intervali = seznamIntervalov;
+            opomnik.IzracunajCasovneTermine();
+            
+
+            // TODO: preglej melodijo ce je default
+            opomnik.Melodija = "default";
+            int OpomnikId = Baza.AddOpomnikAsync(opomnik);
+            Baza.SetToast(OpomnikId);
+
+            //Klici sele ko si dal vse v bazo in pridobil ustrezne id-je
+            //MakeToastNotifications(opomnik);
+
         }
 
         private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             
         }
+            // TODO: Iz settingov preberi koliko casa naj se caka preden se poklice oseba            
 
-        public async void MakeToastNotifications()
-        {
-            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile sampleFile = await storageFolder.GetFileAsync("XMLFile1.xml");
+            //List<DateTime> testniSeznam = new List<DateTime>();
+            //testniSeznam.Add(DateTime.Now.AddSeconds(10));
+            //testniSeznam.Add(DateTime.Now.AddSeconds(20));
+            //testniSeznam.Add(DateTime.Now.AddSeconds(30));
 
-            string TOAST = await Windows.Storage.FileIO.ReadTextAsync(sampleFile);
-
-            Windows.Data.Xml.Dom.XmlDocument xmlToastTest = new Windows.Data.Xml.Dom.XmlDocument();
-
-            xmlToastTest.LoadXml(TOAST);
-            // TODO: Iz settingov preberi koliko casa naj se caka preden se poklice oseba
-            // Get a toast XML template
-            //XmlDocument toastXml = ToastNotificationManager.GetTemplateContent(ToastTemplateType.ToastText01);
-
-            //// Fill in the text elements
-            //XmlNodeList stringElements = toastXml.GetElementsByTagName("text");
-            //for (int i = 0; i < stringElements.Length; i++)
-            //{
-            //    stringElements[i].AppendChild(toastXml.CreateTextNode("Line " + i));
-            //}
-
-            //var aa = new ToastNotification(toastXml);
-            //ToastNotification toast = new ToastNotification(toastXml);
-
-            //toast.Activated += ToastActivated;
-            //toast.Dismissed += ToastDismissed;
-            //toast.Failed += ToastFailed;
-
-            //ToastNotificationManager.CreateToastNotifier().Show(toast);
-
-            //foreach (var dateTime in seznamUrZaToastNotificatione)
+            //foreach (var dateTime in testniSeznam)
             //{
             //    var toast2 = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, dateTime);
+
             //    if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting == NotificationSetting.Enabled)
             //    {
             //        Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast2);
             //    }
             //}
-
-            List<DateTime> testniSeznam = new List<DateTime>();
-            testniSeznam.Add(DateTime.Now.AddSeconds(10));
-            testniSeznam.Add(DateTime.Now.AddSeconds(20));
-            testniSeznam.Add(DateTime.Now.AddSeconds(30));
-
-            foreach (var dateTime in testniSeznam)
-            {
-                var toast2 = new Windows.UI.Notifications.ScheduledToastNotification(xmlToastTest, dateTime);
-                Random rnd = new Random();
-                toast2.Id = rnd.Next(1, 100000000).ToString();
-
-
-                if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting ==
-                    NotificationSetting.Enabled)
-                {
-                    Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast2);
-                }
-            }
-            //Add to the schedule.
-
-        }
-
-        private void ToastFailed(ToastNotification sender, ToastFailedEventArgs args)
-        {
-           
-        }
-
-        private void ToastDismissed(ToastNotification sender, ToastDismissedEventArgs args)
-        {
-            if (ApiInformation.IsApiContractPresent("Windows.ApplicationModel.Calls.CallsPhoneContract", 1, 0))
-            {
-                PhoneCallManager.ShowPhoneCallUI("0213132131", "my name");
-            }
-
-        }
-
-        private void ToastActivated(ToastNotification sender, object args)
-        {
-           //
-            Frame.Navigate(typeof (MainPage));
-        }
-
-        private void IzracunajKonecJemanja(List<Interval> intervali, DateTime zacetekJemanja )
-        {
-            int steviloAlarmov = 0;
-            DateTime dt = zacetekJemanja;
-
-            seznamUrZaToastNotificatione = new List<DateTime>();
-
-            foreach (var x in intervali)
-            {
-                steviloAlarmov = x.Dan*(24 / x.Ure);
-                for (int i = 0; i < steviloAlarmov; i++)
-                {
-                    dt = dt.AddHours(double.Parse(x.Ure.ToString()));
-                    seznamUrZaToastNotificatione.Add(dt);
-                }
-            }
-        }
-
+            
         private bool IsEverythingValid()
         {
             int stPrazniElementov = 0;

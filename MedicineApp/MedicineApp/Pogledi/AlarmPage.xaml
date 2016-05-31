@@ -15,7 +15,7 @@
             <ComboBox x:Name="comboBoxZdravilo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" Height="40"
                   ItemsSource="{Binding Path=Zdravilo}"
                   DisplayMemberPath="Naziv"
-                  SelectedValuePath="Naziv"
+                  SelectedValuePath="Id"
                   SelectedValue="{Binding Path=Zdravilo}" SelectionChanged="comboBoxZdravilo_SelectionChanged"/>
 
             <TextBlock x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Začetek Zdravljenja" VerticalAlignment="Top" FontSize="18.667"/>
