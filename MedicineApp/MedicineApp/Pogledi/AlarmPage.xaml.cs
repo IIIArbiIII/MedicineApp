@@ -243,7 +243,7 @@ namespace MedicineApp.Pogledi
             #endregion
         }
 
-        private void ButtonSubmit_OnClick(object sender, RoutedEventArgs e)
+        private async void ButtonSubmit_OnClick(object sender, RoutedEventArgs e)
         {
             // TODO: Gumb za pocistis intervale
             // TODO: preglej da je vse vpisano sele pol idi dalje. Fali za datum
@@ -283,11 +283,10 @@ namespace MedicineApp.Pogledi
 
             // TODO: preglej melodijo ce je default
             opomnik.Melodija = "default";
-            int OpomnikId = Baza.AddOpomnikAsync(opomnik);
-            Baza.SetToast(OpomnikId);
 
-            //Klici sele ko si dal vse v bazo in pridobil ustrezne id-je
-            //MakeToastNotifications(opomnik);
+            //TODO:this here is a fuckfest
+            int OpomnikId = await Baza.AddOpomnikAsync(opomnik);
+            Baza.SetToast(OpomnikId);
 
         }
 

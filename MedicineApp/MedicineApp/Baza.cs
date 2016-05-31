@@ -129,21 +129,21 @@ namespace MedicineApp
             }
         }
 
-        public static Zdravilo GetLastZdravilo()
-        {
-            using (var db = DbConnection)
-            {
-                return db.Table<Zdravilo>().LastOrDefault();
-            }
-        }
+        //public static Zdravilo GetLastZdravilo()
+        //{
+        //    using (var db = DbConnection)
+        //    {
+        //        return db.Table<Zdravilo>().LastOrDefault();
+        //    }
+        //}
 
-        public static Zdravilo GetFirstZdraviloByName(string name)
-        {
-            using (var db = DbConnection)
-            {
-                return db.Table<Zdravilo>().FirstOrDefault(x => x.Naziv.ToLower() == name);
-            }
-        }
+        //public static Zdravilo GetFirstZdraviloByName(string name)
+        //{
+        //    using (var db = DbConnection)
+        //    {
+        //        return db.Table<Zdravilo>().FirstOrDefault(x => x.Naziv.ToLower() == name);
+        //    }
+        //}
 
         public static Zdravilo GetFirstZdraviloById(int id)
         {
@@ -153,13 +153,13 @@ namespace MedicineApp
             }
         }
 
-        public static List<Zdravilo> GetAllDZdravilo()
-        {
-            using (var db = DbConnection)
-            {
-                return db.Table<Zdravilo>().ToList();
-            }
-        }
+        //public static List<Zdravilo> GetAllDZdravilo()
+        //{
+        //    using (var db = DbConnection)
+        //    {
+        //        return db.Table<Zdravilo>().ToList();
+        //    }
+        //}
 
         public static async Task<List<Zdravilo>> GetAllDZdraviloAsync()
         {
@@ -175,11 +175,11 @@ namespace MedicineApp
         }
         //------------------------------------------------------------------
         //Skrbnik
-        public static Skrbnik GetSkrbnik(Skrbnik s)
+        public static Skrbnik GetSkrbnik(int pin)
         {
             using (var db = DbConnection)
             {
-                return db.Table<Skrbnik>().FirstOrDefault(x => x.TelStevilka == s.TelStevilka);
+                return db.Table<Skrbnik>().FirstOrDefault(x => x.Pin == pin);
             }
         }
         public static void AddSkrbnik(Skrbnik s)
@@ -189,6 +189,7 @@ namespace MedicineApp
                 db.Insert(s);
             }
         }
+
         public static void UpdateSkrbnik(Skrbnik s)
         {
             using (var db = DbConnection)
@@ -254,25 +255,25 @@ namespace MedicineApp
             }
         }
 
-        public static int AddOpomnikAsync(Opomnik o)
+        public async static Task<int> AddOpomnikAsync(Opomnik o)
         {
             var conn = DbConnectionAsync;
-
-            conn.InsertAsync(o).ContinueWith((t) =>
+            var id = -1;
+            await conn.InsertAsync(o).ContinueWith((t) =>
             {
-                if (t.IsCompleted == true)
+                if (t.IsCompleted)
                 {
                     foreach (var x in o.Intervali)
                     {
                         x.OpomnikId = GetLastOpomnikId();
+                        id = x.OpomnikId;
                         //AddInterval(x);
                         AddIntervalAsync(x);
                     }
                 }
-
             });
+            return id;
 
-            return o.Id;
         }
 
         public async static void SetToast(int id)
@@ -312,7 +313,7 @@ namespace MedicineApp
                                               "</binding>" +
                                               "</visual>" +
                                               "<actions>" +
-                                              "<action activationType=\'foreground\' content =\'yes\' arguments=" + y.Id +
+                                              "<action activationType=\'foreground\' content =\'yes\' arguments=\'" + y.Id + "\'" +
                                               "/>" +
                                               "</actions>" +
                                               "</toast>";
