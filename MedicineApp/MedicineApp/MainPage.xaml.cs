@@ -247,6 +247,19 @@ namespace MedicineApp
 
             return task;
         }
+
+        private void listviewZravilo_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            
+        }
+
+        private void listviewZravilo_Holding(object sender, HoldingRoutedEventArgs e)
+        {
+            FrameworkElement senderElement = sender as FrameworkElement;
+       
+            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
+            flyoutBase.ShowAt(senderElement);
+        }
     }
 
 

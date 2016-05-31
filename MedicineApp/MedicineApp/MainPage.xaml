@@ -6,46 +6,76 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d" RequestedTheme="Dark" Loaded="Page_Loaded">
-
+    
+    
     <Page.BottomAppBar>
         <CommandBar ClosedDisplayMode="Minimal">
             <AppBarButton Icon="Setting" Click="AppBarButton_Click" />
         </CommandBar>
     </Page.BottomAppBar>
-    
+
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark" x:Name="mainGrid">
-        
-      <!--  <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
+
+        <VisualStateManager.VisualStateGroups>
+
+
+
+
+
+            <VisualStateGroup x:Name="VisualStateGroup">
                 <VisualState x:Name="Mobile">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
                     <VisualState.Setters>
-                      
-
+                        <Setter Target="ellipse.(Shape.StrokeThickness)" Value="10"/>
+                        <Setter Target="ellipse.(FrameworkElement.HorizontalAlignment)" Value="Center"/>
+                        <Setter Target="ellipse.(FrameworkElement.VerticalAlignment)" Value="Bottom"/>
                     </VisualState.Setters>
-
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger/>
+                    </VisualState.StateTriggers>
                 </VisualState>
+                <VisualState x:Name="Tablica">
+                    <VisualState.Setters>
+                        <Setter Target="ellipse.(Shape.StrokeThickness)" Value="10"/>
+                        <Setter Target="ellipse.(FrameworkElement.HorizontalAlignment)" Value="Center"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="PC">
+                    <VisualState.Setters>
+                        <Setter Target="ellipse.(Shape.StrokeThickness)" Value="10"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1280"/>
+                    </VisualState.StateTriggers>
+                </VisualState>
+                <VisualState x:Name="Mobile_Landscape"/>
             </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups> -->
 
 
-     
+
+
+
+        </VisualStateManager.VisualStateGroups>
+
+
+
         <Pivot x:Name="pivotTab" Margin="0,20,0,0">
 
-            <PivotItem x:Name="pivotHome" Height="592">
+            <PivotItem x:Name="pivotHome" Height="588">
 
                 <PivotItem.Header>
-                    
+
                     <Image HorizontalAlignment="Center" Source="/Assets/pivot_home.png"/>
                 </PivotItem.Header>
 
                 <!--TO-DO: Določi barve za cajgere-->
 
-                <Grid Width="300" Height="300">
-                    <Ellipse Width="300" Height="300" Stroke="Red"></Ellipse>
+                <Grid Width="300" Height="300" x:Name="Ura" d:LayoutOverrides="Width, TopMargin, BottomMargin, TopPosition, BottomPosition">
+
+                    <Ellipse x:Name="ellipse" Width="300" Height="300" Stroke="Red" StrokeThickness="10"></Ellipse>
                     <!-- Second  -->
                     <Rectangle Margin="150,0,149,150" Name="rectangleSecond" Stroke="White" Height="120" VerticalAlignment="Bottom">
                         <Rectangle.RenderTransform>
@@ -69,32 +99,53 @@
                         </Rectangle.RenderTransform>
                     </Rectangle>
                     <!---->
+                  
                     </Grid>
+               
+                
             </PivotItem>
             <PivotItem x:Name="pivotMedicine">
                 <PivotItem.Header>
                         <Image HorizontalAlignment="Center" Source="/Assets/pivot_medicine.png"/>
                 </PivotItem.Header>
                 <Grid>
+                   
                     <StackPanel Margin="0,20,0,10">
                         <TextBlock Margin="10,5,10,5" x:Name="txtFiltrirajZdravila">Išči</TextBlock>
                         <TextBox Margin="10,10,10,10" x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging" TextChanged="txtFiltriraj_TextChanged"></TextBox>
-                        <ProgressBar x:Name="progressBar_getDB" IsIndeterminate="True"  HorizontalAlignment="Stretch"/>
+                        <ProgressBar x:Name="progressBar_getDB" IsIndeterminate="True"  HorizontalAlignment="Stretch"/>     
+                        <Button Margin="10,10,10,20" x:Name="btnOdpriOknoDodajZdravilo" HorizontalAlignment="Center" Click="btnOdpriOknoDodajZdravilo_Click" BorderThickness="2,2,3.1,2" Content="Dodaj Zdravilo" Width="310"/>
+                       
                         <!--To do: klik na listbox (item); poišči pravi poperty za izbiranje-->
-                    <ListView x:Name="listviewZravilo" Height="470" SelectionChanged="lstbZdravila_SelectionChanged">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid Height="52" Width="auto">
-                                    <TextBlock x:Name="nameblock" Text="{Binding Naziv}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="10,0,0,0" />
-                                </Grid>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                    <ScrollViewer>
+                     
+                        <ListView x:Name="listviewZravilo" Height="372" SelectionChanged="lstbZdravila_SelectionChanged" DoubleTapped="listviewZravilo_DoubleTapped" Holding="listviewZravilo_Holding">
+                            <ListView.ItemTemplate>
+                                
+                                <DataTemplate>
+                                    
+                                    <Grid Height="52" Width="auto">
 
+                                        <TextBlock Holding="listviewZravilo_Holding" x:Name="nameblock" Text="{Binding Naziv}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="10,0,0,0" />
+                                        <FlyoutBase.AttachedFlyout>
+                                            <MenuFlyout>
+                                                <MenuFlyoutItem Text="Nekaaaaaj" />
+                                            </MenuFlyout>
+                                        </FlyoutBase.AttachedFlyout>
+                                    </Grid>
+                                    
+                                </DataTemplate>
+                                
+                            </ListView.ItemTemplate>
+                            
+                            
+                        </ListView>
+                        
+                    </ScrollViewer>
+                        
                     </StackPanel>
-                    <StackPanel VerticalAlignment="Bottom">
-                        <Button Margin="0,0,0,40" x:Name="btnOdpriOknoDodajZdravilo" HorizontalAlignment="Center" Click="btnOdpriOknoDodajZdravilo_Click">Dodaj Zdravilo</Button>
-                    </StackPanel>
+
+
 
                 </Grid>
 
@@ -111,7 +162,7 @@
                 </Grid>
             </PivotItem>
         </Pivot>
-            
+
 
     </Grid>
 </Page>
