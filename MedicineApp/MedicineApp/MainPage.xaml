@@ -14,14 +14,32 @@
     </Page.BottomAppBar>
     
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark" x:Name="mainGrid">
+        
+      <!--  <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="Mobile">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                      
+
+                    </VisualState.Setters>
+
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups> -->
+
+
+     
         <Pivot x:Name="pivotTab" Margin="0,20,0,0">
-           
 
             <PivotItem x:Name="pivotHome" Height="592">
 
                 <PivotItem.Header>
-                    <Image Source="/Assets/pivot_home.png"/>
+                    
+                    <Image HorizontalAlignment="Center" Source="/Assets/pivot_home.png"/>
                 </PivotItem.Header>
 
                 <!--TO-DO: Določi barve za cajgere-->
@@ -55,7 +73,7 @@
             </PivotItem>
             <PivotItem x:Name="pivotMedicine">
                 <PivotItem.Header>
-                        <Image Source="/Assets/pivot_medicine.png"/>
+                        <Image HorizontalAlignment="Center" Source="/Assets/pivot_medicine.png"/>
                 </PivotItem.Header>
                 <Grid>
                     <StackPanel Margin="0,20,0,10">
@@ -84,7 +102,7 @@
             </PivotItem>
             <PivotItem x:Name="pivotAlarm">
                 <PivotItem.Header>
-                    <Image Source="/Assets/pivot_alarm.png"/>
+                    <Image Source="/Assets/pivot_alarm.png" HorizontalAlignment="Right" Margin="0"/>
                 </PivotItem.Header>
                 <Grid>
                     <StackPanel VerticalAlignment="Bottom">
@@ -92,19 +110,8 @@
                     </StackPanel>
                 </Grid>
             </PivotItem>
-            <PivotItem x:Name="pivotStats">
-                <PivotItem.Header>
-                    <Image Source="/Assets/pivot_stats.png"/>
-                </PivotItem.Header>
-                <Grid>
-                    <StackPanel>
-                        <TextBlock Text="Content of pivot 1" />
-                        <TextBlock Text="Content of pivot 2" />
-                        <TextBlock Text="Content of pivot 3" />
-                    </StackPanel>
-                </Grid>
-            </PivotItem>
         </Pivot>
+            
 
     </Grid>
 </Page>

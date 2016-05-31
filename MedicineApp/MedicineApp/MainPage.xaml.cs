@@ -178,7 +178,7 @@ namespace MedicineApp
             ////Moja koda - brisi ce bojo problemi; 
             //await BackgroundExecutionManager.RequestAccessAsync();
             //RegisterBackgroundTask("MyTask.FirstTask", "FirstTask", new TimeTrigger(20, false),
-            //    new SystemCondition(SystemConditionType.InternetAvailable));
+            //new SystemCondition(SystemConditionType.InternetAvailable));
             //;
             //string myTaskName = "FirstTask";
 
