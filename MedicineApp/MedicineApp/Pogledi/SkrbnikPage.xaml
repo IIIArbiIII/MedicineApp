@@ -5,6 +5,7 @@
     xmlns:local="using:MedicineApp.Pogledi"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:contacts="using:Windows.ApplicationModel.Contacts"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
@@ -13,7 +14,16 @@
             <TextBlock Margin="20,0,0,0">Ime in Priimek Skrbnika</TextBlock>
             <TextBlock>Telefonska Številka Skrbnika</TextBlock>
             <TextBox PlaceholderText="Spremeni Telefonsko Številko"></TextBox>
-            <Button VerticalAlignment="Center">Shrni</Button>
+            <TextBlock>Default melodie</TextBlock>
+            <ComboBox Name="cbox_defaultMelodie"></ComboBox>
+            <Button x:Name="btn_Shrani" VerticalAlignment="Center" Click="Btn_Shrani_OnClick">Shrani</Button>
+            <Button Name="btn_SelectContact" Content="SelectContact" Click="PickAContactButton_Click"></Button>
+            <TextBlock Name="OutputName"></TextBlock>
+            <TextBlock Name="OutputEmails"></TextBlock>
+            <TextBlock Name="OutputPhoneNumbers"></TextBlock>
+            <TextBlock Name="OutputAddresses"></TextBlock>
+
+
         </StackPanel>
     </Grid>
 </Page>

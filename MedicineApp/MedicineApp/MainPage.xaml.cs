@@ -33,7 +33,8 @@ namespace MedicineApp
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        DispatcherTimer timer = new DispatcherTimer();
+        string defaultMelodie = "ms - winsoundevent:Notification.Default";
+           DispatcherTimer timer = new DispatcherTimer();
         //Task<List<Zdravilo>> seznamVsehZdravil;
         //bool deleteZdravila = false;
         //bool updateSkrbnik = false;
@@ -45,8 +46,7 @@ namespace MedicineApp
         Zdravilo z4 = new Zdravilo("Avamys", new DateTime(2018, 6, 14), 60, "Vpihov");
         Zdravilo z5 = new Zdravilo("Bronhobol", new DateTime(2016, 2, 5), 10, "Tablet");
 
-        Skrbnik s1 = new Skrbnik("Janez", "Novak", "030356152", 4562);
-        Skrbnik s2 = new Skrbnik("Miha", "Podgorelec", "040356152", 4562);
+        Skrbnik s1 = new Skrbnik(1234);
 
         List<Zdravilo> seznamVsehZdravilIzBaze = new List<Zdravilo>();
         //List<Zdravilo> zdravilaZaBox = new List<Zdravilo>();
@@ -61,8 +61,12 @@ namespace MedicineApp
 
             Baza b = new Baza();
             if (b.CreateDb())
+            {
                 ZapolniBazo();
-
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                localSettings.Values["DefaultMelodie"] = "ms - winsoundevent:Notification.Default";
+            }
+            
             //if (deleteZdravila)
             //{
             //    Baza.DeleteZdravilo(z1);
@@ -84,6 +88,8 @@ namespace MedicineApp
             Baza.AddZdravilo(z3);
             Baza.AddZdravilo(z4);
             Baza.AddZdravilo(z5);
+
+            Baza.AddSkrbnik(s1);
 
         }
 

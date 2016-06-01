@@ -26,14 +26,29 @@ namespace MedicineApp.Pogledi
         public NastavitvePage()
         {
             this.InitializeComponent();
+
+            if (Baza.IsSkrbnikDefault())
+            {
+                
+            }
+                //this.Frame.Navigate(typeof(SkrbnikPage));
+
         }
 
         private void btnSkrbniGesloVstopi_Click(object sender, RoutedEventArgs e)
         {
-            //test
-            Skrbnik s = new Skrbnik("Janez", "Novak", "030356152", 4545);
-        
-            if (s.Pin.ToString() == passBoxSkrbnik.ToString())
+            int pin;
+            Skrbnik skrbnik;
+            if (int.TryParse(passBoxSkrbnik.Password, out pin))
+            {
+                skrbnik = Baza.GetSkrbnik(pin);
+            }
+            else
+            {
+                return;
+            }
+
+            if (skrbnik != null)
             {
                 this.Frame.Navigate(typeof(SkrbnikPage));
             }
@@ -41,11 +56,6 @@ namespace MedicineApp.Pogledi
             {
                 napakaGeslo.Text = "Vnsešeno napačno geslo !";
             }
-        }
-
-        private void btnNovSkrbnik_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.Navigate(typeof(RegistracijaSkrbnikPage));
         }
 
         private void NastavitevVibracije_Toggled(object sender, RoutedEventArgs e)

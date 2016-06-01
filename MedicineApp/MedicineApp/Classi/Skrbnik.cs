@@ -18,6 +18,13 @@ namespace MedicineApp
             _priimek = priimek;
             _telStevilka = telefon;
             _pin = geslo;
+            IsDefault = false;
+        }
+
+        public Skrbnik(int geslo)
+        {
+            _pin = geslo;
+            IsDefault = true;
         }
 
         private int id;
@@ -25,6 +32,7 @@ namespace MedicineApp
         private string _priimek;
         private string _telStevilka;
         private int _pin;
+        private bool _isDefault;
 
         //Lastnosti
         #region 
@@ -58,6 +66,12 @@ namespace MedicineApp
         {
             get { return _pin; }
             set { _pin = value; }
+        }
+
+        public bool IsDefault
+        {
+            get { return _isDefault; }
+            set { _isDefault = value; }
         }
 
         #endregion

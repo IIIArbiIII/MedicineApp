@@ -313,6 +313,7 @@ namespace MedicineApp.Pogledi
             int idOpomnika = Baza.ShraniOpomnik(opomnik);
             var k = await Baza.GetOpomnikById(idOpomnika);
             MakeToastNotifications(k);
+            Frame.Navigate(typeof (MainPage));
 
         }
         static void MakeToastNotifications(Opomnik opomnik)

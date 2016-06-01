@@ -23,6 +23,41 @@ namespace MedicineApp
            DbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SQLITEV2.sqlite");
         }
 
+
+        public static Dictionary<string,string> SeznamMelodij
+        {
+            get
+            {
+                Dictionary<string, string> seznamMelodij = new Dictionary<string, string>();
+
+                seznamMelodij.Add("Default", "ms - winsoundevent:Notification.Default");
+                seznamMelodij.Add("IM", "ms - winsoundevent:Notification.IM");
+                seznamMelodij.Add("Mail", "ms - winsoundevent:Notification.Mail");
+                seznamMelodij.Add("Reminder", "ms - winsoundevent:Notification.Reminder");
+                seznamMelodij.Add("SMS", "ms - winsoundevent:Notification.SMS");
+                seznamMelodij.Add("Alarm", "ms - winsoundevent:Notification.Looping.Alarm");
+                seznamMelodij.Add("Alarm2", "ms - winsoundevent:Notification.Looping.Alarm2");
+                seznamMelodij.Add("Alarm3", "ms - winsoundevent:Notification.Looping.Alarm3");
+                seznamMelodij.Add("Alarm4", "ms - winsoundevent:Notification.Looping.Alarm4");
+                seznamMelodij.Add("Alarm5", "ms - winsoundevent:Notification.Looping.Alarm5");
+                seznamMelodij.Add("Alarm6", "ms - winsoundevent:Notification.Looping.Alarm6");
+                seznamMelodij.Add("Alarm7", "ms - winsoundevent:Notification.Looping.Alarm7");
+                seznamMelodij.Add("Alarm8", "ms - winsoundevent:Notification.Looping.Alarm8");
+                seznamMelodij.Add("Alarm9", "ms - winsoundevent:Notification.Looping.Alarm9");
+                seznamMelodij.Add("Alarm10", "ms - winsoundevent:Notification.Looping.Alarm10");
+                seznamMelodij.Add("Call1", "ms - winsoundevent:Notification.Call1");
+                seznamMelodij.Add("Call2", "ms - winsoundevent:Notification.Call2");
+                seznamMelodij.Add("Call3", "ms - winsoundevent:Notification.Call3");
+                seznamMelodij.Add("Call4", "ms - winsoundevent:Notification.Call4");
+                seznamMelodij.Add("Call5", "ms - winsoundevent:Notification.Call5");
+                seznamMelodij.Add("Call6", "ms - winsoundevent:Notification.Call6");
+                seznamMelodij.Add("Call7", "ms - winsoundevent:Notification.Call7");
+                seznamMelodij.Add("Call8", "ms - winsoundevent:Notification.Call8");
+                seznamMelodij.Add("Call9", "ms - winsoundevent:Notification.Call9");
+                seznamMelodij.Add("Call10", "ms - winsoundevent:Notification.Call10");
+                return seznamMelodij;
+            }
+        }
         /// <summary>
         /// Metoda ustvari bazo ob vsakem ponovnem zagonu aplikacije :D. 
         /// </summary>
@@ -34,9 +69,9 @@ namespace MedicineApp
         {
             try
             {
-                if (CheckIfBaseExists())
-                    DeleteDB();
-                
+                //if (CheckIfBaseExists())
+                //    DeleteDB();
+
 
                 if (!CheckIfBaseExists())
                 {
@@ -181,6 +216,20 @@ namespace MedicineApp
             {
                 return db.Table<Skrbnik>().FirstOrDefault(x => x.Pin == pin);
             }
+        }
+
+        public static bool IsSkrbnikDefault()
+        {
+            using (var db = DbConnection)
+            {
+                var skrbnik = db.Table<Skrbnik>().ToList();
+                foreach (var x in skrbnik)
+                {
+                    return x.IsDefault;
+                }
+            }
+
+            return false;
         }
         public static void AddSkrbnik(Skrbnik s)
         {

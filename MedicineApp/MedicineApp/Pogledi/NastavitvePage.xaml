@@ -14,7 +14,6 @@
             <PasswordBox Margin="20,15,20,0" x:Name="passBoxSkrbnik" PlaceholderText="Geslo"/>
             <Grid>
                 <Button Margin="20,15,0,0" x:Name="btnSkrbniGesloVstopi" Click="btnSkrbniGesloVstopi_Click">Vstopi</Button>
-                <Button x:Name="btnNovSkrbnik" Margin="20,15,20,0" HorizontalAlignment="Right" Content="Nov Skrbnik" Click="btnNovSkrbnik_Click" />
             </Grid>
             <TextBlock Margin="20,10,0,0" Name="napakaGeslo"></TextBlock>
         </StackPanel>
