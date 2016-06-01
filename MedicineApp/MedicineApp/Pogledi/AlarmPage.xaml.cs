@@ -37,13 +37,13 @@ namespace MedicineApp.Pogledi
         // TODO: Popravi razporeditev elementov
         List<Zdravilo> seznamZdravil = new List<Zdravilo>();
         List<Interval> seznamIntervalov = new List<Interval>();
-        List<DateTime> seznamUrZaToastNotificatione;
+        //List<DateTime> seznamUrZaToastNotificatione;
 
         Dictionary<int, string> seznamZaDneve = new Dictionary<int, string>();
         Dictionary<int, string> seznamZaUre = new Dictionary<int, string>();
         Dictionary<int, string> seznamZaDoze = new Dictionary<int, string>();
 
-        
+        Zdravilo z = new Zdravilo();
         //od vključno 0 pa navzgor
         int rowCount = 1;
 
@@ -59,6 +59,7 @@ namespace MedicineApp.Pogledi
         public AlarmView()
         {
             this.InitializeComponent();
+            var k = ToastNotificationManager.History;
         }
 
         private void Btn_NovaNavodila_OnClick(object sender, RoutedEventArgs e)
@@ -69,7 +70,7 @@ namespace MedicineApp.Pogledi
             var btn_collection = grid_instruction.Children.OfType<Button>().ToList();
 
             bool izpolnjeniComboboxi = false;
-
+            //pregled ce so izpolnjeni vsi 3 cboxi
             for (int i = collection.Count(); i > collection.Count()-3; i--)
             {
                 if (collection[i-1].SelectedItem != null)
@@ -81,21 +82,44 @@ namespace MedicineApp.Pogledi
                 break;
             }
 
+            //zablokiraj prejsni gumb
             if (izpolnjeniComboboxi)
             {
-                for (int i = 0; i < btn_collection.Count(); i++)
-                {
-                    if (i == btn_collection.Count()-1)
-                    {
-                        btn_collection[i].IsEnabled = false;
-                    }
-                }
 
                 // TODO:Preveri da vneseni podatki ne presegajo maximumov
                 string imeComboBoxaZaDan = "comboBox_interval_dan" + rowCount;
                 string imeComboBoxaZaUro = "comboBox_interval_ura" + rowCount;
                 string imeComboBoxaZaDozo = "comboBox_interval_doza" + rowCount;
 
+                int stDni = int.Parse(collection[collection.Count() - 3].SelectedValue.ToString());
+                int stUr = int.Parse(collection[collection.Count() - 2].SelectedValue.ToString());
+                int stEnot = int.Parse(collection[collection.Count()-1].SelectedValue.ToString());
+
+                Dictionary<int, string> noviseznamZaDoze = new Dictionary<int, string>();
+                int steviloEnotZdravila = (stDni * (24 / stUr)) * stEnot;
+                int counter = 0;
+                int vmesni = seznamZaDoze.Count() - steviloEnotZdravila;
+
+                if (steviloEnotZdravila > seznamZaDoze.Count())
+                {
+                    //TODO: naredi popup pa mu tu nastavi lastnosi
+                    return;
+                }
+
+                //blokiraj gumb
+                for (int i = 0; i < btn_collection.Count(); i++)
+                {
+                    if (i == btn_collection.Count() - 1)
+                    {
+                        btn_collection[i].IsEnabled = false;
+                    }
+                }
+
+                for (int i = 0; i < vmesni; i++)
+                {
+                    noviseznamZaDoze.Add(seznamZaDoze.ElementAt(i).Key, seznamZaDoze.ElementAt(i).Value);
+                }
+                seznamZaDoze = noviseznamZaDoze;
 
                 // TODO: dodaj novo vrsto
                 RowDefinition r = new RowDefinition();
@@ -117,10 +141,10 @@ namespace MedicineApp.Pogledi
                 cb2.DisplayMemberPath = "Value";
                 cb2.SelectedValuePath = "Key";
 
-
                 ComboBox cb3 = new ComboBox();
                 cb3.Name = imeComboBoxaZaDozo;
-                cb3.ItemsSource = seznamZaDoze;
+                cb3.ItemsSource = noviseznamZaDoze;
+                //cb3.ItemsSource = seznamZaDoze;
                 cb3.DisplayMemberPath = "Value";
                 cb3.SelectedValuePath = "Key";
 
@@ -161,7 +185,7 @@ namespace MedicineApp.Pogledi
 
             //set cboxes
             #region
-            Zdravilo z = (sender as ComboBox).SelectedItem as Zdravilo;
+            z = (sender as ComboBox).SelectedItem as Zdravilo;
 
             seznamZaDneve = new Dictionary<int, string>();
             seznamZaUre = new Dictionary<int, string>();
@@ -285,36 +309,77 @@ namespace MedicineApp.Pogledi
             opomnik.Melodija = "default";
 
             //TODO:this here is a fuckfest
-            int OpomnikId = await Baza.AddOpomnikAsync(opomnik);
-            Baza.SetToast(OpomnikId);
+            //int OpomnikId = await Baza.AddOpomnikAsync(opomnik);
+            int idOpomnika = Baza.ShraniOpomnik(opomnik);
+            var k = await Baza.GetOpomnikById(idOpomnika);
+            MakeToastNotifications(k);
 
         }
+        static void MakeToastNotifications(Opomnik opomnik)
+        {
+            foreach (var x in opomnik.Intervali)
+            {
+                foreach (var y in x.SeznamTerminovZaAlarm)
+                {
+                    Windows.Data.Xml.Dom.XmlDocument toastXml = new Windows.Data.Xml.Dom.XmlDocument();
+                    string toastXmlTemplate = "<toast scenario=\'alarm\' launch=\'app-defined-string\'>" +
+                                              "<visual>" +
+                                              "<binding template =\'ToastGeneric\'>" +
+                                              "<text>" + opomnik.Zdravilo1.Naziv + "</text>" +
+                                              "<text>" +
+                                              "Vzeti je potrebno: " + x.Doza + " " + opomnik.Zdravilo1.Enota +
+                                              "</text>" +
+                                              "</binding>" +
+                                              "</visual>" +
+                                              "<actions>" +
+                                              "<action activationType=\'foreground\' content =\'yes\' arguments=\'" + y.Id + "\'" +
+                                              "/>" +
+                                              "</actions>" +
+                                              "</toast>";
 
+                    toastXml.LoadXml(toastXmlTemplate);
+
+                    var toast = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, y.TerminZazvonenje);
+                    Random rnd = new Random();
+                    toast.Id = rnd.Next(10000).ToString();
+                    if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting ==
+                        NotificationSetting.Enabled)
+                    {
+                        Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
+                    }
+                }
+            }
+        }
         private void Grid_Tapped(object sender, TappedRoutedEventArgs e)
         {
             
         }
-            // TODO: Iz settingov preberi koliko casa naj se caka preden se poklice oseba            
-
-            //List<DateTime> testniSeznam = new List<DateTime>();
-            //testniSeznam.Add(DateTime.Now.AddSeconds(10));
-            //testniSeznam.Add(DateTime.Now.AddSeconds(20));
-            //testniSeznam.Add(DateTime.Now.AddSeconds(30));
-
-            //foreach (var dateTime in testniSeznam)
-            //{
-            //    var toast2 = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, dateTime);
-
-            //    if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting == NotificationSetting.Enabled)
-            //    {
-            //        Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast2);
-            //    }
-            //}
             
         private bool IsEverythingValid()
         {
             int stPrazniElementov = 0;
+
+            Interval interval = new Interval();
+            //List<Interval> seznamIntervalov = new List<Interval>();
+            int steviloEnotZdravila = 0;
             var coll = grid_instruction.Children.OfType<ComboBox>().ToList();
+
+            for (int i = 0; i < coll.Count(); i++)
+            {
+                interval.Dan = int.Parse(coll[i].SelectedValue.ToString());
+                interval.Ure = int.Parse(coll[i + 1].SelectedValue.ToString());
+                interval.Doza = int.Parse(coll[i + 2].SelectedValue.ToString());
+
+                steviloEnotZdravila += (interval.Dan * (24 / interval.Ure)) * interval.Doza;
+                
+                i = i + 2;
+            }
+
+            if (steviloEnotZdravila > z.Kolicina)
+            {
+                //TODO: Popup za prevec izbranega zdravila
+                return false;
+            }
 
             foreach (var x in coll)
             {

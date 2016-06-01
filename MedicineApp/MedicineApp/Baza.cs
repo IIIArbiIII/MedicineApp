@@ -207,18 +207,22 @@ namespace MedicineApp
         //Interval
         private static void AddInterval(Interval i)
         {
+            foreach (var x in i.SeznamTerminovZaAlarm)
+            {
+                AddTermin(x);
+            }
             using (var db = DbConnection)
             {
                 db.Insert(i);
             }
         }
 
-        private static void AddIntervalAsync(Interval i)
+        private async static void AddIntervalAsync(Interval i)
         {
             var conn = DbConnectionAsync;
-            conn.InsertAsync(i).ContinueWith((t) =>
+            await conn.InsertAsync(i).ContinueWith((t) =>
             {
-                if (t.IsCompleted == true)
+                if (t.IsCompleted)
                 {
                     foreach (var x in i.SeznamTerminovZaAlarm)
                     {
@@ -242,44 +246,46 @@ namespace MedicineApp
 
         //Opomnik
         //------------------------------------------------------------------
-        public static void AddOpomnik(Opomnik o)
-        {
-            var intervali = o.Intervali;
-            foreach (var x in intervali)
-            {
-                AddInterval(x);
-            }
-            using (var db = DbConnection)
-            {
-                db.Insert(o);
-            }
-        }
+        //public static void AddOpomnik(Opomnik o)
+        //{
+        //    var intervali = o.Intervali;
 
-        public async static Task<int> AddOpomnikAsync(Opomnik o)
-        {
-            var conn = DbConnectionAsync;
-            var id = -1;
-            await conn.InsertAsync(o).ContinueWith((t) =>
-            {
-                if (t.IsCompleted)
-                {
-                    foreach (var x in o.Intervali)
-                    {
-                        x.OpomnikId = GetLastOpomnikId();
-                        id = x.OpomnikId;
-                        //AddInterval(x);
-                        AddIntervalAsync(x);
-                    }
-                }
-            });
-            return id;
+        //    foreach (var x in intervali)
+        //    {
+        //        AddInterval(x);
+        //    }
+        //    using (var db = DbConnection)
+        //    {
+        //        db.Insert(o);
+        //    }
+        //}
 
-        }
+        //public async static Task<int> AddOpomnikAsync(Opomnik o)
+        //{
+        //    var conn = DbConnectionAsync;
+        //    var id = -1;
+        //    await conn.InsertAsync(o).ContinueWith((t) =>
+        //    {
+        //        if (t.IsCompleted)
+        //        {
+        //            foreach (var x in o.Intervali)
+        //            {
+        //                x.OpomnikId = GetLastOpomnikId();
+        //                id = x.OpomnikId;
+        //                //AddInterval(x);
+        //                AddIntervalAsync(x);
+        //            }
+        //        }
+        //    });
+        //    return id;
 
-        public async static void SetToast(int id)
+        //}
+
+        public async static Task<Opomnik> GetOpomnikById(int id)
         {
             var conn = DbConnectionAsync;
             var query = conn.Table<Opomnik>().Where(v => v.Id == id);
+            Opomnik ok = new Opomnik();
 
             await query.ToListAsync().ContinueWith((t) =>
             {
@@ -291,44 +297,41 @@ namespace MedicineApp
                     {
                         y.SeznamTerminovZaAlarm = GetTermineByIntervalId(y.Id);
                     }
-                    MakeToastNotifications(x);
+                    ok = x;
                 }
             });
+
+            return ok;
+
         }
 
-        static void MakeToastNotifications(Opomnik opomnik)
+        public static int ShraniOpomnik(Opomnik opomnik)
         {
-            foreach (var x in opomnik.Intervali)
+            int idOpomnika = -1;
+            using (var db = DbConnection)
             {
-                foreach (var y in x.SeznamTerminovZaAlarm)
+                db.Insert(opomnik);
+
+                idOpomnika = GetLastOpomnikId();
+                foreach (var x in opomnik.Intervali)
                 {
-                    Windows.Data.Xml.Dom.XmlDocument toastXml = new Windows.Data.Xml.Dom.XmlDocument();
-                    string toastXmlTemplate = "<toast launch=\'app-defined-string\'>" +
-                                              "<visual>" +
-                                              "<binding template =\'ToastGeneric\'>" +
-                                              "<text>" + opomnik.Zdravilo1.Naziv + "</text>" +
-                                              "<text>" +
-                                              "Vzeti je potrebno: " + x.Doza + " " + opomnik.Zdravilo1.Enota +
-                                              "</text>" +
-                                              "</binding>" +
-                                              "</visual>" +
-                                              "<actions>" +
-                                              "<action activationType=\'foreground\' content =\'yes\' arguments=\'" + y.Id + "\'" +
-                                              "/>" +
-                                              "</actions>" +
-                                              "</toast>";
+                    x.OpomnikId = idOpomnika;
+                    db.Insert(x);
 
-                    toastXml.LoadXml(toastXmlTemplate);
+                    int idIntervala = GetLastIntervalkId();
 
-                    var toast = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, y.TerminZazvonenje);
-                    if (Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().Setting ==
-                        NotificationSetting.Enabled)
+                    foreach (var y in x.SeznamTerminovZaAlarm)
                     {
-                        Windows.UI.Notifications.ToastNotificationManager.CreateToastNotifier().AddToSchedule(toast);
+                        y.IntervalId = idIntervala;
+                        db.Insert(y);
                     }
                 }
+                
             }
+
+            return idOpomnika;
         }
+        
 
         private static List<Termin> GetTermineByIntervalId(int id)
         {

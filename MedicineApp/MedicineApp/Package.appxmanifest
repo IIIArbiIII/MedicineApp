@@ -21,13 +21,6 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <!--To je blo dodano-->
-      <Extensions>
-        <Extension Category="windows.backgroundTasks" EntryPoint="MyTask.FirstTask">
-          <BackgroundTasks>
-            <Task Type="systemEvent" />
-          </BackgroundTasks>
-        </Extension>
-      </Extensions>
     </Application>
   </Applications>
   <Capabilities>
