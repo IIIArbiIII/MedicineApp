@@ -20,6 +20,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using SQLite.Net;
+using System.Windows;
+
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -46,18 +48,20 @@ namespace MedicineApp
         Zdravilo z4 = new Zdravilo("Avamys", new DateTime(2018, 6, 14), 60, "Vpihov");
         Zdravilo z5 = new Zdravilo("Bronhobol", new DateTime(2016, 2, 5), 10, "Tablet");
 
-        Skrbnik s1 = new Skrbnik(1234);
-
+        Skrbnik s1 = new Skrbnik("Joze", "Pepic", "031111222", 1234);
         List<Zdravilo> seznamVsehZdravilIzBaze = new List<Zdravilo>();
         //List<Zdravilo> zdravilaZaBox = new List<Zdravilo>();
         //List<Skrbnik> skrbnikiList = new List<Skrbnik>();
         //-------------------------------------------------------------------
         public MainPage()
         {
+           
+
             // this.InitializeComponent();
+          
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
-            timer.Start();
+            timer.Start(); 
 
             Baza b = new Baza();
             if (b.CreateDb())
@@ -92,13 +96,14 @@ namespace MedicineApp
             Baza.AddSkrbnik(s1);
 
         }
-
+        
+        
         void timer_Tick(object sender, object e)
         {
             secondHand.Angle = DateTime.Now.Second * 6;
             minuteHand.Angle = DateTime.Now.Minute * 6;
             hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5);
-        }
+        } 
 
         
         //tvoj del
@@ -265,6 +270,11 @@ namespace MedicineApp
        
             FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
             flyoutBase.ShowAt(senderElement);
+        }
+
+        private void uraDigital_Loaded(object sender, RoutedEventArgs e)
+        {
+         
         }
     }
 

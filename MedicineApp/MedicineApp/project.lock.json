@@ -268,6 +268,9 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests/1.0.0": {
+        "type": "package"
+      },
       "SQLite.Net-PCL/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -2178,6 +2181,9 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests/1.0.0": {
+        "type": "package"
+      },
       "SQLite.Net-PCL/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -3938,6 +3944,9 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests/1.0.0": {
+        "type": "package"
+      },
       "SQLite.Net-PCL/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -5695,6 +5704,9 @@
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
+      },
+      "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests/1.0.0": {
+        "type": "package"
       },
       "SQLite.Net-PCL/3.1.1": {
         "type": "package",
@@ -7456,6 +7468,9 @@
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
       },
+      "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests/1.0.0": {
+        "type": "package"
+      },
       "SQLite.Net-PCL/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -9213,6 +9228,9 @@
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
+      },
+      "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests/1.0.0": {
+        "type": "package"
       },
       "SQLite.Net-PCL/3.1.1": {
         "type": "package",
@@ -10973,6 +10991,9 @@
         "runtime": {
           "lib/dotnet/Microsoft.Win32.Primitives.dll": {}
         }
+      },
+      "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests/1.0.0": {
+        "type": "package"
       },
       "SQLite.Net-PCL/3.1.1": {
         "type": "package",
@@ -13087,6 +13108,16 @@
         "ref/net46/Microsoft.Win32.Primitives.dll",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._"
+      ]
+    },
+    "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests/1.0.0": {
+      "sha512": "g81RhLZ7IXabj2gO0UB0acgSoUjHrIx8Ir6+p0yal8pp9tuxKaNUJDEaCS+bEyaVEud9fEIdJDdJDcCL91eMJA==",
+      "type": "package",
+      "files": [
+        "content/netfx/System/Windows/Threading/DispatcherInvokeExtensionsSpec.cs",
+        "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests.1.0.0.nupkg.sha512",
+        "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests.nuspec",
+        "tools/install.ps1"
       ]
     },
     "SQLite.Net-PCL/3.1.1": {
@@ -15645,7 +15676,8 @@
     "": [
       "Microsoft.NETCore.UniversalWindowsPlatform >= 5.0.0",
       "SQLite.Net-PCL >= 3.1.1",
-      "SQLite.Net.Async-PCL >= 3.1.1"
+      "SQLite.Net.Async-PCL >= 3.1.1",
+      "netfx-System.Windows.Threading.DispatcherInvokeExtensions.Tests >= 1.0.0"
     ],
     "UAP,Version=v10.0": []
   }

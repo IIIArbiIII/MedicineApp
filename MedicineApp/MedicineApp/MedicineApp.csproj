@@ -133,6 +133,8 @@
     <Content Include="Assets\pivot_home.png" />
     <Content Include="Assets\pivot_medicine.png" />
     <Content Include="Assets\pivot_stats.png" />
+    <Content Include="Assets\potrdi_image.png" />
+    <Content Include="Assets\preklic_image.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -182,8 +184,11 @@
     <SDKReference Include="SQLite.UWP.2015, Version=3.13.0">
       <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.13.0%29</Name>
     </SDKReference>
+    <SDKReference Include="WindowsMobile, Version=10.0.10240.0">
+      <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.10240.0%29</Name>
+    </SDKReference>
     <SDKReference Include="WindowsMobile, Version=10.0.10586.0">
-      <Name>Windows Mobile Extensions for the UWP</Name>
+      <Name>Windows Mobile Extensions for the UWP %28WindowsMobile, Version=10.0.10586.0%29</Name>
     </SDKReference>
   </ItemGroup>
   <ItemGroup>
