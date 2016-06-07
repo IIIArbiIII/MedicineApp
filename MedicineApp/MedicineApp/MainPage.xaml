@@ -124,9 +124,9 @@
                                     <MenuFlyout>
                                         <MenuFlyoutItem Text="Podrobnosti" Click="MenuFlyoutItem_Podrobnosti"/>
 
-                                    <MenuFlyoutItem Text=" Izbris" Click=""/>
-                                </MenuFlyout> 
-                            </FlyoutBase.AttachedFlyout>
+                                        <MenuFlyoutItem Text=" Izbris" Click="MenuFlyoutItem_Click"/>
+                                    </MenuFlyout>
+                                </FlyoutBase.AttachedFlyout>
 
                                 <ListView.ItemTemplate>
 
