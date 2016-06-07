@@ -261,16 +261,9 @@ namespace MedicineApp
 
         private void listviewZravilo_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            
+            FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
         }
 
-        private void listviewZravilo_Holding(object sender, HoldingRoutedEventArgs e)
-        {
-            FrameworkElement senderElement = sender as FrameworkElement;
-       
-            FlyoutBase flyoutBase = FlyoutBase.GetAttachedFlyout(senderElement);
-            flyoutBase.ShowAt(senderElement);
-        }
 
         private void uraDigital_Loaded(object sender, RoutedEventArgs e)
         {
