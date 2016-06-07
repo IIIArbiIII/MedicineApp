@@ -47,6 +47,7 @@ namespace MedicineApp
         Zdravilo z3 = new Zdravilo("Ventolin", new DateTime(2017, 12, 16), 120, "Vpihov");
         Zdravilo z4 = new Zdravilo("Avamys", new DateTime(2018, 6, 14), 60, "Vpihov");
         Zdravilo z5 = new Zdravilo("Bronhobol", new DateTime(2016, 2, 5), 10, "Tablet");
+        Zdravilo z6 = new Zdravilo("ProbaBrisi", new DateTime(2018, 5, 5), 20, "Tablet");
 
         Skrbnik s1 = new Skrbnik("Joze", "Pepic", "031111222", 1234);
         List<Zdravilo> seznamVsehZdravilIzBaze = new List<Zdravilo>();
@@ -55,8 +56,8 @@ namespace MedicineApp
         //-------------------------------------------------------------------
         public MainPage()
         {
-           
 
+      
             // this.InitializeComponent();
           
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -92,6 +93,7 @@ namespace MedicineApp
             Baza.AddZdravilo(z3);
             Baza.AddZdravilo(z4);
             Baza.AddZdravilo(z5);
+            Baza.AddZdravilo(z6);
 
             Baza.AddSkrbnik(s1);
 
@@ -100,9 +102,11 @@ namespace MedicineApp
         
         void timer_Tick(object sender, object e)
         {
+            KaziUro();
+            /* ANALOGNA URA
             secondHand.Angle = DateTime.Now.Second * 6;
             minuteHand.Angle = DateTime.Now.Minute * 6;
-            hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5);
+            hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5); */
         } 
 
         
@@ -268,6 +272,30 @@ namespace MedicineApp
         private void uraDigital_Loaded(object sender, RoutedEventArgs e)
         {
          
+        }
+
+        private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            int id = 0;
+            Zdravilo z = new Zdravilo();
+          //  id = listviewZravilo.SelectedValue.ToString();
+
+
+        }
+
+        private void MenuFlyoutItem_Podrobnosti(object sender, RoutedEventArgs e)
+        {
+            int id = 0;
+            Zdravilo z = new Zdravilo();
+            listviewZravilo.SelectedItem = z.Id;
+            z.Id = id;
+
+            Baza.GetFirstZdraviloById(id);
+        }
+
+        public void KaziUro()
+        {
+            DigitalnaUraApp.Text = DateTime.Now.ToString("HH:mm:ss"); 
         }
     }
 
