@@ -127,7 +127,7 @@
                                 <MenuFlyout>
                                     <MenuFlyoutItem Text="{Binding Kolicina}"/>
 
-                                    <MenuFlyoutItem Text=" Izbris" Click=""/>
+                                    <MenuFlyoutItem Text=" Izbris"/>
                                 </MenuFlyout> 
                             </FlyoutBase.AttachedFlyout>
 

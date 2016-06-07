@@ -103,7 +103,7 @@ namespace MedicineApp.Pogledi
                 if (steviloEnotZdravila > seznamZaDoze.Count())
                 {
                     //TODO: naredi popup pa mu tu nastavi lastnosi
-                    return;
+                    //return;
                 }
 
                 //blokiraj gumb
