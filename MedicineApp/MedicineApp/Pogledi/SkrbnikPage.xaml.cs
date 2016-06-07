@@ -54,7 +54,6 @@ namespace MedicineApp.Pogledi
             contactPicker.DesiredFieldsWithContactFieldType.Add(ContactFieldType.Email);
             contactPicker.DesiredFieldsWithContactFieldType.Add(ContactFieldType.Address);
             contactPicker.DesiredFieldsWithContactFieldType.Add(ContactFieldType.PhoneNumber);
-
             Contact contact = await contactPicker.PickContactAsync();
 
             if (contact != null)
