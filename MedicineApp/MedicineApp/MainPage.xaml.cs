@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using SQLite.Net;
 using System.Windows;
+using Windows.UI.ViewManagement;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -36,7 +37,7 @@ namespace MedicineApp
     public sealed partial class MainPage : Page
     {
         string defaultMelodie = "ms - winsoundevent:Notification.Default";
-           DispatcherTimer timer = new DispatcherTimer();
+        DispatcherTimer timer = new DispatcherTimer();
         //Task<List<Zdravilo>> seznamVsehZdravil;
         //bool deleteZdravila = false;
         //bool updateSkrbnik = false;
@@ -57,12 +58,12 @@ namespace MedicineApp
         public MainPage()
         {
 
-      
+
             // this.InitializeComponent();
-          
+
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
-            timer.Start(); 
+            timer.Start();
 
             Baza b = new Baza();
             if (b.CreateDb())
@@ -71,7 +72,7 @@ namespace MedicineApp
                 var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
                 localSettings.Values["DefaultMelodie"] = "ms - winsoundevent:Notification.Default";
             }
-            
+
             //if (deleteZdravila)
             //{
             //    Baza.DeleteZdravilo(z1);
@@ -98,8 +99,8 @@ namespace MedicineApp
             Baza.AddSkrbnik(s1);
 
         }
-        
-        
+
+
         void timer_Tick(object sender, object e)
         {
             KaziUro();
@@ -107,9 +108,9 @@ namespace MedicineApp
             secondHand.Angle = DateTime.Now.Second * 6;
             minuteHand.Angle = DateTime.Now.Minute * 6;
             hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5); */
-        } 
+        }
 
-        
+
         //tvoj del
         private void btnAddMedicine_Click(object sender, RoutedEventArgs e)
         {
@@ -143,7 +144,7 @@ namespace MedicineApp
 
         private void txtFiltriraj_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
+
         }
 
         private void AppBarButton_Click(object sender, RoutedEventArgs e)
@@ -153,10 +154,10 @@ namespace MedicineApp
 
         //private void listviewZravilo_Loaded(object sender, RoutedEventArgs e)
         //{
-            
+
 
         //    //await Task.Delay(TimeSpan.FromSeconds(2));
-           
+
         //}
 
         private void ZapolniListView()
@@ -171,7 +172,7 @@ namespace MedicineApp
 
         private void Btn_newAlarm_OnClick(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof (Pogledi.AlarmView), seznamVsehZdravilIzBaze);
+            Frame.Navigate(typeof(Pogledi.AlarmView), seznamVsehZdravilIzBaze);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -248,7 +249,7 @@ namespace MedicineApp
             //
 
             var builder = new BackgroundTaskBuilder();
-            
+
             builder.Name = taskName;
             builder.TaskEntryPoint = taskEntryPoint;
             builder.SetTrigger(trigger);
@@ -271,14 +272,14 @@ namespace MedicineApp
 
         private void uraDigital_Loaded(object sender, RoutedEventArgs e)
         {
-         
+
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             int id = 0;
             Zdravilo z = new Zdravilo();
-          //  id = listviewZravilo.SelectedValue.ToString();
+            //  id = listviewZravilo.SelectedValue.ToString();
 
 
         }
@@ -295,8 +296,10 @@ namespace MedicineApp
 
         public void KaziUro()
         {
-            DigitalnaUraApp.Text = DateTime.Now.ToString("HH:mm:ss"); 
+            DigitalnaUraApp.Text = DateTime.Now.ToString("HH:mm:ss");
         }
+
+      
     }
 
 

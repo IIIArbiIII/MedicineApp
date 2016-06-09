@@ -7,57 +7,51 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark" Tapped="Grid_Tapped">
-        <StackPanel VerticalAlignment="Top">
-            <TextBlock Margin="20,40,0,50" x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Alarm" VerticalAlignment="Top" FontWeight="Bold" FontSize="18.667"/>
+    <ScrollViewer>
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark" Tapped="Grid_Tapped">
+            <StackPanel>
+                <TextBlock Margin="20,30,0,50" x:Name="textBlock" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Alarm" VerticalAlignment="Top" FontWeight="Bold" FontSize="18.667"/>
 
-            <TextBlock Margin="20,0,20,0" x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Izberite Zdravilo" VerticalAlignment="Top" FontSize="18.667"/>
-            <ComboBox Margin="20,10,20,15" x:Name="comboBoxZdravilo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" Height="40"
+                <TextBlock Margin="20,0,20,0" x:Name="textBlock1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Izberite Zdravilo" VerticalAlignment="Top" FontSize="18.667"/>
+                <ComboBox Margin="20,10,20,15" x:Name="comboBoxZdravilo" HorizontalAlignment="Stretch" VerticalAlignment="Top" 
                   ItemsSource="{Binding Path=Zdravilo}"
                   DisplayMemberPath="Naziv"
                   SelectedValuePath="Id"
                   SelectedValue="{Binding Path=Zdravilo}" SelectionChanged="comboBoxZdravilo_SelectionChanged"/>
 
-            <TextBlock Margin="20,0,20,0" x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Začetek Zdravljenja" VerticalAlignment="Top" FontSize="18.667"/>
-            <TimePicker Margin="20,10,20,15" x:Name="timePickZdravilo" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" Height="30"/>
-            <TextBlock Margin="20,0,20,0" x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Navodila" VerticalAlignment="Top" FontSize="18.667"/>
-            <Grid x:Name="grid_instruction" VerticalAlignment="Center" BorderThickness="2" BorderBrush="#FF51FF00" Margin="10,49,10,20">
+                <TextBlock Margin="20,0,20,0" x:Name="textBlock2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Začetek Zdravljenja" VerticalAlignment="Top" FontSize="18.667"/>
+                <TimePicker Margin="20,10,20,15" x:Name="timePickZdravilo" HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <TextBlock Margin="20,0,20,0" x:Name="textBlock3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Navodila" VerticalAlignment="Top" FontSize="18.667"/>
+                <Grid x:Name="grid_instruction" VerticalAlignment="Center" BorderThickness="2" BorderBrush="#FF51FF00" Margin="20,30,20,20">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="1*"/>
-                    <RowDefinition Height="1*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.2*"/>
-                    <ColumnDefinition Width="1.2*"/>
-                    <ColumnDefinition Width="1.2*"/>
-                    <ColumnDefinition Width="0.4*"/>
-                </Grid.ColumnDefinitions>
-
-
-                <ComboBox x:Name="comboBox_interval_dan" Grid.Column="0" Width="85" Margin="4,4,0,0" />
-                <ComboBox x:Name="comboBox_interval_ura" Grid.Column="1" Width="85" Margin="4,4,0,0" />
-                <ComboBox x:Name="comboBox_interval_doza" Grid.Column="2" Width="85" Margin="4,4,0,0" />
-                <Button x:Name="btn_NovaNavodila" IsEnabled="False" Content="+" Click="Btn_NovaNavodila_OnClick" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="#FFF30404" Height="36" Margin="0,2,-2,0" Width="35"></Button>
-            </Grid>
-        </StackPanel>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="0.4*"/>
+                    </Grid.ColumnDefinitions>
 
 
+                    <ComboBox x:Name="comboBox_interval_dan" Grid.Column="0" Width="85" Margin="4,4,0,0" />
+                    <ComboBox x:Name="comboBox_interval_ura" Grid.Column="1" Width="85" Margin="4,4,0,0" />
+                    <ComboBox x:Name="comboBox_interval_doza" Grid.Column="2" Width="85" Margin="4,4,0,0" />
+                    <Button x:Name="btn_NovaNavodila" IsEnabled="False" Content="+" Click="Btn_NovaNavodila_OnClick" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="#FFF30404" Height="36" Margin="0,2,-2,0" Width="35"></Button>
+                </Grid>
 
-        <StackPanel VerticalAlignment="Bottom">
+                <Grid Margin="0,30,0,0">
+                    <Button Background="Black" Margin="20,0,0,30" x:Name="buttonCancel" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Image Height="50" Source="/Assets/preklic_image.png" />
+                    </Button>
+                    <Button Background="Black" Margin="0,0,20,30" x:Name="buttonSubmit" Click="ButtonSubmit_OnClick" HorizontalAlignment="Right" VerticalAlignment=" Bottom" >
+                        <Image Height="50" Source="/Assets/potrdi_image.png"/>
+                    </Button>
+                </Grid>
 
-
-
-        </StackPanel>
-
-
-        <Button Background="Black" Margin="20,0,0,30" x:Name="buttonCancel" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-            <Image Height="50" Source="/Assets/preklic_image.png" />
-        </Button>
-        <Button Background="Black" Margin="0,0,20,30" x:Name="buttonSubmit" Click="ButtonSubmit_OnClick" HorizontalAlignment="Right" VerticalAlignment=" Bottom" >
-            <Image Height="50" Source="/Assets/potrdi_image.png"/>
-        </Button>
-
-
-    </Grid>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>

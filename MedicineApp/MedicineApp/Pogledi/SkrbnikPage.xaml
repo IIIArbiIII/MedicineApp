@@ -10,14 +10,14 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
         <StackPanel>
-            <TextBlock Margin="10,20,0,20" FontSize="24" FontWeight="Bold">Administracija</TextBlock>
-            <TextBlock Margin="20,0,0,0">Ime in Priimek Skrbnika</TextBlock>
-            <TextBlock>Telefonska Številka Skrbnika</TextBlock>
-            <TextBox PlaceholderText="Spremeni Telefonsko Številko"></TextBox>
-            <TextBlock>Default melodie</TextBlock>
-            <ComboBox Name="cbox_defaultMelodie"></ComboBox>
-            <Button x:Name="btn_Shrani" VerticalAlignment="Center" Click="Btn_Shrani_OnClick">Shrani</Button>
-            <Button Name="btn_SelectContact" Content="SelectContact" Click="PickAContactButton_Click"></Button>
+            <TextBlock Margin="20,40,0,30" FontWeight="Bold" FontSize="24">Administracija</TextBlock>
+            <TextBlock Margin="20,0,20,10">Ime in Priimek Skrbnika</TextBlock>
+            <TextBlock Margin="20,0,20,0">Telefonska Številka Skrbnika</TextBlock>
+            <TextBox Margin="20,10,20,15" PlaceholderText="Vnesite novo Telefonsko št."></TextBox>
+            <TextBlock Margin="20,0,20,10">Melodija Zvonenja</TextBlock>
+            <ComboBox Margin="20,10,20,15" Name="cbox_defaultMelodie" HorizontalAlignment="Stretch"></ComboBox>
+            <Button Margin="20,10,20,15" x:Name="btn_Shrani" VerticalAlignment="Center" Click="Btn_Shrani_OnClick">Shrani Spremebe</Button>
+            <Button Margin="20,10,20,15" Name="btn_SelectContact" Content="Izberi Kontakt" Click="PickAContactButton_Click"></Button>
             <TextBlock Name="OutputName"></TextBlock>
             <TextBlock Name="OutputEmails"></TextBlock>
             <TextBlock Name="OutputPhoneNumbers"></TextBlock>
