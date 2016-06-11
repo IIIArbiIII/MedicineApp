@@ -59,8 +59,8 @@ namespace MedicineApp
         {
 
 
-            // this.InitializeComponent();
-
+            //this.InitializeComponent();
+         
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
@@ -277,11 +277,9 @@ namespace MedicineApp
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            int id = 0;
             Zdravilo z = new Zdravilo();
-            //  id = listviewZravilo.SelectedValue.ToString();
-
-
+            listviewZravilo.SelectedValue = z;
+            Baza.DeleteZdravilo(z);
         }
 
         private void MenuFlyoutItem_Podrobnosti(object sender, RoutedEventArgs e)
@@ -299,7 +297,16 @@ namespace MedicineApp
             DigitalnaUraApp.Text = DateTime.Now.ToString("HH:mm:ss");
         }
 
-      
+        private void PolniListZdravil()
+        {
+            Zdravilo z = new Zdravilo();
+            listviewZravilo.Items.Add(z);
+        }
+
+        private void pivotTab_Loaded(object sender, RoutedEventArgs e)
+        {
+            PolniListZdravil();
+        }
     }
 
 

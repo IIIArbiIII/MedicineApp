@@ -144,25 +144,30 @@ namespace MedicineApp
         }
 
         //Prevero
-        public static bool DeleteZdravilo(Zdravilo z)
-        {
-            try
-            {
-                using (var db = DbConnection)
+
+          
+                public static bool DeleteZdravilo(Zdravilo z)
                 {
-                    var query = db.Table<Zdravilo>().FirstOrDefault(x => x.Id == z.Id);
-                    if (query!=null)
+                    try
                     {
-                        db.Delete<Zdravilo>(z.Id);
+                        using (var db = DbConnection)
+                        {
+                            var query = db.Table<Zdravilo>().FirstOrDefault(x => x.Id == z.Id);
+                            if (query!=null)
+                            {
+                                db.Delete<Zdravilo>(z.Id);
+                            }
+                        }
+                        return true;
+                    } 
+
+                    catch (Exception)
+                    {
+                        return false;
                     }
-                }
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
-        }
+                } 
+              
+
 
         //public static Zdravilo GetLastZdravilo()
         //{

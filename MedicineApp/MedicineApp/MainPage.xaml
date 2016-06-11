@@ -45,7 +45,7 @@
         </VisualStateManager.VisualStateGroups>
 
 
-        <Pivot x:Name="pivotTab" Margin="0,05,0,0">
+        <Pivot x:Name="pivotTab" Margin="0,05,0,0" Loaded="pivotTab_Loaded">
 
             <PivotItem  x:Name="pivotHome" Height="588" Margin="14,0,10,-16">
 
@@ -94,50 +94,51 @@
                 </PivotItem.Header>
 
                 <ScrollViewer>
-                <Grid>
+                    <Grid>
 
-                    <StackPanel Margin="0,20,0,10">
+                        <StackPanel Margin="0,20,0,10">
 
-                        <TextBlock Margin="10,5,10,5" x:Name="txtFiltrirajZdravila">
+                            <TextBlock Margin="10,5,10,5" x:Name="txtFiltrirajZdravila">
 							<Run Text="Išči"/>
-                        </TextBlock>
-                        <TextBox Margin="10,10,10,10" x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging" TextChanged="txtFiltriraj_TextChanged"/>
-                        <ProgressBar x:Name="progressBar_getDB" IsIndeterminate="True"  HorizontalAlignment="Stretch"/>
-                        <Button Margin="10,10,10,20" x:Name="btnOdpriOknoDodajZdravilo" HorizontalAlignment="Center" Click="btnOdpriOknoDodajZdravilo_Click" BorderThickness="2,2,3.1,2" Content="Dodaj Zdravilo" Width="310"/>
+                            </TextBlock>
+                            <TextBox Margin="10,10,10,10" x:Name="txtFiltriraj" PlaceholderText="Vnesi Zravilo" TextChanging="txtFiltriraj_TextChanging" TextChanged="txtFiltriraj_TextChanged"/>
+                            <ProgressBar x:Name="progressBar_getDB" IsIndeterminate="True"  HorizontalAlignment="Stretch"/>
+                            <Button Margin="10,10,10,20" x:Name="btnOdpriOknoDodajZdravilo" HorizontalAlignment="Center" Click="btnOdpriOknoDodajZdravilo_Click" BorderThickness="2,2,3.1,2" Content="Dodaj Zdravilo" Width="310"/>
 
-                        <!--To do: klik na listbox (item); poišči pravi poperty za izbiranje-->
-
-
-                        <ListView x:Name="listviewZravilo" Height="372" SelectionChanged="lstbZdravila_SelectionChanged" DoubleTapped="listviewZravilo_DoubleTapped">
-                            <FlyoutBase.AttachedFlyout>
-
-                                <MenuFlyout>
-                                    <MenuFlyoutItem Text="Podrobnosti" Click="MenuFlyoutItem_Podrobnosti"/>
-
-                                    <MenuFlyoutItem Text=" Izbris" Click="MenuFlyoutItem_Click"/>
-                                </MenuFlyout>
-                            </FlyoutBase.AttachedFlyout>
-
-                            <ListView.ItemTemplate>
-
-                                <DataTemplate>
-
-                                    <Grid Height="52" Width="auto">
-                                        <TextBlock x:Name="nameblock" Text="{Binding Naziv}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="10,0,0,0" />
-                                    </Grid>
-
-                                </DataTemplate>
-
-                            </ListView.ItemTemplate>
-
-                        </ListView>
+                            <!--To do: klik na listbox (item); poišči pravi poperty za izbiranje-->
 
 
-                    </StackPanel>
+                            <ListView x:Name="listviewZravilo" Height="372" SelectionChanged="lstbZdravila_SelectionChanged" DoubleTapped="listviewZravilo_DoubleTapped">
+                                <FlyoutBase.AttachedFlyout>
+
+                                    <MenuFlyout Placement="Left">
+                                        <MenuFlyoutItem Text="Podrobnosti" Click="MenuFlyoutItem_Podrobnosti" HorizontalAlignment="Center"/>
+
+                                        <MenuFlyoutItem Text=" Izbris" Click="MenuFlyoutItem_Click"/>
+                                    </MenuFlyout>
+                                </FlyoutBase.AttachedFlyout>
+
+                                <ListView.ItemTemplate>
+
+                                    <DataTemplate>
+
+                                        <Grid Height="52" Width="auto">
+                                            <TextBlock x:Name="nameblock" Text="{Binding Naziv}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="20,0,20,0" />
+
+                                        </Grid>
+
+                                    </DataTemplate>
+
+                                </ListView.ItemTemplate>
+
+                            </ListView>
+
+
+                        </StackPanel>
 
 
 
-                </Grid>
+                    </Grid>
                 </ScrollViewer>
 
             </PivotItem>
