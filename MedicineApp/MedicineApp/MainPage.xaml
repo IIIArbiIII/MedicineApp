@@ -124,7 +124,6 @@
 
                                         <Grid Height="52" Width="auto">
                                             <TextBlock x:Name="nameblock" Text="{Binding Naziv}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="20,0,20,0" />
-
                                         </Grid>
 
                                     </DataTemplate>

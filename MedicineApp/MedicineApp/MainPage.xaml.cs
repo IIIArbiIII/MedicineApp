@@ -124,6 +124,8 @@ namespace MedicineApp
 
         private void lstbZdravila_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+            string s = "";
             // TODO: Naredi stran za info o zdravilu ter jo prikazi
         }
 
@@ -160,13 +162,15 @@ namespace MedicineApp
 
         //}
 
-        private void ZapolniListView()
+        private async void ZapolniListView()
         {
             //TODO: Ce je baza prazna daj obvestilo
             if (seznamVsehZdravilIzBaze.Count() == 0)
-                listviewZravilo.ItemsSource = seznamVsehZdravilIzBaze;
+                listviewZravilo.ItemsSource = await Baza.GetAllDZdraviloAsync();
             else if (seznamVsehZdravilIzBaze.Count() > 0)
-                listviewZravilo.ItemsSource = seznamVsehZdravilIzBaze;
+                listviewZravilo.ItemsSource = await Baza.GetAllDZdraviloAsync();
+            else
+                listviewZravilo.ItemsSource = null;
 
         }
 
@@ -277,9 +281,8 @@ namespace MedicineApp
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            Zdravilo z = new Zdravilo();
-            listviewZravilo.SelectedValue = z;
-            Baza.DeleteZdravilo(z);
+            Baza.DeleteZdravilo((Zdravilo)listviewZravilo.SelectedValue);
+            ZapolniListView();
         }
 
         private void MenuFlyoutItem_Podrobnosti(object sender, RoutedEventArgs e)
