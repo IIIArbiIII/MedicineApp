@@ -4,6 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MedicineApp", "MedicineApp\MedicineApp.csproj", "{2AAE1B3B-1393-41EB-ACBF-3FA324146012}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11} = {CFEED61F-3303-4DE8-AAB8-9957396DFB11}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WcfServiceV2", "WcfServiceV2\WcfServiceV2.csproj", "{CFEED61F-3303-4DE8-AAB8-9957396DFB11}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +42,22 @@ Global
 		{2AAE1B3B-1393-41EB-ACBF-3FA324146012}.Release|x86.ActiveCfg = Release|x86
 		{2AAE1B3B-1393-41EB-ACBF-3FA324146012}.Release|x86.Build.0 = Release|x86
 		{2AAE1B3B-1393-41EB-ACBF-3FA324146012}.Release|x86.Deploy.0 = Release|x86
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Debug|ARM.Build.0 = Debug|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Debug|x64.Build.0 = Debug|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Debug|x86.Build.0 = Debug|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Release|ARM.ActiveCfg = Release|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Release|ARM.Build.0 = Release|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Release|x64.ActiveCfg = Release|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Release|x64.Build.0 = Release|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Release|x86.ActiveCfg = Release|Any CPU
+		{CFEED61F-3303-4DE8-AAB8-9957396DFB11}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

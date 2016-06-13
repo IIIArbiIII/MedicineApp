@@ -59,10 +59,12 @@ namespace MedicineApp
         //-------------------------------------------------------------------
         public MainPage()
         {
+
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
-
+            UploadDB();
+            DownloadDb();
             Baza b = new Baza();
             if (b.CreateDb())
             {
@@ -74,6 +76,49 @@ namespace MedicineApp
             this.InitializeComponent();
         }
 
+        async void UploadDB()
+        {
+            ServiceReference1.IService1 s = new ServiceReference1.Service1Client();
+            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile = await storageFolder.GetFileAsync("SQLITEV2.sqlite");
+
+            byte[] result;
+            using (Stream stream = await sampleFile.OpenStreamForReadAsync())
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+                    result = memoryStream.ToArray();
+                }
+            }
+           
+            await s.UploadFileAsync(result);
+
+        }
+
+        async void DownloadDb()
+        {
+            ServiceReference1.IService1 s = new ServiceReference1.Service1Client();
+            // Create sample file; replace if exists.
+            Windows.Storage.StorageFolder storageFolder =
+                Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile =
+                await storageFolder.CreateFileAsync("SQLITEV2.sqlite",
+                    Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+            byte[] db = await s.RetrieveFileAsync("");
+
+            string sss = "";
+
+            // Create a new file named DataFile.txt.
+            var file = await storageFolder.CreateFileAsync("SQLITEV4.sqlite",Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+            // Write the data from the textbox.
+            using (var aasss = await file.OpenStreamForWriteAsync())
+            {
+                aasss.Write(db, 0, db.Length);
+            }
+        }
         private void ZapolniBazo()
         {
             Baza.AddZdravilo(z1);
