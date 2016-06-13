@@ -177,6 +177,7 @@ namespace MedicineApp
             progressBar_getDB.ShowPaused = true;
             progressBar_getDB.Visibility = Visibility.Collapsed;
             ZapolniListView();
+            ZapolniListOpomnik();
 
             #region BackgroundTask
             //var messageDialog = new MessageDialog("Čas potreben za pridobitev baze {0}.", stopwatch.Elapsed.ToString());
