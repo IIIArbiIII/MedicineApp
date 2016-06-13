@@ -61,11 +61,14 @@ namespace MedicineApp.Pogledi
                 //OutputFields.Visibility = Visibility.Visible;
                 //OutputEmpty.Visibility = Visibility.Collapsed;
 
-                OutputName.Text = contact.DisplayName;
+                txtblock_imePriimek.Text = contact.DisplayName;
 
                 AppendContactFieldValues(OutputEmails, contact.Emails);
                 AppendContactFieldValues(OutputPhoneNumbers, contact.Phones);
                 AppendContactFieldValues(OutputAddresses, contact.Addresses);
+
+                
+                
             }
             else
             {
@@ -114,6 +117,12 @@ namespace MedicineApp.Pogledi
             {
                 content.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void cbox_defaultMelodie_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+            localSettings.Values["DefaultMelodie"] = (sender as ComboBox).SelectedValue;
         }
     }
 }

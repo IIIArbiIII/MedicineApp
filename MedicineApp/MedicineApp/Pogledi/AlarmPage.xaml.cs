@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Calls;
 using Windows.Storage;
 using Windows.Storage.BulkAccess;
+using Windows.UI.Popups;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -303,10 +304,12 @@ namespace MedicineApp.Pogledi
             opomnik.ZacetekJemanja = dt;
             opomnik.Intervali = seznamIntervalov;
             opomnik.IzracunajCasovneTermine();
-            
+
 
             // TODO: preglej melodijo ce je default
-            opomnik.Melodija = "default";
+            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+
+            opomnik.Melodija = localSettings.Values["DefaultMelodie"].ToString();
 
             //TODO:this here is a fuckfest
             //int OpomnikId = await Baza.AddOpomnikAsync(opomnik);
@@ -332,6 +335,7 @@ namespace MedicineApp.Pogledi
                                               "</text>" +
                                               "</binding>" +
                                               "</visual>" +
+                                              "<audio src=\'" + opomnik.Melodija + "\'" + "/>" + 
                                               "<actions>" +
                                               "<action activationType=\'foreground\' content =\'yes\' arguments=\'" + y.Id + "\'" +
                                               "/>" +
@@ -339,7 +343,7 @@ namespace MedicineApp.Pogledi
                                               "</toast>";
 
                     toastXml.LoadXml(toastXmlTemplate);
-
+                    //y.TerminZazvonenje = DateTime.Now.AddSeconds(10);
                     var toast = new Windows.UI.Notifications.ScheduledToastNotification(toastXml, y.TerminZazvonenje);
                     Random rnd = new Random();
                     toast.Id = rnd.Next(10000).ToString();
@@ -379,6 +383,7 @@ namespace MedicineApp.Pogledi
             if (steviloEnotZdravila > z.Kolicina)
             {
                 //TODO: Popup za prevec izbranega zdravila
+                //var messageDialog = new MessageDialog("Zdravilo vam bo zmanjkalo.");
                 return false;
             }
 

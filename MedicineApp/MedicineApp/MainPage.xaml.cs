@@ -58,9 +58,6 @@ namespace MedicineApp
         //-------------------------------------------------------------------
         public MainPage()
         {
-
-            //this.InitializeComponent();
-
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
@@ -73,18 +70,7 @@ namespace MedicineApp
                 localSettings.Values["DefaultMelodie"] = "ms - winsoundevent:Notification.Default";
             }
 
-            //if (deleteZdravila)
-            //{
-            //    Baza.DeleteZdravilo(z1);
-            //    Baza.DeleteZdravilo(z2);                
-            //}
-            //if (updateSkrbnik)
-            //{
-            //    Baza.UpdateSkrbnik(s2);
-            //}
-
             this.InitializeComponent();
-            //zapolnilistbox();
         }
 
         private void ZapolniBazo()
@@ -110,13 +96,6 @@ namespace MedicineApp
             hourHand.Angle = (DateTime.Now.Hour * 30) + (DateTime.Now.Minute * 0.5); */
         }
 
-
-        //tvoj del
-        private void btnAddMedicine_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void btnOdpriOknoDodajZdravilo_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(Pogledi.ZdraviloDodaj));
@@ -125,7 +104,7 @@ namespace MedicineApp
         private void lstbZdravila_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
-            string s = "";
+            //string s = "";
             // TODO: Naredi stran za info o zdravilu ter jo prikazi
         }
 
@@ -153,14 +132,6 @@ namespace MedicineApp
         {
             this.Frame.Navigate(typeof(Pogledi.NastavitvePage));
         }
-
-        //private void listviewZravilo_Loaded(object sender, RoutedEventArgs e)
-        //{
-
-
-        //    //await Task.Delay(TimeSpan.FromSeconds(2));
-
-        //}
 
         private async void ZapolniListView()
         {
@@ -200,17 +171,15 @@ namespace MedicineApp
             Stopwatch stopwatch = new Stopwatch();
 
             stopwatch.Start();
-            //await Task.Delay(TimeSpan.FromSeconds(8));
             seznamVsehZdravilIzBaze = await Baza.GetAllDZdraviloAsync();
             stopwatch.Stop();
             progressBar_getDB.ShowPaused = true;
             progressBar_getDB.Visibility = Visibility.Collapsed;
             ZapolniListView();
+
+            #region BackgroundTask
             //var messageDialog = new MessageDialog("Čas potreben za pridobitev baze {0}.", stopwatch.Elapsed.ToString());
             //messageDialog.ShowAsync();
-
-
-
             ////Moja koda - brisi ce bojo problemi; 
             //await BackgroundExecutionManager.RequestAccessAsync();
 
@@ -236,12 +205,10 @@ namespace MedicineApp
             //BackgroundTaskRegistration myFirstTask = taskBuilder.Register();
 
             //await (new MessageDialog("Task registered")).ShowAsync();
-
-
-            //------------
+            #endregion
         }
 
-        //
+        #region BackgroundTaskImplementation
         // Register a background task with the specified taskEntryPoint, name, trigger,
         // and condition (optional).
         //
@@ -250,49 +217,45 @@ namespace MedicineApp
         // trigger: The trigger for the background task.
         // condition: Optional parameter. A conditional event that must be true for the task to fire.
         //
-        public static BackgroundTaskRegistration RegisterBackgroundTask(string taskEntryPoint,
-                                                                        string taskName,
-                                                                        IBackgroundTrigger trigger,
-                                                                        IBackgroundCondition condition)
-        {
-            foreach (var cur in BackgroundTaskRegistration.AllTasks)
-            {
+        //public static BackgroundTaskRegistration RegisterBackgroundTask(string taskEntryPoint,
+        //                                                                string taskName,
+        //                                                                IBackgroundTrigger trigger,
+        //                                                                IBackgroundCondition condition)
+        //{
+        //    foreach (var cur in BackgroundTaskRegistration.AllTasks)
+        //    {
 
-                if (cur.Value.Name == taskName)
-                {
-                    return (BackgroundTaskRegistration)(cur.Value);
-                }
-            }
+        //        if (cur.Value.Name == taskName)
+        //        {
+        //            return (BackgroundTaskRegistration)(cur.Value);
+        //        }
+        //    }
 
-            //
-            // Register the background task.
-            //
+        //    //
+        //    // Register the background task.
+        //    //
 
-            var builder = new BackgroundTaskBuilder();
+        //    var builder = new BackgroundTaskBuilder();
 
-            builder.Name = taskName;
-            builder.TaskEntryPoint = taskEntryPoint;
-            builder.SetTrigger(trigger);
+        //    builder.Name = taskName;
+        //    builder.TaskEntryPoint = taskEntryPoint;
+        //    builder.SetTrigger(trigger);
 
-            if (condition != null)
-            {
+        //    if (condition != null)
+        //    {
 
-                builder.AddCondition(condition);
-            }
-            BackgroundTaskRegistration task = builder.Register();
+        //        builder.AddCondition(condition);
+        //    }
+        //    BackgroundTaskRegistration task = builder.Register();
 
-            return task;
-        }
+        //    return task;
+        //}
+        #endregion
+
 
         private void listviewZravilo_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
-        }
-
-
-        private void uraDigital_Loaded(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void MenuFlyoutItem_Click(object sender, RoutedEventArgs e)
