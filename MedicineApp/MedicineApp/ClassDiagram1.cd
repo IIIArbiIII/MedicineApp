@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="MedicineApp.App" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAgIAAAAAAAAAQAAAQAAIAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MedicineApp.Baza">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACACJCAQQIAIBQAgAAAQAAQIABAFAADMAAAAIACAA=</HashCode>
+      <FileName>Baza.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicineApp.Interval">
+    <Position X="2.25" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAGAAAAIAABAAAAAABAAgAAQgAAAAAACAAQAAAAAgQ=</HashCode>
+      <FileName>Classi\Interval.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicineApp.Operacije">
+    <Position X="5.75" Y="7.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAQAAAAAAAAAAAAAIAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classi\Operacije.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicineApp.Opomnik">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQAKRDAAAAAAAAAAIIBAAAAAAAAAAAAFAQAAAAAAAkA=</HashCode>
+      <FileName>Classi\Opomnik.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicineApp.Skrbnik">
+    <Position X="2.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAQAQAAAAAAAgAAACAAAAAAAACIAAAAAADIAAggA=</HashCode>
+      <FileName>Classi\Skrbnik.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicineApp.Zdravilo">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACABAAAAQAIAIAAABAACAAAACAAEAAAAAQAAAAAAA=</HashCode>
+      <FileName>Classi\Zdravilo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicineApp.MainPage" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>RCSQAABAAAAAEAAABgABIihAAwAAiABgUAAgQYAQAAA=</HashCode>
+      <FileName>MainPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MedicineApp.Classi.Termin">
+    <Position X="4" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAAAgAAAgAAAAAAAgAAAAABAFAAA=</HashCode>
+      <FileName>Classi\Termin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MedicineApp.Pogledi.AlarmView" BaseTypeListCollapsed="true">
+    <Position X="7.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAYgAAECBARAEAAAAIAAAAACAYAAgAA=</HashCode>
+      <FileName>Pogledi\AlarmPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MedicineApp.Pogledi.ZdraviloDodaj" BaseTypeListCollapsed="true">
+    <Position X="9.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAARAQAAAAAAAAAAgAASAAAAAAAgCAAAAQCAAAAAI=</HashCode>
+      <FileName>Pogledi\DodajZdraviloPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MedicineApp.Pogledi.NastavitvePage" BaseTypeListCollapsed="true">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Pogledi\NastavitvePage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MedicineApp.Pogledi.RegistracijaSkrbnikPage" BaseTypeListCollapsed="true">
+    <Position X="8" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pogledi\RegistracijaSkrbnikPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="MedicineApp.Pogledi.SkrbnikPage" BaseTypeListCollapsed="true">
+    <Position X="8" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAUAAAgAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Pogledi\SkrbnikPage.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Enum Name="MedicineApp.Units">
+    <Position X="0.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAgAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classi\Zdravilo.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
