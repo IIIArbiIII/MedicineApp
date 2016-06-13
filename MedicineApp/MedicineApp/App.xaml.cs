@@ -42,6 +42,7 @@ namespace MedicineApp
             {
                 //Get the pre-defined arguments and user inputs from the eventargs;
                 var toastArgs = args as ToastNotificationActivatedEventArgs;
+                //TODO: ker mi background worker ne dela se tu konca delo
 
             }
         }

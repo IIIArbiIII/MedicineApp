@@ -63,7 +63,7 @@ namespace MedicineApp.Pogledi
             var k = ToastNotificationManager.History;
         }
 
-        private void Btn_NovaNavodila_OnClick(object sender, RoutedEventArgs e)
+        private async void Btn_NovaNavodila_OnClick(object sender, RoutedEventArgs e)
         {
             // TODO: Poglej da ni mogoce vzet vec zdravila kot pa ga je na voljo
 
@@ -98,13 +98,16 @@ namespace MedicineApp.Pogledi
 
                 Dictionary<int, string> noviseznamZaDoze = new Dictionary<int, string>();
                 int steviloEnotZdravila = (stDni * (24 / stUr)) * stEnot;
-                int counter = 0;
+                //int counter = 0;
                 int vmesni = seznamZaDoze.Count() - steviloEnotZdravila;
 
                 if (steviloEnotZdravila > seznamZaDoze.Count())
                 {
                     //TODO: naredi popup pa mu tu nastavi lastnosi
-                    //return;
+                    var messageDialog = new MessageDialog("Zdravila je premalo.");
+                    await messageDialog.ShowAsync();
+
+                    return;
                 }
 
                 //blokiraj gumb

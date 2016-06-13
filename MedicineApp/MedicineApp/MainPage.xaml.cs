@@ -37,6 +37,7 @@ namespace MedicineApp
     public sealed partial class MainPage : Page
     {
         string defaultMelodie = "ms - winsoundevent:Notification.Default";
+
         DispatcherTimer timer = new DispatcherTimer();
         //Task<List<Zdravilo>> seznamVsehZdravil;
         //bool deleteZdravila = false;
@@ -67,7 +68,7 @@ namespace MedicineApp
             {
                 ZapolniBazo();
                 var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                localSettings.Values["DefaultMelodie"] = "ms - winsoundevent:Notification.Default";
+                localSettings.Values["DefaultMelodie"] = defaultMelodie;
             }
 
             this.InitializeComponent();
@@ -283,7 +284,6 @@ namespace MedicineApp
 
         private void MenuFlyout_Opening(object sender, object e)
         {
-            int id = 0;
             Zdravilo z = (Zdravilo)listviewZravilo.SelectedItem;
             podrobnostiFlyout.Text = "Naziv: " + z.Naziv + "\n" + "Rok Trajanja: " + z.RokTrajanja.ToString("MM.dd.yyyy") + "\n" + "Koloičina: " + z.Kolicina.ToString();
         }
