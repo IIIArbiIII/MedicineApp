@@ -213,6 +213,18 @@ namespace MedicineApp
             
             
         }
+        //testiram
+        public static async Task<List<Opomnik>> GetAllOpomnikAsync()
+        {
+            var conn = new SQLiteAsyncConnection(
+                () =>
+                new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
+                new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
+
+            List<Opomnik> opomniki = await conn.Table<Opomnik>().ToListAsync();
+            return opomniki;
+        }
+
         //------------------------------------------------------------------
         //Skrbnik
         public static Skrbnik GetSkrbnik(int pin)

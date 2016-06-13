@@ -52,12 +52,12 @@ namespace MedicineApp
 
         Skrbnik s1 = new Skrbnik("Joze", "Pepic", "031111222", 1234);
         List<Zdravilo> seznamVsehZdravilIzBaze = new List<Zdravilo>();
+        List<Opomnik> seznamVsehOpomnikov = new List<Opomnik>();
         //List<Zdravilo> zdravilaZaBox = new List<Zdravilo>();
         //List<Skrbnik> skrbnikiList = new List<Skrbnik>();
         //-------------------------------------------------------------------
         public MainPage()
         {
-
 
             //this.InitializeComponent();
 
@@ -172,6 +172,22 @@ namespace MedicineApp
             else
                 listviewZravilo.ItemsSource = null;
 
+        }
+
+        private async void ZapolniListOpomnik()
+        {
+            if(seznamVsehOpomnikov.Count() == 0)
+            {
+                listViewOpomnik.ItemsSource = await Baza.GetAllOpomnikAsync();
+            }
+            else if (seznamVsehOpomnikov.Count() > 0)
+            {
+                listViewOpomnik.ItemsSource = await Baza.GetAllOpomnikAsync();
+            }
+            else
+            {
+                listViewOpomnik.ItemsSource = null;
+            }
         }
 
         private void Btn_newAlarm_OnClick(object sender, RoutedEventArgs e)
@@ -306,7 +322,7 @@ namespace MedicineApp
         {
             int id = 0;
             Zdravilo z = (Zdravilo)listviewZravilo.SelectedItem;
-            podrobnostiFlyout.Text = "Naziv: " + z.Naziv + "\n" + "Rok Trajanja: " + z.RokTrajanja.ToString() + "\n" + "Koloičina: " + z.Kolicina.ToString();
+            podrobnostiFlyout.Text = "Naziv: " + z.Naziv + "\n" + "Rok Trajanja: " + z.RokTrajanja.ToString("MM.dd.yyyy") + "\n" + "Koloičina: " + z.Kolicina.ToString();
         }
     }
 

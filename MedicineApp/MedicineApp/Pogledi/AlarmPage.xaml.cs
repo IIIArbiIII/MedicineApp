@@ -396,5 +396,10 @@ namespace MedicineApp.Pogledi
             }
             return stPrazniElementov == 0;
         }
+
+        private void buttonCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(MainPage));
+        }
     }
 }

@@ -86,9 +86,6 @@
                 </StackPanel>
 
 
-
-
-
             </PivotItem>
             <PivotItem x:Name="pivotMedicine">
                 <PivotItem.Header>
@@ -136,10 +133,7 @@
 
                             </ListView>
 
-
                         </StackPanel>
-
-
 
                     </Grid>
                 </ScrollViewer>
@@ -150,8 +144,24 @@
                     <Image Source="/Assets/pivot_alarm.png" HorizontalAlignment="Right" Margin="20,0,0,0"/>
                 </PivotItem.Header>
                 <Grid>
+                    <StackPanel>
+                        <TextBlock Margin="20,10,0,20" FontWeight="Bold" FontSize="24">Opomnik</TextBlock>
+                        <ListView x:Name="listViewOpomnik" Height="400" Margin="10,20,10,40">
+                            <ListView.ItemTemplate>
+
+                                <DataTemplate>
+
+                                    <Grid Height="52" Width="auto">
+                                        <TextBlock x:Name="alarm" Text="{Binding ZacetekJemanja}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="20,0,20,0" />
+                                    </Grid>
+
+                                </DataTemplate>
+
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
                     <StackPanel VerticalAlignment="Bottom">
-                        <Button Margin="0,0,0,40" HorizontalAlignment="Center" x:Name="btn_newAlarm" Click="Btn_newAlarm_OnClick" Content="Novi alarm"/>
+                        <Button Margin="0,0,0,40" HorizontalAlignment="Center" x:Name="btn_newAlarm" Click="Btn_newAlarm_OnClick" Content="Nov Opomnik"/>
                     </StackPanel>
                 </Grid>
             </PivotItem>
