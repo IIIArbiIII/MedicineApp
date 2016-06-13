@@ -34,6 +34,8 @@
                             <Setter.Value>
                                 <Thickness>0,35,0,0</Thickness>
                             </Setter.Value>
+                         
+                  
                         </Setter>
                         <Setter Target="DigitalnaUraApp.(TextBlock.FontSize)" Value="48"/>
                     </VisualState.Setters>
@@ -51,7 +53,7 @@
 
                 <PivotItem.Header>
 
-                    <Image HorizontalAlignment="Center" Source="/Assets/pivot_home.png" Margin="10,0,0,0"/>
+                    <Image Name="icon_1" HorizontalAlignment="Center" Source="/Assets/pivot_home.png" Margin="10,0,0,0"/>
                 </PivotItem.Header>
 
 
@@ -80,7 +82,7 @@
                 </Grid>
                     -->
                 <StackPanel>
-                    <TextBlock x:Name="DigitalnaUraApp" FontSize="60" Text="TEst" HorizontalAlignment="Center"  VerticalAlignment="Center" FontFamily="Digital-7" FontWeight="Bold" Margin="0,90,0,0"/>
+                    <TextBlock x:Name="DigitalnaUraApp" FontSize="60" Text="TEST" HorizontalAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" Margin="0,90,0,0" FontFamily="Assets\digital-7.ttf#digital-7"/>
                 </StackPanel>
 
 
@@ -111,10 +113,12 @@
                             <ListView x:Name="listviewZravilo" Height="372" SelectionChanged="lstbZdravila_SelectionChanged" DoubleTapped="listviewZravilo_DoubleTapped">
                                 <FlyoutBase.AttachedFlyout>
 
-                                    <MenuFlyout Placement="Left">
-                                        <MenuFlyoutItem Text="Podrobnosti" Click="MenuFlyoutItem_Podrobnosti" HorizontalAlignment="Center"/>
-
-                                        <MenuFlyoutItem Text=" Izbris" Click="MenuFlyoutItem_Click"/>
+                                    <MenuFlyout Placement="Bottom" Opening="MenuFlyout_Opening">
+                                        
+                                        <MenuFlyoutItem Name="podrobnostiFlyout" Text="Podrobnosti" HorizontalAlignment="Center"/>
+                                        <MenuFlyoutSeparator />
+                                        <MenuFlyoutItem Text=" Izbris" Click="MenuFlyoutItem_Click" HorizontalAlignment="Center"/>
+                                        
                                     </MenuFlyout>
                                 </FlyoutBase.AttachedFlyout>
 

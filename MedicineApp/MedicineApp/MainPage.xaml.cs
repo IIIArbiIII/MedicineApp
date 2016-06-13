@@ -60,7 +60,7 @@ namespace MedicineApp
 
 
             //this.InitializeComponent();
-         
+
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
@@ -285,15 +285,6 @@ namespace MedicineApp
             ZapolniListView();
         }
 
-        private void MenuFlyoutItem_Podrobnosti(object sender, RoutedEventArgs e)
-        {
-            int id = 0;
-            Zdravilo z = new Zdravilo();
-            listviewZravilo.SelectedItem = z.Id;
-            z.Id = id;
-
-            Baza.GetFirstZdraviloById(id);
-        }
 
         public void KaziUro()
         {
@@ -309,6 +300,13 @@ namespace MedicineApp
         private void pivotTab_Loaded(object sender, RoutedEventArgs e)
         {
             PolniListZdravil();
+        }
+
+        private void MenuFlyout_Opening(object sender, object e)
+        {
+            int id = 0;
+            Zdravilo z = (Zdravilo)listviewZravilo.SelectedItem;
+            podrobnostiFlyout.Text = "Naziv: " + z.Naziv + "\n" + "Rok Trajanja: " + z.RokTrajanja.ToString() + "\n" + "Koloičina: " + z.Kolicina.ToString();
         }
     }
 
