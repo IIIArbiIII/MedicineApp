@@ -216,17 +216,23 @@ namespace MedicineApp
 
         public static async Task<List<Opomnik>> GetAllOpomnikAsync()
         {
-            var conn = new SQLiteAsyncConnection(
-                () =>
-                new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
-                new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
+            //var conn = new SQLiteAsyncConnection(
+            //    () =>
+            //    new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
+            //    new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
 
+            var seznamIdjev = GetAllOpomnikIds();
+            List<Opomnik> seznamOpomnikov = new List<Opomnik>();
 
-            List<Opomnik> opomniki = await conn.Table<Opomnik>().ToListAsync();
+            foreach (var item in seznamIdjev)
+            {
+                var opomnik = await GetOpomnikById(item.Id);
+                seznamOpomnikov.Add(opomnik);
+            }
 
-         
+            //List<Opomnik> opomniki = await conn.Table<Opomnik>().ToListAsync();
 
-            return opomniki;
+            return seznamOpomnikov;
         }
 
         //------------------------------------------------------------------
