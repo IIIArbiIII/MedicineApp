@@ -20,11 +20,11 @@ namespace MedicineApp
         private static readonly string DbPath;
         static Baza()
         {
-           DbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SQLITEV2.sqlite");
+            DbPath = Path.Combine(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "SQLITEV2.sqlite");
         }
 
 
-        public static Dictionary<string,string> SeznamMelodij
+        public static Dictionary<string, string> SeznamMelodij
         {
             get
             {
@@ -121,7 +121,7 @@ namespace MedicineApp
         {
             get
             {
-                return 
+                return
                     new SQLiteAsyncConnection(
                         () =>
                             new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
@@ -145,28 +145,28 @@ namespace MedicineApp
 
         //Prevero
 
-          
-                public static bool DeleteZdravilo(Zdravilo z)
-                {
-                    try
-                    {
-                        using (var db = DbConnection)
-                        {
-                            var query = db.Table<Zdravilo>().FirstOrDefault(x => x.Id == z.Id);
-                            if (query!=null)
-                            {
-                                db.Delete<Zdravilo>(z.Id);
-                            }
-                        }
-                        return true;
-                    } 
 
-                    catch (Exception)
+        public static bool DeleteZdravilo(Zdravilo z)
+        {
+            try
+            {
+                using (var db = DbConnection)
+                {
+                    var query = db.Table<Zdravilo>().FirstOrDefault(x => x.Id == z.Id);
+                    if (query != null)
                     {
-                        return false;
+                        db.Delete<Zdravilo>(z.Id);
                     }
-                } 
-              
+                }
+                return true;
+            }
+
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
 
 
         //public static Zdravilo GetLastZdravilo()
@@ -209,11 +209,11 @@ namespace MedicineApp
                                 new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
 
             List<Zdravilo> seznamZdravil = await conn.Table<Zdravilo>().ToListAsync();
-                return seznamZdravil;
-            
-            
+            return seznamZdravil;
+
+
         }
-        //testiram
+
         public static async Task<List<Opomnik>> GetAllOpomnikAsync()
         {
             var conn = new SQLiteAsyncConnection(
@@ -221,7 +221,11 @@ namespace MedicineApp
                 new SQLiteConnectionWithLock(new SQLitePlatformWinRT(),
                 new SQLiteConnectionString(DbPath, storeDateTimeAsTicks: false)));
 
+
             List<Opomnik> opomniki = await conn.Table<Opomnik>().ToListAsync();
+
+         
+
             return opomniki;
         }
 
@@ -261,7 +265,7 @@ namespace MedicineApp
             using (var db = DbConnection)
             {
                 Skrbnik query = db.Table<Skrbnik>().FirstOrDefault(x => x.TelStevilka == s.TelStevilka);
-                if (query!=null)
+                if (query != null)
                 {
                     AddSkrbnik(s);
                     db.Delete<Skrbnik>(query.Id);
@@ -345,10 +349,12 @@ namespace MedicineApp
         //    });
         //    return id;
 
-        //}
+        //}//naredi tak da klices to metodo
+
 
         public async static Task<Opomnik> GetOpomnikById(int id)
         {
+
             var conn = DbConnectionAsync;
             var query = conn.Table<Opomnik>().Where(v => v.Id == id);
             Opomnik ok = new Opomnik();
@@ -392,12 +398,12 @@ namespace MedicineApp
                         db.Insert(y);
                     }
                 }
-                
+
             }
 
             return idOpomnika;
         }
-        
+
 
         private static List<Termin> GetTermineByIntervalId(int id)
         {
@@ -431,6 +437,16 @@ namespace MedicineApp
                 var x = db.Query<Interval>("SELECT * FROM Interval ORDER BY id DESC LIMIT 1");
 
                 return x[0].Id;
+            }
+        }
+
+        static public List<Opomnik> GetAllOpomnikIds()
+        {
+            using (var db = DbConnection)
+            {
+                var x = db.Query<Opomnik>("SELECT Id FROM Opomnik").ToList();
+
+                return x;
             }
         }
 

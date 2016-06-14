@@ -35,7 +35,7 @@ namespace WcfServiceV2
         {
             try
             {
-            string path = @"C:\Users\DJ\Desktop\SQLITEV2.sqlite";
+            string path = @"C:\Users\Arbi\Desktop\SQLITEV5.sqlite";
 
             if (WebOperationContext.Current == null) throw new Exception("WebOperationContext not set");
 
@@ -58,7 +58,7 @@ namespace WcfServiceV2
         public void UploadFile(Stream stream)
         {
             //TODO: SPREMENI PATH
-            string path = @"C:\Users\DJ\Desktop\SQLITEV2.sqlite";
+            string path = @"C:\Users\Arbi\Desktop\SQLITEV5.sqlite";
  
             CreateDirectoryIfNotExists(path);
             using (var file = File.Create(path))

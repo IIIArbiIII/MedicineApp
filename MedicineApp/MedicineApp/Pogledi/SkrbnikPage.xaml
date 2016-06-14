@@ -16,9 +16,11 @@
             <TextBox Name="txtbox_telSt" Margin="20,10,20,15" PlaceholderText="Vnesite novo Telefonsko št." IsEnabled="False"></TextBox>
             <TextBlock Margin="20,0,20,10">Melodija Zvonenja</TextBlock>
             <ComboBox Margin="20,10,20,15" Name="cbox_defaultMelodie" HorizontalAlignment="Stretch" SelectionChanged="cbox_defaultMelodie_SelectionChanged"></ComboBox>
-            <Button Margin="20,10,20,15" x:Name="btn_Shrani" VerticalAlignment="Center" Click="Btn_Shrani_OnClick">Shrani Spremebe</Button>
-            <Button Margin="20,10,20,15" Name="btn_SelectContact" Content="Izberi Kontakt" Click="PickAContactButton_Click"></Button>
-            <Button Name="btn_donwloadDB" Content="Pridobi bazo podatkov" Click="btn_donwloadDB_Click"></Button>
+            <Grid>
+                <Button HorizontalAlignment="Right" Margin="20,10,20,15" x:Name="btn_Shrani" VerticalAlignment="Center" Click="Btn_Shrani_OnClick">Shrani Spremebe</Button>
+                <Button HorizontalAlignment="Left" Margin="20,10,20,15" Name="btn_SelectContact" Content="Izberi Kontakt" Click="PickAContactButton_Click"></Button>
+            </Grid>
+            <Button Margin="0,20,0,0" HorizontalAlignment="Center" Name="btn_donwloadDB" Content="Pridobi bazo podatkov" Click="btn_donwloadDB_Click"></Button>
             <TextBlock Name="OutputName"></TextBlock>
             <TextBlock Name="OutputEmails"></TextBlock>
             <TextBlock Name="OutputPhoneNumbers"></TextBlock>

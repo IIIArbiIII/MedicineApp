@@ -36,15 +36,15 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <ComboBox x:Name="comboBox_interval_dan" Grid.Column="0" Width="85" Margin="4,4,0,0" />
-                    <ComboBox x:Name="comboBox_interval_ura" Grid.Column="1" Width="85" Margin="4,4,0,0" />
-                    <ComboBox x:Name="comboBox_interval_doza" Grid.Column="2" Width="85" Margin="4,4,0,0" />
+                    <ComboBox x:Name="comboBox_interval_dan" HorizontalAlignment="Center" Grid.Column="0" Width="85" Margin="4,4,0,0" />
+                    <ComboBox x:Name="comboBox_interval_ura" HorizontalAlignment="Center" Grid.Column="1" Width="85" Margin="4,4,0,0" />
+                    <ComboBox x:Name="comboBox_interval_doza" HorizontalAlignment="Center" Grid.Column="2" Width="85" Margin="4,4,0,0" />
                     <Button x:Name="btn_NovaNavodila" IsEnabled="False" Content="+" Click="Btn_NovaNavodila_OnClick" Grid.Column="3" HorizontalAlignment="Right" VerticalAlignment="Top" BorderBrush="#FFF30404" Height="36" Margin="0,2,-2,0" Width="35"></Button>
                 </Grid>
 
                 <Grid Margin="0,30,0,0">
                     <Button Content="Preklic" Margin="20,0,0,30" x:Name="buttonCancel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Click="buttonCancel_Click"/>
-                    <Button Content="Potrdi" Margin="0,0,20,30" x:Name="buttonSubmit" Click="ButtonSubmit_OnClick" HorizontalAlignment="Right" VerticalAlignment=" Bottom"/>
+                    <Button Content="Potrdi" Margin="0,0,20,30" x:Name="buttonSubmit" Click="ButtonSubmit_OnClick" HorizontalAlignment="Right" VerticalAlignment="Stretch"/>
 
 
                 </Grid>

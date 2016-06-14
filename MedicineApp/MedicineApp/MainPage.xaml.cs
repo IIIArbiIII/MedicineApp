@@ -59,7 +59,7 @@ namespace MedicineApp
         //-------------------------------------------------------------------
         public MainPage()
         {
-
+          var sss =  Baza.GetAllOpomnikIds();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
@@ -140,9 +140,10 @@ namespace MedicineApp
                 listviewZravilo.ItemsSource = null;
 
         }
-
+        //toto sem jaz napisal pa kličem tvojo. pravim ti da te metode jaz niam v projektu how the fuck :O magic
         private async void ZapolniListOpomnik()
         {
+
             if(seznamVsehOpomnikov.Count() == 0)
             {
                 listViewOpomnik.ItemsSource = await Baza.GetAllOpomnikAsync();
@@ -283,6 +284,7 @@ namespace MedicineApp
             Zdravilo z = (Zdravilo)listviewZravilo.SelectedItem;
             podrobnostiFlyout.Text = "Naziv: " + z.Naziv + "\n" + "Rok Trajanja: " + z.RokTrajanja.ToString("MM.dd.yyyy") + "\n" + "Koloičina: " + z.Kolicina.ToString();
         }
+      
     }
 
 }

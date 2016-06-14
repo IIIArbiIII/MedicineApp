@@ -82,7 +82,8 @@
                 </Grid>
                     -->
                 <StackPanel>
-                    <TextBlock x:Name="DigitalnaUraApp" FontSize="60" Text="TEST" HorizontalAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" Margin="0,90,0,0" FontFamily="Assets\digital-7.ttf#digital-7"/>
+                  
+                    <TextBlock x:Name="DigitalnaUraApp" FontSize="60" HorizontalAlignment="Center"  VerticalAlignment="Center" FontWeight="Bold" Margin="0,60,0,0" FontFamily="Assets\digital-7.ttf#digital-7"/>
                 </StackPanel>
 
 
@@ -110,7 +111,7 @@
                             <ListView x:Name="listviewZravilo" Height="372" SelectionChanged="lstbZdravila_SelectionChanged" DoubleTapped="listviewZravilo_DoubleTapped">
                                 <FlyoutBase.AttachedFlyout>
 
-                                    <MenuFlyout Placement="Bottom" Opening="MenuFlyout_Opening">
+                                    <MenuFlyout Placement="Left" Opening="MenuFlyout_Opening">
                                         
                                         <MenuFlyoutItem Name="podrobnostiFlyout" Text="Podrobnosti" HorizontalAlignment="Center"/>
                                         <MenuFlyoutSeparator />
@@ -146,17 +147,16 @@
                 <Grid>
                     <StackPanel>
                         <TextBlock Margin="20,10,0,20" FontWeight="Bold" FontSize="24">Opomnik</TextBlock>
-                        <ListView x:Name="listViewOpomnik" Height="400" Margin="10,20,10,40">
+                        
+                        <ListView x:Name="listViewOpomnik" Height="360" Margin="10,20,10,40">
+                                  
                             <ListView.ItemTemplate>
-
                                 <DataTemplate>
-
                                     <Grid Height="52" Width="auto">
-                                        <TextBlock x:Name="alarm" Text="{Binding ZacetekJemanja}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="20,0,20,0" />
+                                        <TextBlock x:Name="alarm" Text="{Binding ZacetekJemanja}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Height="41" Width="331" FontSize="30" Margin="20,0,20,0">
+                                        </TextBlock>
                                     </Grid>
-
                                 </DataTemplate>
-
                             </ListView.ItemTemplate>
                         </ListView>
                     </StackPanel>
