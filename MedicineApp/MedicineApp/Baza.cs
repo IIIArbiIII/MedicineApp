@@ -69,8 +69,8 @@ namespace MedicineApp
         {
             try
             {
-                if (CheckIfBaseExists())
-                    DeleteDB();
+                //if (CheckIfBaseExists())
+                //    DeleteDB();
 
 
                 if (!CheckIfBaseExists())

@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Contacts;
+using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -124,5 +126,56 @@ namespace MedicineApp.Pogledi
             var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
             localSettings.Values["DefaultMelodie"] = (sender as ComboBox).SelectedValue;
         }
+
+        private async void btn_donwloadDB_Click(object sender, RoutedEventArgs e)
+        {
+            //bool uspesno = await DownloadDb();
+
+            var t = Task.Run(() => DownloadDb());
+            t.Wait();
+
+            if (t.Result)
+            {
+                var messageDialog = new MessageDialog("Baza pridobljena. Za posodobitev zaženite ponovno aplikacijo.");
+                await messageDialog.ShowAsync();
+            }
+            else
+            {
+                var messageDialog = new MessageDialog("Prislo je do napake.");
+                await messageDialog.ShowAsync();
+            }
+
+        }
+
+        async Task<bool> DownloadDb()
+        {
+            try
+            {
+                ServiceReference1.IService1 s = new ServiceReference1.Service1Client();
+                // Create sample file; replace if exists.
+                Windows.Storage.StorageFolder storageFolder =
+                    Windows.Storage.ApplicationData.Current.LocalFolder;
+
+                byte[] db = await s.RetrieveFileAsync("");
+
+                var file = await storageFolder.CreateFileAsync("SQLITEV3.sqlite", Windows.Storage.CreationCollisionOption.ReplaceExisting);
+
+                using (var item = await file.OpenStreamForWriteAsync())
+                {
+                    item.Write(db, 0, db.Length);
+                }
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+                throw;
+            }
+
+
+
+        }
+
     }
 }

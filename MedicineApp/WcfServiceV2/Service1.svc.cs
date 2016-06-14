@@ -33,6 +33,8 @@ namespace WcfServiceV2
 
         public byte[] RetrieveFile(string path1)
         {
+            try
+            {
             string path = @"C:\Users\DJ\Desktop\SQLITEV2.sqlite";
 
             if (WebOperationContext.Current == null) throw new Exception("WebOperationContext not set");
@@ -44,6 +46,13 @@ namespace WcfServiceV2
            // WebOperationContext.Current.OutgoingResponse.Headers.Add("content-disposition", "inline; filename=" + fileName);
             var ss = File.ReadAllBytes(path);
             return ss;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            
         }
 
         public void UploadFile(Stream stream)

@@ -44,14 +44,14 @@ namespace MedicineApp
         //bool updateSkrbnik = false;
 
         //Testni podatki
-        Zdravilo z1 = new Zdravilo("Lekadol", new DateTime(2016, 5, 26), 10, "Tablet");
-        Zdravilo z2 = new Zdravilo("Aspirin", new DateTime(2017, 9, 22), 20, "Tablet");
-        Zdravilo z3 = new Zdravilo("Ventolin", new DateTime(2017, 12, 16), 120, "Vpihov");
-        Zdravilo z4 = new Zdravilo("Avamys", new DateTime(2018, 6, 14), 60, "Vpihov");
-        Zdravilo z5 = new Zdravilo("Bronhobol", new DateTime(2016, 2, 5), 10, "Tablet");
-        Zdravilo z6 = new Zdravilo("ProbaBrisi", new DateTime(2018, 5, 5), 20, "Tablet");
+        //Zdravilo z1 = new Zdravilo("Lekadol", new DateTime(2016, 5, 26), 10, "Tablet");
+        //Zdravilo z2 = new Zdravilo("Aspirin", new DateTime(2017, 9, 22), 20, "Tablet");
+        //Zdravilo z3 = new Zdravilo("Ventolin", new DateTime(2017, 12, 16), 120, "Vpihov");
+        //Zdravilo z4 = new Zdravilo("Avamys", new DateTime(2018, 6, 14), 60, "Vpihov");
+        //Zdravilo z5 = new Zdravilo("Bronhobol", new DateTime(2016, 2, 5), 10, "Tablet");
+        //Zdravilo z6 = new Zdravilo("ProbaBrisi", new DateTime(2018, 5, 5), 20, "Tablet");
 
-        Skrbnik s1 = new Skrbnik("Joze", "Pepic", "031111222", 1234);
+        //Skrbnik s1 = new Skrbnik("Joze", "Pepic", "031111222", 1234);
         List<Zdravilo> seznamVsehZdravilIzBaze = new List<Zdravilo>();
         List<Opomnik> seznamVsehOpomnikov = new List<Opomnik>();
         //List<Zdravilo> zdravilaZaBox = new List<Zdravilo>();
@@ -63,74 +63,24 @@ namespace MedicineApp
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += timer_Tick;
             timer.Start();
-            UploadDB();
-            DownloadDb();
-            Baza b = new Baza();
-            if (b.CreateDb())
-            {
-                ZapolniBazo();
-                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-                localSettings.Values["DefaultMelodie"] = defaultMelodie;
-            }
-
+            //DownloadDb();
+            //DownloadDb();
             this.InitializeComponent();
         }
 
-        async void UploadDB()
-        {
-            ServiceReference1.IService1 s = new ServiceReference1.Service1Client();
-            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile sampleFile = await storageFolder.GetFileAsync("SQLITEV2.sqlite");
 
-            byte[] result;
-            using (Stream stream = await sampleFile.OpenStreamForReadAsync())
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    stream.CopyTo(memoryStream);
-                    result = memoryStream.ToArray();
-                }
-            }
-           
-            await s.UploadFileAsync(result);
+        //private void ZapolniBazo()
+        //{
+        //    Baza.AddZdravilo(z1);
+        //    Baza.AddZdravilo(z2);
+        //    Baza.AddZdravilo(z3);
+        //    Baza.AddZdravilo(z4);
+        //    Baza.AddZdravilo(z5);
+        //    Baza.AddZdravilo(z6);
 
-        }
+        //    Baza.AddSkrbnik(s1);
 
-        async void DownloadDb()
-        {
-            ServiceReference1.IService1 s = new ServiceReference1.Service1Client();
-            // Create sample file; replace if exists.
-            Windows.Storage.StorageFolder storageFolder =
-                Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile sampleFile =
-                await storageFolder.CreateFileAsync("SQLITEV2.sqlite",
-                    Windows.Storage.CreationCollisionOption.ReplaceExisting);
-
-            byte[] db = await s.RetrieveFileAsync("");
-
-            string sss = "";
-
-            // Create a new file named DataFile.txt.
-            var file = await storageFolder.CreateFileAsync("SQLITEV4.sqlite",Windows.Storage.CreationCollisionOption.ReplaceExisting);
-
-            // Write the data from the textbox.
-            using (var aasss = await file.OpenStreamForWriteAsync())
-            {
-                aasss.Write(db, 0, db.Length);
-            }
-        }
-        private void ZapolniBazo()
-        {
-            Baza.AddZdravilo(z1);
-            Baza.AddZdravilo(z2);
-            Baza.AddZdravilo(z3);
-            Baza.AddZdravilo(z4);
-            Baza.AddZdravilo(z5);
-            Baza.AddZdravilo(z6);
-
-            Baza.AddSkrbnik(s1);
-
-        }
+        //}
 
 
         void timer_Tick(object sender, object e)
@@ -334,6 +284,5 @@ namespace MedicineApp
             podrobnostiFlyout.Text = "Naziv: " + z.Naziv + "\n" + "Rok Trajanja: " + z.RokTrajanja.ToString("MM.dd.yyyy") + "\n" + "Koloičina: " + z.Kolicina.ToString();
         }
     }
-
 
 }

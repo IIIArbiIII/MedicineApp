@@ -54,26 +54,7 @@ namespace MedicineApp.Pogledi
             }
             else
             {
-                napakaGeslo.Text = "Vnsešeno napačno geslo !";
-            }
-        }
-
-        private void NastavitevVibracije_Toggled(object sender, RoutedEventArgs e)
-        {
-            ToggleSwitch toggleSwitch = sender as ToggleSwitch;
-            var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
-
-            if (toggleSwitch != null)
-            {
-                if (toggleSwitch.IsOn)
-                {
-                    localSettings.Values["IsVibrationOn"] = true;
-
-                }
-                else
-                {
-                    localSettings.Values["IsVibrationOn"] = false;
-                }
+                napakaGeslo.Text = "Vnešeno napačno geslo !";
             }
         }
     }

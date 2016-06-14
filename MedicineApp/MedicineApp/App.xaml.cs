@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Background;
@@ -24,6 +25,8 @@ namespace MedicineApp
     /// </summary>
     sealed partial class App : Application
     {
+        string defaultMelodie = "ms - winsoundevent:Notification.Default";
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -33,9 +36,40 @@ namespace MedicineApp
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }
+
+        async Task<bool> UploadDB()
+        {
+            try
+            {
+            ServiceReference1.IService1 s = new ServiceReference1.Service1Client();
+            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+            Windows.Storage.StorageFile sampleFile = await storageFolder.GetFileAsync("SQLITEV2.sqlite");
+
+            byte[] result;
+            using (Stream stream = await sampleFile.OpenStreamForReadAsync())
+            {
+                using (var memoryStream = new MemoryStream())
+                {
+                    stream.CopyTo(memoryStream);
+                    result = memoryStream.ToArray();
+                }
+            }
+
+            await s.UploadFileAsync(result);
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                throw;
+            }
+
+
+        }
+
         async protected override void OnActivated(IActivatedEventArgs args)
         {
-
             //Initialize your app if it&#39;s not yet initialized;
             //Find out if this is activated from a toast;
             if (args.Kind == ActivationKind.ToastNotification)
@@ -52,8 +86,44 @@ namespace MedicineApp
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
         /// <param name="e">Details about the launch request and process.</param>
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        async protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            Baza b = new Baza();
+            if (b.CreateDb())
+            {
+                Skrbnik s1 = new Skrbnik("Ime", "Priimek", "031111222", 1234);
+
+                // ZapolniBazo();
+                var localSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+                localSettings.Values["DefaultMelodie"] = defaultMelodie;
+                Baza.AddSkrbnik(s1);
+            }
+
+            else
+            {
+                Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
+
+                try
+                {
+                    Windows.Storage.StorageFile novo = await storageFolder.GetFileAsync("SQLITEV3.sqlite");
+                    Windows.Storage.StorageFile staro = await storageFolder.GetFileAsync("SQLITEV2.sqlite");
+
+                    if (novo != null)
+                    {
+                    await staro.DeleteAsync();
+                    await novo.RenameAsync("SQLITEV2.sqlite");
+
+                    }
+                }
+                catch (Exception)
+                {
+                }
+
+                    await UploadDB();
+            }
+
+            
+
 
 #if DEBUG
             if (System.Diagnostics.Debugger.IsAttached)
